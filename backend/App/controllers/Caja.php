@@ -177,72 +177,275 @@ html;
     }
 
     public function getSell(){
-        $codigo = $_POST['codigo'];
 
-        date_default_timezone_set('America/Mexico_City');
+        $user_id = $_POST['user_id'];
 
-        // $this->generaterQr($clave_ticket);
+        $data_user = CajaDao::getDataUser($user_id);
 
-        $datos_user = AsistentesDao::getUserByClaveCompra($codigo)[0];
-        $user_id = $datos_user['user_id']; 
+        $checks = '';
+        $total_productos = 0;
+        $total_pago = 0;
+        $check_disabled = '';
+        $array_precios = [];
+        $array_productos = [];
 
-        
-        
-        $nombre_completo = $datos_user['nombre'] . " " . $datos_user['apellidop'] . " " . $datos_user['apellidom'];
+        $productos_pendientes_comprados = CajaDao::getProductosPendComprados($user_id);
 
+        foreach($productos_pendientes_comprados as $key => $value) {
+            $disabled = '';
+            $checked = '';
+            $pend_validar ='';
 
-        $productos = CajaDao::getProductosPendientesPagoTicketSitio($user_id);
+            if($value['es_congreso'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['amout_due'];
+            }elseif($value['es_congreso'] == 1 && $value['clave_socio'] != ""){
+                $precio = $value['amout_due'];
+            }
+            else if($value['es_servicio'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+            }else if($value['es_servicio'] == 1 && $value['clave_socio'] != ""){
+                $precio = $value['precio_publico'];
+            }
+            else if($value['es_curso'] == 1  && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1  && $value['clave_socio'] != ""){
+                $precio = $value['precio_publico'];
+            }
+            
+            $count_producto = CajaDao::getCountProductos($user_id,$value['id_producto'])[0];
 
-        // echo count($productos);
-        // exit;
+            
 
-        if(count($productos) <= 0){
-            $data = [
-                "status" => 'fail'
-            ];
-            echo json_encode($data);
+            if($value['estatus_compra'] == 1){
+                $disabled = 'disabled';
+                $checked = 'checked';
+                $pend_validar ='Pagado y validado por AMH';
+                // $btn_imp = '';
+                // $productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir Formato de Pago</a>';
+                // $ocultar = 'display:none;';
+                
+            }
+            
+            else if($value['estatus_compra'] == null){
+                $pend_validar = 'Pendiente de Pagar';
+                // $btn_imp = '<a class="btn btn-primary" href="/Home/print/'.$productos_pendientes_comprados[0]['clave'].'" target="blank_">Imprimir Formato de Pago</a>';
+                // $ocultar = '';
+                // $disabled = 'disabled';
+                $checked = 'checked';
+                $total_productos += $count_producto['numero_productos'];
+                $total_pago += $count_producto['numero_productos'] * $precio;
+                array_push($array_precios,['id_product'=>$value['id_producto'],'precio'=>$precio,'cantidad'=>$count_producto['numero_productos']]);
+                array_push($array_productos,['id_product'=>$value['id_producto'],'precio'=>$precio,'cantidad'=>$count_producto['numero_productos'],'nombre_producto'=>$value['nombre_producto']]);
+
+                if($value['max_compra'] <= 1){
+                    $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
+                }else{
+                    $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'" data-precio="'.$precio.'" data-nombre-producto="'.$value['nombre_producto'].'" '.$disabled.'>';
+                    for($i = 1; $i <= $value['max_compra']; $i++){                    
+                        $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
+                    }
+                    $numero_productos .= '</select>';
+                }
+    
+    
+                $checks .= <<<html
+    
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-check">
+                            <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" {$disabled} {$checked} data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}">
+                            <label class="form-check-label" for="check_curso_{$value['id_producto']}">
+                                {$value['nombre_producto']} <span style="font-size: 13px; text-decoration: underline; color: green;">{$pend_validar}</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                    <button class="btn btn-sm btn-primary btn_desbloquear_precio" id="btn_desbloquear_precio{$value['id_producto']}" data-id-producto = {$value['id_producto']}>desbloquear precio</button>
+
+                    <input type="number" class="precio_articulo" id="precio_articulo{$value['id_producto']}" name="precio_articulo[]" value="{$precio}" style="border:none;" readonly data-id-producto="{$value['id_producto']}"  data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}"> - {$value['tipo_moneda']}
+                        
+                    </div>
+    
+                    <div class="col-md-2">
+                        {$numero_productos}
+                    </div>
+                </div>
+    
+                <hr>
+html;
+                $numero_productos = '';
+            }
+
+            
         }
 
-        $tipo_cambio = CajaDao::getTipoCambio()['tipo_cambio'];
+        $productos_no_comprados = CajaDao::getProductosNoComprados($user_id);
+
+
+        foreach($productos_no_comprados as $key => $value) {
+
+
+            if($value['es_congreso'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['amout_due'];
+            }elseif($value['es_congreso'] == 1 && $value['clave_socio'] != ""){
+                $precio = 0;
+                $checked = 'checked';
+            }
+            else if($value['es_servicio'] == 1 && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+            }else if($value['es_servicio'] == 1 && $value['clave_socio'] != ""){
+                $precio = 0;
+                $precio = $value['precio_publico'];
+            }
+            else if($value['es_curso'] == 1  && $value['clave_socio'] == ""){
+                $precio = $value['precio_publico'];
+            }else if($value['es_curso'] == 1  && $value['clave_socio'] != ""){
+                $precio = 0;
+                $precio = $value['precio_publico'];
+            }
+
+            if($value['max_compra'] <= 1){
+                $numero_productos = '<input type="number" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" value="'.$value['max_compra'].'" style="border:none;" readonly>';
+            }else{
+                $numero_productos = '<select class="form-control select_numero_articulos" id="numero_articulos'.$value['id_producto'].'" name="numero_articulos" data-id-producto="'.$value['id_producto'].'"  data-precio="'.$precio.'" data-nombre-producto="'.$value['nombre_producto'].'">';
+                for($i = 1; $i <= $value['max_compra']; $i++){                    
+                    $numero_productos .= '<option value="'.$i.'">'.$i.'</option>';                
+                }
+                $numero_productos .= '</select>';
+            }
+            
+
+            $checks .= <<<html
+
+            <div class="row">
+                 <div class="col-md-8">
+                     <div class="form-check">
+                         <input class="form-check-input checks_product" type="checkbox" value="{$value['id_producto']}" id="check_curso_{$value['id_producto']}" name="checks_cursos[]" data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}" {$check_disabled}>
+                         <label class="form-check-label" for="check_curso_{$value['id_producto']}">
+                             {$value['nombre_producto']}
+                         </label>
+                     </div>
+                 </div>
+               
+                 <div class="col-md-2">
+                 <button class="btn btn-sm btn-primary btn_desbloquear_precio" id="btn_desbloquear_precio{$value['id_producto']}" data-id-producto = {$value['id_producto']}>desbloquear precio</button>
+
+                 <input type="number" class="precio_articulo" id="precio_articulo{$value['id_producto']}" name="precio_articulo[]" value="{$precio}" style="border:none;" readonly data-id-producto="{$value['id_producto']}"  data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}"> - {$value['tipo_moneda']}
+                 </div>
+
+                 <div class="col-md-2">
+                        {$numero_productos}
+                 </div>
+
+             </div>
+
+             <hr>
+html;
+
+            $numero_productos = '';
+        }
+
+
+        $data = [
+            "status" => "success",
+            "checks" => $checks,
+            "precios" => $array_precios,
+            "productos" => $array_productos,
+            "nombre_completo" => $data_user['nombre'].' '.$data_user['apellidop'].' '.$data_user['apellidom'],
+            "datos_user" => $data_user
+        ];
+
+        echo json_encode($data);
+ 
+    }
+
+    public function buscarPassword(){
+        $usuario = new \stdClass();
+        $usuario->_password = MD5($_POST['password']);
+        $user = CajaDao::getUserByPassword($usuario);
+        if (count($user)>=1) {
+            // $user['nombre'] = utf8_encode($user['nombre']);
+            $data = [
+                'status' => 'success',
+                'admin' => $user                
+            ];
+        }else{
+            $data = [
+                'status' => 'error'             
+            ];
+        }
+
+        echo json_encode($data);
+    }
+
+    // public function getSell(){
+    //     $codigo = $_POST['codigo'];
+
+    //     date_default_timezone_set('America/Mexico_City');
+
+    //     // $this->generaterQr($clave_ticket);
+
+    //     $datos_user = AsistentesDao::getDatauser($codigo)[0];
+    //     $user_id = $datos_user['user_id']; 
+
+        
+        
+    //     $nombre_completo = $datos_user['nombre'] . " " . $datos_user['apellidop'] . " " . $datos_user['apellidom'];
+
+
+    //     $productos = CajaDao::getProductosPendientesPagoTicketSitio($user_id);
+
+    //     // echo count($productos);
+    //     // exit;
+
+    //     if(count($productos) <= 0){
+    //         $data = [
+    //             "status" => 'fail'
+    //         ];
+    //         echo json_encode($data);
+    //     }
+
+    //     $tipo_cambio = CajaDao::getTipoCambio()['tipo_cambio'];
 
       
        
 
-        foreach($productos as $key => $value){            
+    //     foreach($productos as $key => $value){            
             
             
-            // if($value['es_congreso'] == 1){
-            //     $precio = $value['amout_due'];
-            // }else if($value['es_servicio'] == 1){
-            //     $precio = $value['precio_publico'];
-            // }else if($value['es_curso'] == 1){
-            //     $precio = $value['precio_publico'];
-            // }
+    //         // if($value['es_congreso'] == 1){
+    //         //     $precio = $value['amout_due'];
+    //         // }else if($value['es_servicio'] == 1){
+    //         //     $precio = $value['precio_publico'];
+    //         // }else if($value['es_curso'] == 1){
+    //         //     $precio = $value['precio_publico'];
+    //         // }
 
             
            
-            $total_productos = CajaDao::getCountProductos($user_id,$value['id_producto'])[0];
-            $productos[$key]['cantidad'] = $total_productos['numero_productos'];
+    //         $total_productos = CajaDao::getCountProductos($user_id,$value['id_producto'])[0];
+    //         $productos[$key]['cantidad'] = $total_productos['numero_productos'];
          
-            // array_push($productos[$key],["cantidad" => $total_productos['numero_productos']]);
+    //         // array_push($productos[$key],["cantidad" => $total_productos['numero_productos']]);
 
 
-        }
+    //     }
 
 
-        if($productos){
-            $data = [
-                "status" => 'success',
-                "nombre_completo" => $nombre_completo,
-                "datos_user" => $datos_user,
-                "productos" => $productos,
-                "tipo_cambio" => $tipo_cambio
+    //     if($productos){
+    //         $data = [
+    //             "status" => 'success',
+    //             "nombre_completo" => $nombre_completo,
+    //             "datos_user" => $datos_user,
+    //             "productos" => $productos,
+    //             "tipo_cambio" => $tipo_cambio
                 
-            ];
-            echo json_encode($data);
-        }
+    //         ];
+    //         echo json_encode($data);
+    //     }
         
-    }
+    // }
 
 
     public function setPay(){
@@ -358,6 +561,17 @@ html;
             echo "success";
         }else{
             echo "fail";
+        }
+    }
+
+    public function SearchConcidenciaUsers()
+    {
+        $concidencia = $_POST['concidencia'];
+
+        if (isset($concidencia) && isset($concidencia) && !empty($concidencia) && !empty($concidencia)) {
+            $cons = AsistentesDao::getDatauser($concidencia);
+
+            echo json_encode($cons);
         }
     }
 

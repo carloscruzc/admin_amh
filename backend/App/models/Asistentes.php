@@ -35,6 +35,18 @@ sql;
         
     }
 
+    public static function getDatauser($search){
+      $mysqli = Database::getInstance();
+      $query =<<<sql
+      SELECT *
+      FROM utilerias_administradores WHERE    
+      CONCAT_WS(usuario,nombre,apellidop,apellidom,user_id, clave,clave_socio) 
+      LIKE '%$search%'
+sql;
+  
+      return $mysqli->queryAll($query);
+    }
+
     public static function getProductosById($id){
       $mysqli = Database::getInstance();
       $query=<<<sql

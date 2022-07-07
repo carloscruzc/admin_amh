@@ -4,6 +4,8 @@
         font-size: 25px;
         font-weight: bold;
     }
+
+   
 </style>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -66,14 +68,18 @@
                                     <div class="">
                                         <div class="col-auto">
                                             <div class="row mt-4">
-                                                <div class="col-lg-3 col-sm-6">
+                                                <div class="col-lg-12 col-sm-6">
                                                     <div class="card h-100">
                                                         <div class="card-header pb-0 p-3">
 
                                                             <div class="row gx-2 gx-sm-3">
                                                                 <div class="col">
                                                                     <div class="form-group">
-                                                                        <input style="font-size: 35px" type="text" id="codigo_qr_venta" name="codigo_qr_venta" class="form-control form-control-lg text-center" minlength="11" maxlength="11" autocomplete="off" autocapitalize="off" autofocus>
+
+                                                                    <input style="font-size: 35px" type="text" class="form-control" id="codigo_qr_venta" name="codigo_qr_venta" list="list_concidencias" autofocus>
+                                                                    <datalist id="list_concidencias">
+
+                                                                    </datalist>                                                                        
 
                                                                         <input style="font-size: 35px" type="hidden" id="codigo_qr_venta_hidden" name="codigo_qr_venta_hidden" class="form-control form-control-lg text-center" minlength="11" maxlength="11" autocomplete="off" autocapitalize="off" autofocus>
 
@@ -103,6 +109,7 @@
                                                             <h6>Correo: <span class="text-thin" id="correo_user"> _____</span></h6>
                                                             <h6>Teléfono: <span class="text-thin" id="telefono_user"> 00 0000 0000</span></h6>
                                                             <input type="hidden" id="user_id" name="user_id">
+                                                            <input type="hidden" id="precio_desbloquedo_por" name="precio_desbloquedo_por">
 
                                                             <a href="" id="generar_gafete" target="_blank" style="display: none;">gafete</a>
                                                             <a href="" id="imprimir_comprobante" target="_blank" style="display: none;">comprobante</a>
@@ -110,7 +117,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-9 col-sm-6 mt-sm-0 mt-4">
+                                                <div class="col-lg-12 col-sm-6 mt-sm-0 mt-4">
                                                     <div class="card">
                                                         <div class="card-header pb-0 p-3">
                                                             <div class="d-flex justify-content-between">
@@ -120,56 +127,59 @@
                                                                 </button>
                                                             </div>
                                                             <div class="card p-4" style="overflow-y: auto;">
-                                                                <table id="lista_productos" class="align-items-center mb-0 table table-borderless dataTable no-footer">
+                                                                <!-- <table id="lista_productos" class="align-items-center mb-0 table table-borderless dataTable no-footer">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Producto</th>
                                                                             <th>Cantidad</th>
-                                                                            <th>Precio Unitario USD</th>
                                                                             <th>Precio Unitario pesos $</th>
-                                                                            <th>Total USD</th>
                                                                             <th>Total $</th>
                                                                         </tr>
                                                                     </thead>
 
                                                                     <tbody>
-                                                                        <?php echo $tabla; ?>
+                                                                        <?php //echo $tabla; ?>
 
                                                                     </tbody>
 
-                                                                </table>
+                                                                </table> -->
+                                                                <div id="cont-cheks">
+
+                                                                </div>
 
                                                             </div>
 
                                                             <div class="row mt-3">
                                                                 <div class="col-md-6">
                                                                 <div class="cont-totales">
-                                                                            <div>
+                                                                            <!-- <div>
                                                                                 <span class="font-totales">Total USD: <span id="total_usd"></span></span>
 
-                                                                            </div>
+                                                                            </div> -->
                                                                             <div>
 
-                                                                                <span class="font-totales">Total pesos mexicanos: $ <span id="total_pesos"></span></span>
+                                                                                <span class="font-totales">Total pesos mexicanos: $ <span id="total_pesos_formato"></span></span>
+                                                                                <span class="font-totales" style="display: none;">Total pesos mexicanos: $ <span id="total_pesos"></span></span>
                                                                             </div>
                                                                             <br>
                                                                             <div>
 
-                                                                                <span class="font-totales">Cambio pesos mexicanos: $ <span id="total_cambio"></span></span>
+                                                                                <span class="font-totales">Cambio pesos mexicanos: $ <span id="total_cambio_formato"></span></span>
+                                                                                <span class="font-totales" style="display: none;">Cambio pesos mexicanos: $ <span id="total_cambio"></span></span>
                                                                             </div>
                                                                         </div>
                                                                     
 
                                                                 </div>
 
-                                                                <div class="col-md-6 cont-totales"  style="display: none;">
+                                                                <div class="col-md-6 cont-totales" >
                                                                     <div style="display:flex; justify-content: space-evenly;">
                                                                         
 
                                                                         <div id="cont-input-pay">
                                                                             <div>
                                                                                 <label>Metodo de Pago *</label>
-                                                                                <select class="form-control" id="metodo_pago" name="metodo_pago" style="width: auto; display:none;">
+                                                                                <select class="form-control" id="metodo_pago" name="metodo_pago">
                                                                                     <option value="">Seleccione una opción</option>
                                                                                     <option value="Efectivo">Efectivo</option>
                                                                                     <option value="Tarjeta">Tarjeta Credito / Debito</option>
@@ -203,7 +213,7 @@
                                                                 <div class="col-md-6">
                                                                     <div style="display:flex; justify-content:end;">
 
-                                                                        <button id="btn_pagar" class="btn btn-primary" style="display: none;" disabled>Pagar</button>
+                                                                        <button id="btn_pagar" class="btn btn-primary" disabled>Pagar</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -270,6 +280,7 @@
     <script src="../../assets/js/plugins/chartjs.min.js"></script>
     <script src="../../assets/js/plugins/threejs.js"></script>
     <script src="../../assets/js/plugins/orbit-controls.js"></script>
+   
 
     <script>
         function focus_input() {
@@ -310,48 +321,7 @@
             })
         }
 
-        // function bloquearRegistro() {
-        //     let codigo = '';
-        //     var link_a = $(location).attr('href');
-        //     var clave_a = link_a.substr(link_a.indexOf('codigo/') + 7, link_a.length);
-
-        //     let date = new Date();
-
-        //     let anio = date.getFullYear();
-        //     let mes = (parseInt(date.getMonth()) + 1);
-        //     let dia = date.getDate();
-
-        //     console.log(date);
-        //     console.log(anio + ' ' + mes + ' ' + dia);
-
-        //     let mes_asist = parseInt($('#fecha').html().substr(5, 2));
-        //     let dia_asist = parseInt($('#fecha').html().substr(8, 2));
-        //     let anio_asist = parseInt($('#fecha').html().substr(0, 4));
-
-        //     // console.log(anio_asist);
-
-        //     if (mes != mes_asist || dia != dia_asist || anio != anio_asist) {
-        //         document.getElementById('codigo_qr_venta').setAttribute('disabled', '');
-        //         if (mes_asist < 9) {
-        //             if (dia < dia_asist || mes < mes_asist || anio < anio_asist) {
-        //                 Swal.fire('¡El evento que registro su administrador ocurrirá el <br>' + dia_asist + '-0' + mes_asist + '-' + anio_asist + '!', 'Contacte a su administrador', "warning").
-        //                 then((value) => {
-        //                     $("#codigo_qr_venta").focus();
-        //                 });
-        //             } else if (dia > dia_asist || mes > mes_asist || anio > anio_asist) {
-        //                 Swal.fire('¡El evento que registro su administrador ya ocurrió el <br>' + dia_asist + '-0' + mes_asist + '-' + anio_asist + '!', 'Contacte a su administrador', "warning").
-        //                 then((value) => {
-        //                     $("#codigo_qr_venta").focus();
-        //                 });
-        //             }
-        //         } else {
-        //             Swal.fire('¡El evento que registro su administrador ya ocurrió el ' + dia_asist + '-' + mes_asist + '-' + anio_asist + '! Contacte a su administrador', "", "warning").
-        //             then((value) => {
-        //                 $("#codigo_qr_venta").focus();
-        //             });
-        //         }
-        //     }
-        // }
+        
 
         $(document).ready(function() {
 
@@ -359,107 +329,14 @@
             var link_a = $(location).attr('href');
             var clave_a = link_a.substr(link_a.indexOf('codigo/') + 7, link_a.length);
 
+            // var precios=<?php //echo json_encode($array_precios); ?>;
+            // var productos=<?php //echo json_encode($array_productos); ?>;
+
+            var precios = [];
+            var productos = [];
+
             // bloquearRegistro();
-
-            // mostrarDatos(clave_a);
-
-            // var table = $('#lista_productos').DataTable({
-            //     "drawCallback": function(settings) {
-            //         $('.current').addClass("btn bg-gradient-musa btn-rounded").removeClass("paginate_button");
-            //         $('.paginate_button').addClass("btn").removeClass("paginate_button");
-            //         $('.dataTables_length').addClass("m-4");
-            //         $('.dataTables_info').addClass("mx-4");
-            //         $('.dataTables_filter').addClass("m-4");
-            //         $('input').addClass("form-control");
-            //         $('select').addClass("form-control");
-            //         $('.previous.disabled').addClass("btn-outline-info opacity-5 btn-rounded mx-2");
-            //         $('.next.disabled').addClass("btn-outline-info opacity-5 btn-rounded mx-2");
-            //         $('.previous').addClass("btn-outline-info btn-rounded mx-2");
-            //         $('.next').addClass("btn-outline-info btn-rounded mx-2");
-            //         $('a.btn').addClass("btn-rounded");
-            //         $('.odd').addClass("bg-gray-conave-100");
-            //     },
-            //     "language": {
-
-            //         "sProcessing": "Procesando...",
-            //         "sLengthMenu": "Mostrar _MENU_ registros",
-            //         "sZeroRecords": "No se encontraron resultados",
-            //         "sEmptyTable": "Ningún dato disponible en esta tabla",
-            //         "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            //         "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-            //         "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-            //         "sInfoPostFix": "",
-            //         "sSearch": "Buscar:",
-            //         "sUrl": "",
-            //         "sInfoThousands": ",",
-            //         "sLoadingRecords": "Cargando...",
-            //         "oPaginate": {
-            //             "sFirst": "Primero",
-            //             "sLast": "Último",
-            //             "sNext": "Siguiente",
-            //             "sPrevious": "Anterior"
-            //         },
-            //         "oAria": {
-            //             "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            //             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            //         }
-
-            //     }
-            // });
-
-
-            function mostrarDatos(clave) {
-                $.ajax({
-                    url: "/RegistroAsistencia/mostrarLista/" + clave,
-                    type: "POST",
-                    dataType: 'json',
-                    beforeSend: function() {
-                        // $('#lista-reg > tbody').empty();
-                        console.log("Procesando....");
-
-                    },
-                    success: function(respuesta) {
-                        console.log(respuesta);
-                        // $('#lista-reg > tbody').empty();
-                        console.log('despues de borrar');
-
-                        $.each(respuesta, function(index, el) {
-
-                            // $('#lista-reg > tbody:last-child').append(
-                            //         '<tr>'+
-                            //             '<td>'+el.nombre_completo+'</td>'+
-                            //             '<td><u><a href="mailto:'+el.email+'"><span class="fa fa-mail-bulk"> </span> '+el.email+'</a></u></td>'+
-                            //             '<td><u><a href="https://api.whatsapp.com/send?phone=52'+el.nombre_linea+'&text=Buen%20d%C3%ADa,%20te%20contacto%20de%20parte%20del%20Equipo%20Grupo%20LAHE%20%F0%9F%98%80" target="_blank"><span class="fa fa-whatsapp" style="color:green;"> </span> '+el.nombre_linea+'</a></u></td>'+
-                            //             '<td>'+el.nombre_linea+'</td>'+
-                            //             '<td>'+el.nombre_bu+'</td>'+                
-                            //         '</tr>');
-
-                            // $('#lista-reg').empty();
-                            // table.row.add([
-                            //     // el.nombre_completo,
-                            //     // el.email,
-                            //     // el.telefono,
-                            //     // el.nombre_linea,
-                            //     // el.nombre_bu
-                            //     '<td>'+el.nombre_completo+'</td>',
-                            //     '<td><u><a href="mailto:'+el.email+'"><span class="fa fa-mail-bulk"> </span> '+el.email+'</a></u></td>',
-                            //     '<td><u><a href="https://api.whatsapp.com/send?phone=52'+el.nombre_linea+'&text=Buen%20d%C3%ADa,%20te%20contacto%20de%20parte%20del%20Equipo%20Grupo%20LAHE%20%F0%9F%98%80" target="_blank"><span class="fa fa-whatsapp" style="color:green;"> </span> '+el.nombre_linea+'</a></u></td>',
-                            //     '<td>'+el.nombre_linea+'</td>',
-                            //     '<td>'+el.nombre_bu+'</td>'
-                            // ]).draw();
-                        });
-
-                        // var tables = $('#lista-reg').DataTable();
-
-
-
-                    },
-                    error: function(respuesta) {
-                        console.log(respuesta);
-                    }
-                })
-            }
-
+           
             $("#btn_pagar").on("click", function() {
                 // alert("funciona");
                 var metodo_pago = $("#metodo_pago").val();
@@ -527,40 +404,102 @@
 
             });
 
+            $("#codigo_qr_venta").on("keyup", function(){
+                // var estado = $("#residencia").val();
+                var concidencia = $(this).val();
+
+                $.ajax({
+                    url: "/Caja/SearchConcidenciaUsers",
+                    type: "POST",
+                    data: {concidencia},
+                    dataType: "json",
+                    beforeSend: function() {
+                        console.log("Procesando....");
+                        $('#list_concidencias')
+                            .find('option')
+                            .remove()
+                            .end();
+                        // $('#list_concidencias')
+                        //     .find('li')
+                        //     .remove()
+                        //     .end();
+
+                    },
+                    success: function(respuesta) {
+                        console.log(respuesta);
+
+
+                        $.each(respuesta, function(key, value) {
+                            //console.log(key);
+                            console.log(value);
+                            $('#list_concidencias')
+                                .append($('<option>', {
+                                        'data-value': value.user_id 
+                                    })
+                                    .text(value.user_id+' - '+value.nombre + ' ' + value.apellidop + ' ' + value.apellidom + ' '+ value.usuario + ' ' + value.clave));
+
+                            // $('#list_concidencias').append('<li>'+value.nombre+'</li>');
+
+
+                        });
+
+                    },
+                    error: function(respuesta) {
+                        console.log(respuesta);
+                    }
+
+                });
+            });
+
 
 
             $("#codigo_qr_venta").on('change', function() {
-                codigo = $('#codigo_qr_venta').val();
-                $("#codigo_qr_venta_hidden").val(codigo);
-                console.log(codigo);
+                codigo = $(this).val();                
+                
+                var split = codigo.split(" ");
+                var user_id = split[0];
+                // console.log(user_id);
+                $("#codigo_qr_venta_hidden").val(user_id);
 
                 $('#codigo_qr_venta').val('');
 
-                console.log(codigo);
+                console.log(user_id);
 
-                getSell(codigo);
+                 getSell(user_id);
 
 
             });
 
-            function getSell(codigo) {
+            function getSell(user_id) {
+
+                // console.log(user_id)
                 $.ajax({
                     url: "/Caja/getSell",
                     type: "POST",
                     data: {
-                        codigo
+                        user_id
                     },
                     dataType: 'json',
                     beforeSend: function() {
                         console.log("Procesando....");
+                        
                     },
                     success: function(respuesta) {
-
-                        console.log(respuesta.status);
                         console.log(respuesta);
+                        console.log(respuesta.status);
+                        // console.log(respuesta);
                         if (respuesta.status == "success") {
 
-                            crearTabla(respuesta);
+                            // crearTabla(respuesta);
+                            crearChecks(respuesta);
+                            precios = respuesta.precios;
+                            productos = respuesta.productos;
+                            sumarPrecios(precios);
+                            sumarProductos(productos);
+                            $(".cont-totales").show();
+                            
+                            // console.log(precios);
+                            // console.log(productos);
 
                         } else{
                             // console.log(Object.keys(respuesta).length);
@@ -572,7 +511,7 @@
                     error: function(respuesta) {
                         Swal.fire('No se encontro ningun registro para este codigo','','error');
                         setTimeout(function(){
-                            location.reload();
+                            // location.reload();
                         },1000)
                         console.log(respuesta);
                     }
@@ -580,86 +519,96 @@
                 });
             }
 
-            function crearTabla(respuesta) {
-                var table = '';
-                var total_usd = 0;
-                var total_pesos = 0;
+           
 
-                console.log("tamaño "+Object.keys(respuesta).length);
-
-                if(Object.keys(respuesta).length > 0){
-                    
-                    $("#imprimir_comprobante").attr('href','/Caja/print/'+respuesta.datos_user.user_id+'/'+respuesta.datos_user.clave);
-                    $("#generar_gafete").attr('href','/RegistroAsistencia/abrirpdfGafete/'+respuesta.datos_user.clave_user);
-                    $("#user_id").val(respuesta.datos_user.user_id);
-                    $("#nombre_completo").html(respuesta.nombre_completo);
-                    $("#correo_user").html(respuesta.datos_user.usuario);
-                    $("#telefono_user").html(respuesta.datos_user.telephone);
-                    $(".cont-totales").show();
-                    $("#btn_pagar").show();
-                    $("#metodo_pago").show();
-
-
-                    $.each(respuesta.productos, function(key, value) {
-                        var precio = 0;
-                        var socio = "";
-                        // console.log("funcioina");
-                        // console.log(value.es_congreso);
-                        // console.log(value.es_servicio);
-                        // console.log(value.es_curso);
-
-                        // if (value.es_congreso == 1) {
-                        //     precio = value.amout_due;
-                        // } else if (value.es_servicio == 1) {
-                        //     precio = value.precio_publico;
-                        // } else if (value.es_curso == 1) {
-                        //     precio = value.precio_publico;
-                        // }
-
-                        if(value.es_congreso == 1 && value.clave_socio == ""){
-                            precio = value.amout_due;
-                            socio = "";
-                        }else if(value.es_congreso == 1 && value.clave_socio != ""){
-                            precio = value.amout_due;
-                            socio = "";
-                        }
-                        else if(value.es_servicio == 1 && value.clave_socio == ""){
-                            precio = value.precio_publico;
-                            socio = "";
-                        }else if(value.es_servicio == 1 && value.clave_socio != ""){
-                            precio = 0;
-                            socio = "Socio APM - Sin Costo";
-                        }
-                        else if(value.es_curso == 1  && value.clave_socio == ""){
-                            precio = value.precio_publico;
-                        }else if(value.es_curso == 1  && value.clave_socio != ""){
-                            precio = 0;
-                            socio = "Socio APM - Sin Costo";
-                        }
-
-                        table += `<tr>
-                                    <td><button class="btn btn-danger btn-sm btn-icon-only btn-delete" style="margin-top: 10px; margin-right:10px;" value="${value.id_pendiente_pago}" data-id-producto="${value.id_producto}">x</button>${value.nombre}</td>
-                                    <td>${value.cantidad}</td>
-                                    <td>${precio} USD</td>
-                                    <td>$ ${precio * respuesta.tipo_cambio}</td>
-                                    <td>${precio * value.cantidad} USD</td>
-                                    <td>$ ${(precio * value.cantidad) * respuesta.tipo_cambio}</td>
-                                </tr>`;
-
-                        total_usd += precio * value.cantidad;
-                        total_pesos += (precio * value.cantidad) * respuesta.tipo_cambio;
-
-                    });
-
-                    $("#total_usd").html(total_usd);
-                    $("#total_pesos").html(total_pesos);
-
-                    $("#lista_productos").find('tbody').html(table);
-
-                }
-
-
+            function crearChecks(respuesta) {
+                console.log(respuesta.datos_user)
+                $("#cont-cheks").html(respuesta.checks);
+                $("#user_id").val(respuesta.datos_user.user_id);
+                $("#nombre_completo").html(respuesta.nombre_completo);
+                $("#correo_user").html(respuesta.datos_user.usuario);
+                $("#telefono_user").html(respuesta.datos_user.telefono);
             }
+
+            // function crearTabla(respuesta) {
+            //     var table = '';
+            //     // var total_usd = 0;
+            //     var total_pesos = 0;
+
+            //     console.log("tamaño "+Object.keys(respuesta).length);
+
+            //     if(Object.keys(respuesta).length > 0){
+                    
+            //         $("#imprimir_comprobante").attr('href','/Caja/print/'+respuesta.datos_user.user_id+'/'+respuesta.datos_user.clave);
+            //         // $("#generar_gafete").attr('href','/RegistroAsistencia/abrirpdfGafete/'+respuesta.datos_user.clave_user);
+            //         $("#user_id").val(respuesta.datos_user.user_id);
+            //         $("#nombre_completo").html(respuesta.nombre_completo);
+            //         $("#correo_user").html(respuesta.datos_user.usuario);
+            //         $("#telefono_user").html(respuesta.datos_user.telephone);
+            //         $(".cont-totales").show();
+            //         $("#btn_pagar").show();
+            //         $("#metodo_pago").show();
+
+
+            //         $.each(respuesta.productos, function(key, value) {
+            //             var precio = 0;
+            //             var socio = "";
+            //             // console.log("funcioina");
+            //             // console.log(value.es_congreso);
+            //             // console.log(value.es_servicio);
+            //             // console.log(value.es_curso);
+
+            //             // if (value.es_congreso == 1) {
+            //             //     precio = value.amout_due;
+            //             // } else if (value.es_servicio == 1) {
+            //             //     precio = value.precio_publico;
+            //             // } else if (value.es_curso == 1) {
+            //             //     precio = value.precio_publico;
+            //             // }
+
+            //             if(value.es_congreso == 1 && value.clave_socio == ""){
+            //                 precio = value.amout_due;
+            //                 socio = "";
+            //             }else if(value.es_congreso == 1 && value.clave_socio != ""){
+            //                 precio = value.amout_due;
+            //                 socio = "";
+            //             }
+            //             else if(value.es_servicio == 1 && value.clave_socio == ""){
+            //                 precio = value.precio_publico;
+            //                 socio = "";
+            //             }else if(value.es_servicio == 1 && value.clave_socio != ""){
+            //                 precio = 0;
+            //                 socio = "Socio AMH - Sin Costo";
+            //             }
+            //             else if(value.es_curso == 1  && value.clave_socio == ""){
+            //                 precio = value.precio_publico;
+            //             }else if(value.es_curso == 1  && value.clave_socio != ""){
+            //                 precio = 0;
+            //                 socio = "Socio AMH - Sin Costo";
+            //             }
+
+            //             table += `<tr>
+            //                         <td><button class="btn btn-danger btn-sm btn-icon-only btn-delete" style="margin-top: 10px; margin-right:10px;" value="${value.id_pendiente_pago}" data-id-producto="${value.id_producto}">x</button>${value.nombre}</td>
+            //                         <td>${value.cantidad}</td>
+            //                         <td>$ ${precio}</td>
+            //                         <td>$ ${(precio * value.cantidad)}</td>
+            //                     </tr>`;
+
+            //             total_usd += precio * value.cantidad;
+            //             total_pesos += (precio * value.cantidad) * respuesta.tipo_cambio;
+
+            //         });
+
+            //         $("#total_usd").html(total_usd);
+            //         $("#total_pesos").html(total_pesos);
+
+            //         $("#lista_productos").find('tbody').html(table);
+
+            //     }
+
+
+            // }
+
 
             function format2(n, currency) {
                 return currency + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
@@ -728,19 +677,356 @@
                     $("#btn_pagar").removeAttr('disabled');
                     cambio = total_pagar - total_pesos;
                     $("#total_cambio").html(cambio);
+                    $("#total_cambio_formato").html(format2(cambio,''));
 
                     // console.log("se habilita");
                 } else {
                     $("#btn_pagar").attr('disabled', 'disabled');
                     $("#total_cambio").html("");
+                    $("#total_cambio_formato").html("");
                     // console.log("se desabilita");
                 }
             });
 
 
 
+            ///Pagos              
+               
+
+            
+            $("#cont-cheks").on("change", "input[type=checkbox].checks_product", function() {
+                var id_product = $(this).val();
+                var precio = $(this).attr('data-precio');
+                var cantidad = $("#numero_articulos" + id_product).val();
+                var nombre_producto = $(this).attr('data-nombre-producto');
+
+                if (this.checked) {
+
+                    precios.push({
+                        'id_product': id_product,
+                        'precio': precio,
+                        'cantidad': cantidad
+                    });
+                    sumarPrecios(precios);
+                    
+
+                    productos.push({
+                        'id_product': id_product,
+                        'precio': precio,
+                        'cantidad': cantidad,
+                        'nombre_producto': nombre_producto
+                    });
+
+                    sumarProductos(productos);
+
+                } else if (!this.checked) {
+
+                    for (var i = 0; i < precios.length; i++) {
+
+                        if (precios[i].id_product === id_product) {
+                            console.log("remover");
+                            precios.splice(i, 1);
+
+                            productos.splice(i, 1);
+                            sumarPrecios(precios);
+                            sumarProductos(productos);
+                        } else if (precios[i].id_product === id_product && precios[i].cantidad === cantidad) {
+                            precios.splice(i, 1);
+
+                            productos.splice(i, 1);
+                            sumarPrecios(precios);
+                            sumarProductos(productos);
+
+                        }
+                    }
+
+                    // $.ajax({
+                    //     url: "/Home/removePendientesPago",
+                    //     type: "POST",
+                    //     data: {
+                    //         id_product,cantidad
+                    //     },
+                    //     cache: false,
+                    //     beforeSend: function() {
+                    //         console.log("Procesando....");
+
+                    //     },
+                    //     success: function(respuesta) {
+
+                    //         console.log(respuesta);
+                    //         if(respuesta == "success"){
+                    //             location.reload();
+                    //         }
+
+
+                    //     },
+                    //     error: function(respuesta) {
+                    //         console.log(respuesta);
+                    //     }
+
+                    // });
+                }
+                // console.log(productos);
+                // sumarPrecios(precios);
+                // sumarProductos(productos);
+
+            });
+
+            $("#cont-cheks").on("change", "select.select_numero_articulos", function() {
+
+            // $(".select_numero_articulos").on("change", function() {
+                var id_producto = $(this).attr('data-id-producto');
+                var cantidad = $(this).val();
+                var precio = $(this).attr('data-precio');
+                var nombre_producto = $(this).attr('data-nombre-producto');
+
+                if ($("#check_curso_" + id_producto).is(':checked')) {
+
+                    for (var i = 0; i < precios.length; i++) {
+
+                        if (precios[i].id_product === id_producto && precios[i].cantidad != cantidad) {
+                            console.log("remover");
+                            precios.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad
+                            });
+
+                            productos.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad,
+                                'nombre_producto': nombre_producto
+                            });
+
+                            // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                        }
+
+                    }
+                    console.log(precios.length);
+
+                    console.log(productos);
+
+                    sumarPrecios(precios);
+
+                }
+
+            });
+
+
+            $("#cont-cheks").on("click", "button.btn_desbloquear_precio", function() {
+
+                var id_producto = $(this).attr('data-id-producto');
+
+                const { value: password } = Swal.fire({
+                    title: 'Se necesitan permisos de administrador',
+                    input: 'password',
+                    inputLabel: 'Password',
+                    inputPlaceholder: 'Ingresa el password',
+                    inputAttributes: {
+                        maxlength: 15,
+                        autocapitalize: 'off',
+                        autocorrect: 'off'
+                    }
+                }).then((password) => {
+
+                    var password = password.value;
+
+                    $.ajax({
+                        url: "/Caja/buscarPassword",
+                        type: "POST",
+                        data: {
+                            password
+                        },
+                        dataType: 'json',
+                        beforeSend: function() {
+                            console.log("Procesando....");
+
+                        },
+                        success: function(respuesta) {
+                            
+                            if (respuesta.status == "success") {
+                                console.log(respuesta);
+                                
+                                $("#precio_articulo"+id_producto).removeAttr('readonly');
+                                $("#precio_articulo"+id_producto).css('border','solid 1px #000');
+                                $("#precio_desbloquedo_por").val(respuesta.admin.utilerias_administradores_id);
+                               
+                            }else{
+                                Swal.fire('Password incorrecto','','error');
+                            }
+
+                        },
+                        error: function(respuesta) {
+                            console.log(respuesta);
+                        }
+
+                    });
+                    
+                });
+              
+                
+
+            $(".precio_articulo").on("change", function() {
+                var id_producto = $(this).attr('data-id-producto');
+                var cantidad = 1;
+                var precio = $(this).val();
+                var nombre_producto = $(this).attr('data-nombre-producto');
+
+                
+
+                $("#check_curso_" + id_producto).attr('data-precio',precio);
+
+                // if ($("#check_curso_" + id_producto).is(':checked')) {
+
+                    for (var i = 0; i < precios.length; i++) {
+
+                        if (precios[i].id_product === id_producto) {
+                            console.log("remover");
+                            precios.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad
+                            });
+
+                            productos.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad,
+                                'nombre_producto': nombre_producto
+                            });
+
+                            // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                        }
+
+                    }
+                    // console.log(precios.length);
+
+                    // console.log(productos);
+
+                    console.log("se ejecuta");
+
+                    sumarPrecios(precios);
+                    sumarProductos(productos);
+
+                // }
+            });
+
+            $(".select_numero_articulos").on("change", function() {
+                var id_producto = $(this).attr('data-id-producto');
+                var cantidad = $(this).val();
+                var precio = $(this).attr('data-precio');
+                var nombre_producto = $(this).attr('data-nombre-producto');
+
+                if ($("#check_curso_" + id_producto).is(':checked')) {
+
+                    for (var i = 0; i < precios.length; i++) {
+
+                        if (precios[i].id_product === id_producto && precios[i].cantidad != cantidad) {
+                            console.log("remover");
+                            precios.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad
+                            });
+
+                            productos.splice(i, 1, {
+                                'id_product': id_producto,
+                                'precio': precio,
+                                'cantidad': cantidad,
+                                'nombre_producto': nombre_producto
+                            });
+
+                            // precios.push({'id_product':id_product,'precio':precio,'cantidad':cantidad});
+                        }
+
+                    }
+                    console.log(precios.length);
+
+                    console.log(productos);
+
+                    sumarPrecios(precios);
+
+                }
+            });
 
         });
+
+
+            function sumarPrecios(precios) {
+                console.log(precios);
+
+                // var sumaPrecios = <?= $total_pago ?>;
+                // var sumaArticulos = <?= $total_productos ?>;
+
+                var sumaPrecios = 0;
+                var sumaArticulos = 0;
+
+                precios.forEach(function(precio, index) {
+
+                    console.log("precio " + index + " | id_product: " + precio.id_product + " precio: " + parseInt(precio.precio) + " cantidad: " + parseInt(precio.cantidad))
+
+                    sumaPrecios += parseInt(precio.precio * precio.cantidad);
+                    sumaArticulos += parseInt(precio.cantidad);
+
+
+                });
+
+                
+
+                console.log("Suma precios " + sumaPrecios);
+
+                $("#total_pesos").html((sumaPrecios).toFixed(2));
+                $("#total_pesos_formato").html(format2(sumaPrecios,''));
+
+                var total_pagar = $("#txt_pago").val();                
+                var cambio = 0;
+                if (total_pagar >= sumaPrecios) {
+                    $("#btn_pagar").removeAttr('disabled');
+                    cambio = total_pagar - sumaPrecios;
+                    $("#total_cambio").html(cambio);
+                    $("#total_cambio_formato").html(format2(cambio,''));
+
+                    // console.log("se habilita");
+                } else {
+                    $("#btn_pagar").attr('disabled', 'disabled');
+                    $("#total_cambio").html("");
+                    $("#total_cambio_formato").html("");
+                    // console.log("se desabilita");
+                }
+            
+
+                
+
+            }
+
+            function sumarProductos(productos) {
+                console.log(productos);
+                var nombreProductos = '';
+
+                productos.forEach(function(producto, index) {
+
+                    console.log("precio " + index + " | id_product: " + producto.id_product + " precio: " + parseInt(producto.precio) + " cantidad: " + parseInt(producto.cantidad) + " producto: " + producto.nombre_producto)
+
+                    nombreProductos += producto.nombre_producto+',';
+                });
+
+                console.log(nombreProductos);
+                $("#item_name").val(nombreProductos);
+                
+
+            }
+
+
+
+
+        });
+
+        window.addEventListener("keypress", function(event){
+            if (event.keyCode == 13){
+                event.preventDefault();
+            }
+        }, false);
     </script>
 
 </body>
