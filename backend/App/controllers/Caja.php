@@ -461,6 +461,7 @@ html;
             $descripcion = '';
         }
 
+
         $data_user = CajaDao::getDataUser($user_id);
         $referencia = $data_user['referencia'];
         $clave = $this->generateRandomInt();

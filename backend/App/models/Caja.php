@@ -108,6 +108,8 @@ sql;
             ':descripcion' => $data->_descripcion,
             ':utilerias_administradores_id' => $data->_utilerias_administradores_id 
         );
+
+        // var_dump($parametros);
   
         $id = $mysqli->insert($query, $parametros);
   

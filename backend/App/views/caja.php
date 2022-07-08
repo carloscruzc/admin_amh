@@ -172,7 +172,7 @@
                                                                                 <div class="col-md-4" id="cont-descripcion" style="display: none;">
                                                                                     <div class="form-group">
                                                                                         <label>Descripción</label>
-                                                                                        <textarea class="form-control" id="txt_descripcion" name="txt_descripcion" rows="6" cols="100"></textarea>
+                                                                                        <textarea class="form-control" id="txt_descripcion" name="txt_descripcion" rows="6" cols="100"> </textarea>
                                                                                     </div>
                                                                                 </div>
 
