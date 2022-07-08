@@ -449,75 +449,89 @@ html;
 
 
     public function setPay(){
+
         $user_id = $_POST['user_id'];
         $metodo_pago = $_POST['metodo_pago'];
-        $total_usd = $_POST['total_usd'];
         $total_pesos = $_POST['total_pesos'];
+        $pendientes_pago = json_decode($_POST['array'],true);
 
-        $productos = CajaDao::getProductosPendientesPagoAll($user_id);
+        if(isset($_POST['descripcion'])){
+            $descripcion = $_POST['descripcion'];
+        }else{
+            $descripcion = '';
+        }
+
+        $data_user = CajaDao::getDataUser($user_id);
+        $referencia = $data_user['referencia'];
+        $clave = $this->generateRandomInt();
         $flag = 0;
-        $reference = '';
+
+        
         $productos_transaccion = '';
 
 
-        foreach($productos as $key => $value){  
+        foreach($pendientes_pago as $key => $value){
             
-            // if($value['es_congreso'] == 1){
-            //     $precio = $value['amout_due'];
-            // }else if($value['es_servicio'] == 1){
-            //     $precio = $value['precio_publico'];
-            // }else if($value['es_curso'] == 1){
-            //     $precio = $value['precio_publico']; 
-            // }
-
-            if($value['es_congreso'] == 1 && $value['clave_socio'] == ""){
-                $precio = $value['amout_due'];
-                $socio = "";
-            }else if($value['es_congreso'] == 1 && $value['clave_socio'] != ""){
-                $precio = $value['amout_due'];
-                $socio = "";
-            }
-            else if($value['es_servicio'] == 1 && $value['clave_socio'] == ""){
-                $precio = $value['precio_publico'];
-                $socio = "";
-            }else if($value['es_servicio'] == 1 && $value['clave_socio'] != ""){
-                $precio = 0;
-                $socio = "Socio APM - Sin Costo";
-            }
-            else if($value['es_curso'] == 1  && $value['clave_socio'] == ""){
-                $precio = $value['precio_publico'];
-            }else if($value['es_curso'] == 1  && $value['clave_socio'] != ""){
-                $precio = 0;
-                $socio = "Socio APM - Sin Costo";
-            }
+            $productos_transaccion .= $value['nombre_producto'].' -  $'.$value['precio'].','; 
             
-            $reference = $value['reference'];
-            $productos_transaccion .= $value['nombre'].' -  $'.$precio.','; 
-            
+            $existePendiente = CajaDao::pendientesPagoByProductAndUser($user_id,$value['id_product']);
 
-            $updateStatus = CajaDao::updateStatusPendientePago($value['id_pendiente_pago'],$metodo_pago);
+            if($existePendiente){
+                //actualizar falta el precio
+                $updateStatus = CajaDao::updateStatusPendientePagoByUserAndId($user_id,$value['id_product'],$metodo_pago,$value['precio']);
 
-            if($updateStatus){                
+                if($updateStatus){
 
-                
-                $getProducto = CajaDao::getAsignaProductoByIdProductAndUser($user_id,$value['id_producto']);
+                    $getProducto = CajaDao::getAsignaProductoByIdProductAndUser($user_id,$value['id_product']);
 
-                if(!$getProducto){
-                    
-                    $data = new \stdClass();
-                    $data->_user_id = $user_id;
-                    $data->_id_producto = $value['id_producto'];              
-                    
+                    if(!$getProducto){
+                        
+                        $data = new \stdClass();
+                        $data->_user_id = $user_id;
+                        $data->_id_producto = $value['id_product'];             
+                        
 
-                    $insertAsiganProducto = CajaDao::insertAsignaProducto($data);
+                        $insertAsiganProducto = CajaDao::insertAsignaProducto($data);
 
-                    if($insertAsiganProducto){                       
-                        $flag = 1;
-                    }
-                }                
-                 
+                        if($insertAsiganProducto){                       
+                            $flag = 1;
+                        }
+                    }   
+                }
+
+            }else{
+                //insertar
+                $data_pendiente = new \stdClass();
+                $data_pendiente->_user_id = $user_id;
+                $data_pendiente->_id_producto = $value['id_product']; 
+                $data_pendiente->_reference = $referencia; 
+                $data_pendiente->_clave = $clave;
+                $data_pendiente->_monto = $value['precio'];
+                $data_pendiente->_tipo_pago = $metodo_pago;
+               
+                $insert_pendiente = CajaDao::insertPendientePago($data_pendiente);
+
+                if($insert_pendiente){
+
+                    $getProducto = CajaDao::getAsignaProductoByIdProductAndUser($user_id,$value['id_product']);
+
+                    if(!$getProducto){
+                        
+                        $data = new \stdClass();
+                        $data->_user_id = $user_id;
+                        $data->_id_producto = $value['id_product'];             
+                        
+
+                        $insertAsiganProducto = CajaDao::insertAsignaProducto($data);
+
+                        if($insertAsiganProducto){                       
+                            $flag = 1;
+                        }
+                    }   
+                }
             }
 
+            
         }
         
 
@@ -527,11 +541,12 @@ html;
              //guarar en transaccion
              $dataTransaccion = new \stdClass();
              $dataTransaccion->_user_id = $user_id;
-             $dataTransaccion->_referencia_transaccion = $reference;
+             $dataTransaccion->_referencia_transaccion = $referencia;
              $dataTransaccion->_productos = $productos_transaccion;
-             $dataTransaccion->_total_dolares = $total_usd;
+            //  $dataTransaccion->_total_dolares = $total_usd;
              $dataTransaccion->_total_pesos = $total_pesos;
              $dataTransaccion->_tipo_pago = $metodo_pago;
+             $dataTransaccion->_descripcion = $descripcion;
              $dataTransaccion->_utilerias_administradores_id  = $_SESSION['utilerias_administradores_id'];
 
              $insertTransaccion = CajaDao::insertTransaccion($dataTransaccion);
@@ -651,7 +666,7 @@ html;
     {
         date_default_timezone_set('America/Mexico_City');
 
-        // $this->generaterQr($clave);
+        // $this->generaterQr($clave);        
 
         $datos_user = CajaDao::getDataUser($user_id);
         $user_id = $datos_user['user_id'];        
@@ -672,7 +687,7 @@ html;
         $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->setY(1);
         $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Image('plantillas/ticket_esp.jpeg', 0, 0, 210, 300);
+        $pdf->Image('plantillas/orden.jpeg', 0, 0, 210, 300);
         
         // $pdf->SetFont('Arial', 'B', 25);
         // $pdf->Multicell(133, 80, $clave_ticket, 0, 'C');
@@ -683,12 +698,16 @@ html;
         //$num_linea =utf8_decode("Línea: 39");
         //$num_linea2 =utf8_decode("Línea: 39");
 
-        $espace = 125;
+        $espace = 141;
         $total = array();
         $pro = explode(",",$productos['productos']);
         foreach($pro as $key => $value){  
 
             $pro_precio = explode("-",$value);
+            $solo_precio = explode("$",$pro_precio[1]);
+            // var_dump($pro_precio);
+            // echo number_format($solo_precio[1],2);
+            // exit;
 
 
             //Nombre Curso
@@ -698,42 +717,48 @@ html;
             $pdf->Multicell(100, 4, utf8_decode($pro_precio[0]) , 0, 'C');
 
             //Costo
-            $pdf->SetXY(125, $espace);
+            $pdf->SetXY(130, $espace);
             $pdf->SetFont('Arial', 'B', 8);  
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Multicell(100, 4, $pro_precio[1] ." USD", 0, 'C');
+            $pdf->Multicell(100, 4, number_format($solo_precio[1],2) ." MXN", 0, 'C');
 
-            $espace = $espace + 8;
+            $espace = $espace + 6;
         }
 
         $tipo_cambio = CajaDao::getTipoCambio()['tipo_cambio'];
         
 
         //folio
-        $pdf->SetXY(96, 72.5);
+        $pdf->SetXY(96, 61);
         $pdf->SetFont('Arial', 'B', 13);  
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(100, 10, $reference, 0, 'C');
 
         //fecha
-        $pdf->SetXY(105,82);
+        $pdf->SetXY(104,71);
         $pdf->SetFont('Arial', 'B', 13);  
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(100, 10, $fecha, 0, 'C');
 
+        //Nombre
+        $pdf->SetXY(100,83);
+        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, utf8_decode($nombre_completo), 0, 'C');
+
       
 
         //total dolares
-        $pdf->SetXY(125, 199);
-        $pdf->SetFont('Arial', 'B', 13);  
-        $pdf->SetTextColor(0, 0, 0);
-        $pdf->Multicell(100, 10, number_format($productos['total_dolares']).' USD', 0, 'C');
+        // $pdf->SetXY(125, 199);
+        // $pdf->SetFont('Arial', 'B', 13);  
+        // $pdf->SetTextColor(0, 0, 0);
+        // $pdf->Multicell(100, 10, number_format($productos['total_dolares']).' USD', 0, 'C');
 
         //total pesos
-        $pdf->SetXY(125, 205);
+        $pdf->SetXY(130, 200);
         $pdf->SetFont('Arial', 'B', 13);  
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Multicell(100, 10, '$ '.number_format($productos['total_pesos'],2), 0, 'C');
+        $pdf->Multicell(100, 10, '$ '.number_format($productos['total_pesos'],2).' MXN', 0, 'C');
 
         //tipo pago
         $pdf->SetXY(125, 265);
@@ -749,6 +774,11 @@ html;
         // $pdf->Output('F','constancias/'.$clave.$id_curso.'.pdf');
 
         // $pdf->Output('F', 'C:/pases_abordar/'. $clave.'.pdf');
+    }
+
+    function generateRandomInt($length = 10)
+    {
+        return substr(str_shuffle("0123456789"), 0, $length);
     }
 
 

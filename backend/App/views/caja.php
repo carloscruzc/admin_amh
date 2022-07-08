@@ -150,29 +150,40 @@
                                                             </div>
 
                                                             <div class="row mt-3">
-                                                                <div class="col-md-6">
-                                                                <div class="cont-totales">
-                                                                            <!-- <div>
-                                                                                <span class="font-totales">Total USD: <span id="total_usd"></span></span>
+                                                                <div class="col-md-8">
+                                                                        <div class="cont-totales">
+                                                                            <div class="row">
 
-                                                                            </div> -->
-                                                                            <div>
+                                                                                <div class="col-md-8">
+                                                                           
+                                                                                    <div>
 
-                                                                                <span class="font-totales">Total pesos mexicanos: $ <span id="total_pesos_formato"></span></span>
-                                                                                <span class="font-totales" style="display: none;">Total pesos mexicanos: $ <span id="total_pesos"></span></span>
-                                                                            </div>
-                                                                            <br>
-                                                                            <div>
+                                                                                        <span class="font-totales">Total pesos mexicanos: $ <span id="total_pesos_formato"></span></span>
+                                                                                        <span class="font-totales" style="display: none;">Total pesos mexicanos: $ <span id="total_pesos"></span></span>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                    <div>
 
-                                                                                <span class="font-totales">Cambio pesos mexicanos: $ <span id="total_cambio_formato"></span></span>
-                                                                                <span class="font-totales" style="display: none;">Cambio pesos mexicanos: $ <span id="total_cambio"></span></span>
-                                                                            </div>
+                                                                                        <span class="font-totales">Cambio pesos mexicanos: $ <span id="total_cambio_formato"></span></span>
+                                                                                        <span class="font-totales" style="display: none;">Cambio pesos mexicanos: $ <span id="total_cambio"></span></span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-4" id="cont-descripcion" style="display: none;">
+                                                                                    <div class="form-group">
+                                                                                        <label>Descripción</label>
+                                                                                        <textarea class="form-control" id="txt_descripcion" name="txt_descripcion" rows="6" cols="100"></textarea>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                             
+                                                                           </div>
                                                                         </div>
                                                                     
 
                                                                 </div>
 
-                                                                <div class="col-md-6 cont-totales" >
+                                                                <div class="col-md-4 cont-totales" >
                                                                     <div style="display:flex; justify-content: space-evenly;">
                                                                         
 
@@ -325,12 +336,13 @@
 
         $(document).ready(function() {
 
-            let codigo = '';
-            var link_a = $(location).attr('href');
-            var clave_a = link_a.substr(link_a.indexOf('codigo/') + 7, link_a.length);
+            // let codigo = '';
+            // var link_a = $(location).attr('href');
+            // var clave_a = link_a.substr(link_a.indexOf('codigo/') + 7, link_a.length);
 
             // var precios=<?php //echo json_encode($array_precios); ?>;
             // var productos=<?php //echo json_encode($array_productos); ?>;
+            var flag_descripcion = false;
 
             var precios = [];
             var productos = [];
@@ -338,11 +350,11 @@
             // bloquearRegistro();
            
             $("#btn_pagar").on("click", function() {
-                // alert("funciona");
                 var metodo_pago = $("#metodo_pago").val();
                 var user_id = $("#user_id").val();
-                var total_usd = $("#total_usd").text();
+                // var total_usd = $("#total_usd").text();
                 var total_pesos = $("#total_pesos").text();
+                var descripcion = $("#txt_descripcion").val();
                 console.log(user_id);
 
                 if (metodo_pago != '') {
@@ -361,10 +373,11 @@
                                 url: "/Caja/setPay",
                                 type: "POST",
                                 data: {
+                                    'array': JSON.stringify(productos),
                                     user_id,
                                     metodo_pago,
-                                    total_usd,
-                                    total_pesos
+                                    total_pesos,
+                                    descripcion
                                 },
                                 // dataType: 'json',
                                 beforeSend: function() {
@@ -377,7 +390,7 @@
                                         
                                         $('#imprimir_comprobante')[0].click();
                                         Swal.fire('Pago generado correctamente.', '', 'success').then(() => {
-                                            $('#generar_gafete')[0].click();
+                                            // $('#generar_gafete')[0].click();
                                             setTimeout(function() {
                                                 location.reload();
                                             }, 1000);
@@ -395,7 +408,8 @@
                     })
                     // var total_usd = $("#total_usd").text();
                     // alert(total_usd);
-                } else {
+                } 
+                else {
                     //seleccionar metodo de pago
                     Swal.fire('Selecciona un metodo de pago', '', 'info');
                 }
@@ -497,6 +511,8 @@
                             sumarPrecios(precios);
                             sumarProductos(productos);
                             $(".cont-totales").show();
+                            $("#cont-descripcion").hide();
+                            flag_descripcion = false; 
                             
                             // console.log(precios);
                             // console.log(productos);
@@ -528,86 +544,10 @@
                 $("#nombre_completo").html(respuesta.nombre_completo);
                 $("#correo_user").html(respuesta.datos_user.usuario);
                 $("#telefono_user").html(respuesta.datos_user.telefono);
+                $("#imprimir_comprobante").attr('href','/Caja/print/'+respuesta.datos_user.user_id+'/'+respuesta.datos_user.clave);
             }
 
-            // function crearTabla(respuesta) {
-            //     var table = '';
-            //     // var total_usd = 0;
-            //     var total_pesos = 0;
-
-            //     console.log("tamaño "+Object.keys(respuesta).length);
-
-            //     if(Object.keys(respuesta).length > 0){
-                    
-            //         $("#imprimir_comprobante").attr('href','/Caja/print/'+respuesta.datos_user.user_id+'/'+respuesta.datos_user.clave);
-            //         // $("#generar_gafete").attr('href','/RegistroAsistencia/abrirpdfGafete/'+respuesta.datos_user.clave_user);
-            //         $("#user_id").val(respuesta.datos_user.user_id);
-            //         $("#nombre_completo").html(respuesta.nombre_completo);
-            //         $("#correo_user").html(respuesta.datos_user.usuario);
-            //         $("#telefono_user").html(respuesta.datos_user.telephone);
-            //         $(".cont-totales").show();
-            //         $("#btn_pagar").show();
-            //         $("#metodo_pago").show();
-
-
-            //         $.each(respuesta.productos, function(key, value) {
-            //             var precio = 0;
-            //             var socio = "";
-            //             // console.log("funcioina");
-            //             // console.log(value.es_congreso);
-            //             // console.log(value.es_servicio);
-            //             // console.log(value.es_curso);
-
-            //             // if (value.es_congreso == 1) {
-            //             //     precio = value.amout_due;
-            //             // } else if (value.es_servicio == 1) {
-            //             //     precio = value.precio_publico;
-            //             // } else if (value.es_curso == 1) {
-            //             //     precio = value.precio_publico;
-            //             // }
-
-            //             if(value.es_congreso == 1 && value.clave_socio == ""){
-            //                 precio = value.amout_due;
-            //                 socio = "";
-            //             }else if(value.es_congreso == 1 && value.clave_socio != ""){
-            //                 precio = value.amout_due;
-            //                 socio = "";
-            //             }
-            //             else if(value.es_servicio == 1 && value.clave_socio == ""){
-            //                 precio = value.precio_publico;
-            //                 socio = "";
-            //             }else if(value.es_servicio == 1 && value.clave_socio != ""){
-            //                 precio = 0;
-            //                 socio = "Socio AMH - Sin Costo";
-            //             }
-            //             else if(value.es_curso == 1  && value.clave_socio == ""){
-            //                 precio = value.precio_publico;
-            //             }else if(value.es_curso == 1  && value.clave_socio != ""){
-            //                 precio = 0;
-            //                 socio = "Socio AMH - Sin Costo";
-            //             }
-
-            //             table += `<tr>
-            //                         <td><button class="btn btn-danger btn-sm btn-icon-only btn-delete" style="margin-top: 10px; margin-right:10px;" value="${value.id_pendiente_pago}" data-id-producto="${value.id_producto}">x</button>${value.nombre}</td>
-            //                         <td>${value.cantidad}</td>
-            //                         <td>$ ${precio}</td>
-            //                         <td>$ ${(precio * value.cantidad)}</td>
-            //                     </tr>`;
-
-            //             total_usd += precio * value.cantidad;
-            //             total_pesos += (precio * value.cantidad) * respuesta.tipo_cambio;
-
-            //         });
-
-            //         $("#total_usd").html(total_usd);
-            //         $("#total_pesos").html(total_pesos);
-
-            //         $("#lista_productos").find('tbody').html(table);
-
-            //     }
-
-
-            // }
+            
 
 
             function format2(n, currency) {
@@ -670,9 +610,12 @@
             });
 
             $("#txt_pago").on('keyup', function() {
+                
                 var total_pesos = parseFloat($("#total_pesos").text());
                 var total_pagar = $(this).val();
                 var cambio = 0;
+
+
                 if (total_pagar >= total_pesos) {
                     $("#btn_pagar").removeAttr('disabled');
                     cambio = total_pagar - total_pesos;
@@ -851,7 +794,7 @@
                                 $("#precio_articulo"+id_producto).removeAttr('readonly');
                                 $("#precio_articulo"+id_producto).css('border','solid 1px #000');
                                 $("#precio_desbloquedo_por").val(respuesta.admin.utilerias_administradores_id);
-                               
+                                                              
                             }else{
                                 Swal.fire('Password incorrecto','','error');
                             }
@@ -908,6 +851,8 @@
 
                     sumarPrecios(precios);
                     sumarProductos(productos);
+                    $("#cont-descripcion").show(); 
+                    flag_descripcion = true;
 
                 // }
             });

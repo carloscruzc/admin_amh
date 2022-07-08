@@ -71,13 +71,14 @@ sql;
 
         $mysqli = Database::getInstance();
         $query = <<<sql
-        INSERT INTO pendiente_pago (id_producto,user_id,reference,fecha,monto,tipo_pago,status,comprado_en) VALUES(:id_producto,:user_id,:reference,:fecha,:monto,:tipo_pago,1,2)                        
+        INSERT INTO pendiente_pago (id_producto,user_id,reference,clave,fecha,monto,tipo_pago,status,comprado_en) VALUES(:id_producto,:user_id,:reference,:clave,:fecha,:monto,:tipo_pago,1,2)                        
 sql;
   
         $parametros = array(            
             ':id_producto' => $data->_id_producto,
             ':user_id' => $data->_user_id,
             ':reference' => $data->_reference,
+            ':clave' => $data->_clave,
             ':fecha' => date('Y-m-d'),
             ':monto' => $data->_monto,
             ':tipo_pago' => $data->_tipo_pago
@@ -94,16 +95,17 @@ sql;
 
         $mysqli = Database::getInstance();
         $query = <<<sql
-        INSERT INTO transaccion_compra (user_id,referencia_transaccion,productos,total_dolares,total_pesos,tipo_pago,fecha_transaccion,utilerias_administradores_id) VALUES(:user_id,:referencia_transaccion,:productos,:total_dolares,:total_pesos,:tipo_pago,NOW(),:utilerias_administradores_id)                        
+        INSERT INTO transaccion_compra (user_id,referencia_transaccion,productos,total_pesos,tipo_pago,fecha_transaccion,descripcion,utilerias_administradores_id) VALUES(:user_id,:referencia_transaccion,:productos,:total_pesos,:tipo_pago,NOW(),:descripcion,:utilerias_administradores_id)                        
 sql;
   
         $parametros = array(
             ':user_id' => $data->_user_id,
             ':referencia_transaccion' => $data->_referencia_transaccion,
             ':productos' => $data->_productos,
-            ':total_dolares' => $data->_total_dolares,
+        //     ':total_dolares' => $data->_total_dolares,
             ':total_pesos' => $data->_total_pesos,
             ':tipo_pago' => $data->_tipo_pago,
+            ':descripcion' => $data->_descripcion,
             ':utilerias_administradores_id' => $data->_utilerias_administradores_id 
         );
   
@@ -612,5 +614,20 @@ sql;
         return $mysqli->queryOne($query,$params);
       }
 
+      public static function pendientesPagoByProductAndUser($user_id,$id_producto){
+        $mysqli = Database::getInstance();
+        $query=<<<sql
+        SELECT * FROM pendiente_pago WHERE user_id = $user_id and id_producto = $id_producto;
+sql;
+        return $mysqli->queryOne($query);
+      }
+
+      public static function updateStatusPendientePagoByUserAndId($user_id,$id_producto,$metodo_pago,$monto){
+        $mysqli = Database::getInstance();
+        $query=<<<sql
+        UPDATE pendiente_pago SET status = 1, tipo_pago = '$metodo_pago', monto = $monto, comprado_en = 2  WHERE user_id = $user_id and id_producto = $id_producto
+sql;
+        return $mysqli->update($query);
+      }
       
 }
