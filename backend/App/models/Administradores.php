@@ -71,16 +71,18 @@ sql;
     public static function insert($administradores){
 	    $mysqli = Database::getInstance(1);
         $query=<<<sql
-            INSERT INTO utilerias_administradores(nombre, usuario, contrasena, perfil_id, descripcion, fecha_alta, code,status) 
-            VALUES (:nombre, :usuario, :contrasena, :perfil_id, :descripcion, NOW(),:code ,1)
+            INSERT INTO utilerias_administradores_admin(nombre, usuario, contrasena, perfil_id, descripcion, fecha_alta, code,status,menu_caja) 
+            VALUES (:nombre, :usuario, :contrasena, :perfil_id, :descripcion, NOW(),:code ,1,:menu_caja)
 sql;
             $parametros = array(
             ':nombre'=>$administradores->_nombre,
             ':usuario'=>$administradores->_usuario,
             ':contrasena'=>$administradores->_contrasena,
             ':perfil_id'=>$administradores->_perfil_id,
+            ':menu_caja' =>$administradores->_menu_caja,
             ':descripcion'=>$administradores->_descripcion,
-            ':code'=>$administradores->_code
+            ':code'=>$administradores->_code,
+            ':menu_caja'=>$administradores->_menu_caja
             );
 
             $id = $mysqli->insert($query,$parametros);

@@ -1085,7 +1085,7 @@ html;
     $administrador->_nombre = MasterDom::getData('nombre');
     $administrador->_usuario = MasterDom::getData('usuario');
     $administrador->_perfil_id = MasterDom::getData('perfil_id');
-    // $administrador->_linea_id = $linea_id;
+    $administrador->_menu_caja = MasterDom::getData('menu_caja');
     $administrador->_descripcion = MasterDom::getData('descripcion');
     $administrador->_status = MasterDom::getData('status');
     $administrador->_tipo = 0;

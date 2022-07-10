@@ -77,7 +77,7 @@
                         <div class="col-auto">
                             <div class="bg-gradient-pink avatar avatar-xl position-relative">
                                 <!-- <img src="../../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm"> -->
-                                <span class="fa fa-bell" style="font-size: xx-large;"></span>
+                                <span class="fa fal fa-stream" style="font-size: xx-large;"></span>
                             </div>
                         </div>
                         <div class="col-auto my-auto">
@@ -326,7 +326,7 @@
 
         //Pintar el boton de asistencias
         $('#conceptos a').addClass('active');
-        $('#conceptos .fa-bell').addClass('text-white');
+        $('#conceptos .fa-stream').addClass('text-white');
 
 
 

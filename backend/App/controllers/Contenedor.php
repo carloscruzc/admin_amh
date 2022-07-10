@@ -121,7 +121,8 @@ html;
                  <li id="conceptos" class="nav-item" {$habitacionesHidden};>
                       <a href="/Conceptos/" class="nav-link " aria-controls="authExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                              <span class="fa fa-hotel morado-musa-text"></span>
+                          <span class="fa fal fa-stream morado-musa-text"></span>
+                         
                           </div>
                           <span class="nav-link-text ms-1">Conceptos</span>
                       </a>

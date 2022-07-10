@@ -176,7 +176,13 @@ html;
         $_SESSION['nombre'] = $user['nombre'];
         $_SESSION['utilerias_administradores_id'] = $user['utilerias_administradores_id'];
 
-        header("location: /Principal/");
+        if($user['menu_caja'] == 1){
+            header("location: /Caja/");
+        }else{
+            header("location: /Principal/");
+        }
+
+      
     }
 
     public function cerrarSession(){

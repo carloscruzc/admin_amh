@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 <title>
-    Administradores - MUSA - GRUPO LAHE
+    Administradores - AMH - GRUPO LAHE
 </title>
 
 <body class="bg-white-aside g-sidenav-show  bg-gray-100">
@@ -314,6 +314,16 @@
                                         <select class="form-control col-12 col-md-6" name="perfil_id" onchange="showDiv(this)">
                                             <option value="" disabled selected>Selecciona un perfil para el este administrador</option>
                                             <?php echo $perfiles; ?>
+                                           
+                                        </select>
+                                    </div>
+                                
+                                    <div class="col-sm-12 col-md-6">
+                                        <label class="form-label">Cajero *</label>
+                                        <select class="form-control col-12 col-md-6" name="menu_caja" onchange="showDiv(this)">
+                                            <option value="" disabled selected>Selecciona una Opción</option>
+                                            <option value="1">Si</option>
+                                            <option value="0">No</option>
                                         </select>
                                     </div>
                                 </div>
