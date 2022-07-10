@@ -9,15 +9,15 @@
 </style>
 
 <body class="g-sidenav-show  bg-gray-100">
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content  max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <div class="row">
+        <div class="row" style="margin-bottom: -50px;">
             <div class="col-11 m-auto">
                 <div class="mt-7 m-auto">
                     <div class="card card-body mt-n6 overflow-hidden m-5">
                         <div class="row mb-0">
                             <div class="col-auto">
-                                <div class="bg-gradient-pink avatar avatar-xl position-relative">
+                                <div class="bg-gradient-pink avatar avatar-xl ">
                                     <!-- <img src="../../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm"> -->
                                     <span class="fa fa-bell " style="font-size: xx-large;"></span>
                                 </div>
@@ -33,205 +33,187 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                                <!-- <div class="nav-wrapper position-relative end-0">
-                                    <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link mb-0 px-0 py-1 active" href="#cam1" data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                                <span class="fa fa-clock-o"></span>
-                                                <span class="ms-1">Registro</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link mb-0 px-0 py-1" id="lista-tab" href="#cam2" data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                                                <span class="fa fa-check-circle-o"></span>
-                                                <span class="ms-1">Lista</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show position-relative active height-350 border-radius-lg" id="cam1" role="tabpanel" aria-labelledby="cam1">
 
-                <div class="mt-7">
-                    <div class="row">
-                        <div class="col-10 m-auto">
-                            <div class="card card-body mt-n6 overflow-hidden">
-                                <div class="col-12">
-                                    <div class="">
-                                        <div class="col-auto">
-                                            <div class="row mt-4">
-                                                <div class="col-lg-12 col-sm-6">
-                                                    <div class="card h-100">
-                                                        <div class="card-header pb-0 p-3">
+        <div class="mt-7">
+            <div class="row">
+                <div class="col-10 m-auto">
+                    <div class="card card-body mt-n6 overflow-hidden">
+                        <div class="col-12">
+                            <div class="">
+                                <div class="col-auto">
+                                    <div class="row mt-4">
+                                        <div class="col-lg-12 col-sm-6">
+                                            <div class="card h-100">
+                                                <div class="card-header pb-0 p-3">
 
-                                                            <div class="row gx-2 gx-sm-3">
-                                                                <div class="col">
-                                                                    <div class="form-group">
+                                                    <div class="row gx-2 gx-sm-3">
+                                                        <div class="col">
+                                                            <div class="form-group">
 
-                                                                    <input style="font-size: 35px" type="text" class="form-control" id="codigo_qr_venta" name="codigo_qr_venta" list="list_concidencias" autofocus>
-                                                                    <datalist id="list_concidencias">
+                                                            <input style="font-size: 35px" type="text" class="form-control" id="codigo_qr_venta" name="codigo_qr_venta" list="list_concidencias" autofocus>
+                                                            <datalist id="list_concidencias">
 
-                                                                    </datalist>                                                                        
+                                                            </datalist>                                                                        
 
-                                                                        <input style="font-size: 35px" type="hidden" id="codigo_qr_venta_hidden" name="codigo_qr_venta_hidden" class="form-control form-control-lg text-center" minlength="11" maxlength="11" autocomplete="off" autocapitalize="off" autofocus>
+                                                                <input style="font-size: 35px" type="hidden" id="codigo_qr_venta_hidden" name="codigo_qr_venta_hidden" class="form-control form-control-lg text-center" minlength="11" maxlength="11" autocomplete="off" autocapitalize="off" autofocus>
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="d-flex justify-content-between">
-                                                                <h6 class="mb-0">Nombre: <br> <span id="nombre_completo" class="text-thin">Nombre</span> </h6>
-                                                                <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Información del asistente">
-                                                                    <i class="fas fa-info" aria-hidden="true"></i>
-                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="card-body"> -->
-                                                        <div class="row m-2">
-                                                            <div class="col-5">
-                                                                <!-- <img class="w-100 h-100 avatar" id="img_asistente" src="/img/user.png" alt="user"> -->
-                                                            </div>
-                                                            <!-- <div class="col-6">
-                                                                <h6>Especialidad: <span class="text-thin" id="especialidad_user"> Ninguna</span></h6>
-                                                              
-                                                            </div> -->
-                                                        </div>
-                                                        <br>
-                                                        <div class="row m-2">
-                                                            <h6>Correo: <span class="text-thin" id="correo_user"> _____</span></h6>
-                                                            <h6>Teléfono: <span class="text-thin" id="telefono_user"> 00 0000 0000</span></h6>
-                                                            <input type="hidden" id="user_id" name="user_id">
-                                                            <input type="hidden" id="precio_desbloquedo_por" name="precio_desbloquedo_por">
+                                                    </div>
 
-                                                            <a href="" id="generar_gafete" target="_blank" style="display: none;">gafete</a>
-                                                            <a href="" id="imprimir_comprobante" target="_blank" style="display: none;">comprobante</a>
-                                                            
-                                                        </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <h6 class="mb-0">Nombre: <br> <span id="nombre_completo" class="text-thin">Nombre</span> </h6>
+                                                        <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Información del asistente">
+                                                            <i class="fas fa-info" aria-hidden="true"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 col-sm-6 mt-sm-0 mt-4">
-                                                    <div class="card">
-                                                        <div class="card-header pb-0 p-3">
-                                                            <div class="d-flex justify-content-between">
-                                                                <!-- <h6 class="mb-0"><span class="fa fa-list-alt"></span> <?php echo $nombre; ?></h6> -->
-                                                                <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="<?php echo $descripcion; ?>">
-                                                                    <i class="fas fa-info" aria-hidden="true"></i>
-                                                                </button>
-                                                            </div>
-                                                            <div class="card p-4" style="overflow-y: auto;">
-                                                                <!-- <table id="lista_productos" class="align-items-center mb-0 table table-borderless dataTable no-footer">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Producto</th>
-                                                                            <th>Cantidad</th>
-                                                                            <th>Precio Unitario pesos $</th>
-                                                                            <th>Total $</th>
-                                                                        </tr>
-                                                                    </thead>
+                                                <!-- <div class="card-body"> -->
+                                                <!-- <div class="row ">
+                                                    <div class="col-5">
+                                                        <img class="w-100 h-100 avatar" id="img_asistente" src="/img/user.png" alt="user">
+                                                    </div>
+                                                    
+                                                </div> -->
+                                                
+                                                <div class="row m-2">
+                                                    <h6>Correo: <span class="text-thin" id="correo_user"> _____</span></h6>
+                                                    <h6>Teléfono: <span class="text-thin" id="telefono_user"> 00 0000 0000</span></h6>
+                                                    <input type="hidden" id="user_id" name="user_id">
+                                                    <input type="hidden" id="precio_desbloquedo_por" name="precio_desbloquedo_por">
 
-                                                                    <tbody>
-                                                                        <?php //echo $tabla; ?>
+                                                    <a href="" id="generar_gafete" target="_blank" style="display: none;">gafete</a>
+                                                    <a href="" id="imprimir_comprobante" target="_blank" style="display: none;">comprobante</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-6 mt-sm-0 mt-4">
+                                            <div class="card">
+                                                <div class="card-header pb-0 p-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <!-- <h6 class="mb-0"><span class="fa fa-list-alt"></span> <?php echo $nombre; ?></h6> -->
+                                                        <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="<?php echo $descripcion; ?>">
+                                                            <i class="fas fa-info" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="card p-4" style="overflow-y: auto;">
+                                                        <!-- <table id="lista_productos" class="align-items-center mb-0 table table-borderless dataTable no-footer">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Producto</th>
+                                                                    <th>Cantidad</th>
+                                                                    <th>Precio Unitario pesos $</th>
+                                                                    <th>Total $</th>
+                                                                </tr>
+                                                            </thead>
 
-                                                                    </tbody>
+                                                            <tbody>
+                                                                <?php //echo $tabla; ?>
 
-                                                                </table> -->
-                                                                <div id="cont-cheks">
+                                                            </tbody>
 
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-8">
-                                                                        <div class="cont-totales">
-                                                                            <div class="row">
-
-                                                                                <div class="col-md-8">
-                                                                           
-                                                                                    <div>
-
-                                                                                        <span class="font-totales">Total pesos mexicanos: $ <span id="total_pesos_formato"></span></span>
-                                                                                        <span class="font-totales" style="display: none;">Total pesos mexicanos: $ <span id="total_pesos"></span></span>
-                                                                                    </div>
-                                                                                    <br>
-                                                                                    <div>
-
-                                                                                        <span class="font-totales">Cambio pesos mexicanos: $ <span id="total_cambio_formato"></span></span>
-                                                                                        <span class="font-totales" style="display: none;">Cambio pesos mexicanos: $ <span id="total_cambio"></span></span>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="col-md-4" id="cont-descripcion" style="display: none;">
-                                                                                    <div class="form-group">
-                                                                                        <label>Descripción</label>
-                                                                                        <textarea class="form-control" id="txt_descripcion" name="txt_descripcion" rows="6" cols="100"> </textarea>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                             
-                                                                           </div>
-                                                                        </div>
-                                                                    
-
-                                                                </div>
-
-                                                                <div class="col-md-4 cont-totales" >
-                                                                    <div style="display:flex; justify-content: space-evenly;">
-                                                                        
-
-                                                                        <div id="cont-input-pay">
-                                                                            <div>
-                                                                                <label>Metodo de Pago *</label>
-                                                                                <select class="form-control" id="metodo_pago" name="metodo_pago">
-                                                                                    <option value="">Seleccione una opción</option>
-                                                                                    <option value="Efectivo">Efectivo</option>
-                                                                                    <option value="Tarjeta">Tarjeta Credito / Debito</option>
-
-                                                                                </select>
-                                                                            </div>
-
-                                                                            <div class="form-group">
-                                                                                <label>Ingrese el monto *</label>
-                                                                                <input type="number" class="form-control" id="txt_pago" name="txt_pago" min="0" step="0.01">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <!-- <div style="display:flex; justify-content:end;"> -->
-                                                                    <!-- <select class="form-control" id="metodo_pago" name="metodo_pago" style="width: auto; display:none;">
-                                                                        <option value="">Seleccione una opción</option>
-                                                                        <option value="Efectivo">Efectivo</option>
-                                                                        <option value="Tarjeta">Tarjeta Credito / Debito</option>
-
-                                                                    </select> -->
-                                                                    <!-- </div> -->
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div style="display:flex; justify-content:end;">
-
-                                                                        <button id="btn_pagar" class="btn btn-primary" disabled>Pagar</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
+                                                        </table> -->
+                                                        <div id="cont-cheks">
 
                                                         </div>
+
                                                     </div>
+
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-8">
+                                                                <div class="cont-totales">
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-8">
+                                                                    
+                                                                            <div>
+
+                                                                                <span class="font-totales">Total pesos mexicanos: $ <span id="total_pesos_formato"></span></span>
+                                                                                <span class="font-totales" style="display: none;">Total pesos mexicanos: $ <span id="total_pesos"></span></span>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div>
+
+                                                                                <span class="font-totales">Cambio pesos mexicanos: $ <span id="total_cambio_formato"></span></span>
+                                                                                <span class="font-totales" style="display: none;">Cambio pesos mexicanos: $ <span id="total_cambio"></span></span>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+
+                                                                        <div class="col-md-4" id="cont-descripcion" style="display: none;">
+                                                                            <div class="form-group">
+                                                                                <label>Descripción</label>
+                                                                                <textarea class="form-control" id="txt_descripcion" name="txt_descripcion" rows="6" cols="100"> </textarea>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            
+
+                                                        </div>
+
+                                                        <div class="col-md-4 cont-totales" >
+                                                            <div style="display:flex; justify-content: space-evenly;">
+                                                                
+
+                                                                <div id="cont-input-pay">
+                                                                    <div>
+                                                                        <label>Metodo de Pago *</label>
+                                                                        <select class="form-control" id="metodo_pago" name="metodo_pago">
+                                                                            <option value="">Seleccione una opción</option>
+                                                                            <option value="Efectivo">Efectivo</option>
+                                                                            <option value="Tarjeta">Tarjeta Credito / Debito</option>
+
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Ingrese el monto *</label>
+                                                                        <input type="number" class="form-control" id="txt_pago" name="txt_pago" min="0" step="0.01">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div style="display:flex; justify-content:start;">
+                                                            <!-- <select class="form-control" id="metodo_pago" name="metodo_pago" style="width: auto; display:none;">
+                                                                <option value="">Seleccione una opción</option>
+                                                                <option value="Efectivo">Efectivo</option>
+                                                                <option value="Tarjeta">Tarjeta Credito / Debito</option>
+
+                                                            </select> -->
+                                                            
+
+                                                            <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#datosFacturacion" style="display: none;" id="btn_fact">
+                                                                Facturación de Datos
+                                                            </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div style="display:flex; justify-content:end;">
+
+                                                                <button id="btn_pagar" class="btn btn-primary" disabled>Pagar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -242,42 +224,62 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+    </main>
 
+    <div class="modal fade" id="datosFacturacion" tabindex="-1" role="dialog" aria-labelledby="datosFacturacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="datosFacturacionLabel">Capturar datos de Facturacion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="form-horizontal" id="update_fiscal_data" action="" method="POST">
+            <div class="modal-body">
+                
+                    <input type="hidden" name="modal_user_id" id="modal_user_id">
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <label>Razón Social *</label>
+                            <input class="multisteps-form__input form-control" type="text" id="business_name_iva" name="business_name_iva" placeholder="eg. Christopher Prior Jones" maxlength="100" >
+                        </div>
+                        <div class="col-12 col-sm-4 mt-1 mt-sm-0">
+                            <label>RFC *</label>
+                            <input class="multisteps-form__input form-control" type="text" id="code_iva" name="code_iva" placeholder="eg. CPJ41250AS" maxlength="13"  style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                        </div>
+                        
 
-            <div class="tab-pane fade position-relative height-350 border-radius-lg" id="cam2" role="tabpanel" aria-labelledby="cam2">
-                <div class="row">
-                    <div class="col-10 m-auto">
-                        <div class="card p-4" style="overflow-y: auto;">
-                            <table id="lista-reg" class="align-items-center mb-0 table table-borderless dataTable no-footer">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio Unitario</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
+                        <div class="col-md-4 col-sm-12">
+                            <label>Correo Electrónico facturación * </label>
+                            <input class="multisteps-form__input form-control" type="text" id="email_receipt_iva" name="email_receipt_iva" placeholder="eg. user@domain.com" >
+                            <span class="mb-0 text-sm" id="error_email_send" style="display:none;color:red;">Correo electrónico incorrecto</span>
+                        </div>
 
-                                <tbody>
-                                    <?php echo $tabla; ?>
+                        <div class="col-md-4 col-sm-12">
+                            <label>Dirección Fiscal * </label>
+                            <input class="multisteps-form__input form-control" type="text" id="direccion" name="direccion" placeholder="" >                            
+                        </div>
 
-                                </tbody>
-
-                            </table>
-
+                        <div class="col-md-4 col-sm-12">
+                            <label>CP Fiscal * </label>
+                            <input class="multisteps-form__input form-control" type="text" id="postal_code_iva" name="postal_code_iva" placeholder="" >                            
                         </div>
 
 
                     </div>
-                </div>
-
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal" id="cerrar_modal">Cerrar</button>
+                <button type="submit" class="btn bg-gradient-primary" id="btn_save_fiscal">Guardar</button>
+            </div>
+            </form>
             </div>
         </div>
-
-
-
-    </main>
+    </div>
 
 
     <!--   Core JS Files   -->
@@ -335,6 +337,44 @@
         
 
         $(document).ready(function() {
+
+            $("#update_fiscal_data").on("submit", function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(document.getElementById("update_fiscal_data"));
+            for (var value of formData.values()) {
+                console.log(value);
+            }
+
+            $.ajax({
+                url: "/Caja/UpdateFiscalData",
+                type: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    console.log("Procesando....");
+                },
+                success: function(respuesta) {
+                    console.log(respuesta);
+
+                    if(respuesta == 'success'){
+                        swal("¡Se actualizaron los Datos Correctamente!", "", "success")
+                        $('#cerrar_modal').click();
+                    }else{
+                        swal("¡Hubo un error al actualizar!", "Contacte a soporte", "error")
+                        $('#cerrar_modal').modal();
+                    }
+
+                   
+                },
+                error: function(respuesta) {
+                    console.log(respuesta);
+                }
+
+            });
+        });
 
             // let codigo = '';
             // var link_a = $(location).attr('href');
@@ -474,6 +514,7 @@
                 var user_id = split[0];
                 // console.log(user_id);
                 $("#codigo_qr_venta_hidden").val(user_id);
+                $("#modal_user_id").val(user_id);
 
                 $('#codigo_qr_venta').val('');
 
@@ -512,11 +553,13 @@
                             sumarProductos(productos);
                             $(".cont-totales").show();
                             $("#cont-descripcion").hide();
+                            $("#btn_fact").show();
                             flag_descripcion = false; 
                             
                             // console.log(precios);
                             // console.log(productos);
 
+                            
                         } else{
                             // console.log(Object.keys(respuesta).length);
                             // crearTabla(respuesta);
@@ -527,7 +570,7 @@
                     error: function(respuesta) {
                         Swal.fire('No se encontro ningun registro para este codigo','','error');
                         setTimeout(function(){
-                            // location.reload();
+                            location.reload();
                         },1000)
                         console.log(respuesta);
                     }
@@ -545,6 +588,13 @@
                 $("#correo_user").html(respuesta.datos_user.usuario);
                 $("#telefono_user").html(respuesta.datos_user.telefono);
                 $("#imprimir_comprobante").attr('href','/Caja/print/'+respuesta.datos_user.user_id+'/'+respuesta.datos_user.clave);
+
+                //modal facturacion
+                $("#business_name_iva").val(respuesta.datos_user.business_name_iva);
+                $("#code_iva").val(respuesta.datos_user.code_iva);
+                $("#email_receipt_iva").val(respuesta.datos_user.email_receipt_iva);
+                $("#direccion").val(respuesta.datos_user.direccion);
+                $("#postal_code_iva").val(respuesta.datos_user.postal_code_iva);
             }
 
             

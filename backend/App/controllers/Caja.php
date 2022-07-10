@@ -100,80 +100,11 @@ html;
 
 html;
 
-   
-        $codigo = RegistroAsistenciaDao::getById($id);
 
-        $lista_registrados = RegistroAsistenciaDao::getRegistrosAsistenciasByCode($id);
-
-        $nombre_asistencia = RegistroAsistenciaDao::getRegistrosAsistenciasByCode($id)[0]['nombre_asistencia'];
-
-        $tabla = '';
-        foreach ($lista_registrados as $key => $value) {
-            $tabla .= <<<html
-            <tr>
-                <td><b>{$value['nombre_completo']} </b> <span class="badge badge-info" style="color: white; background: {$value['color_linea']};"> {$value['nombre_linea_ejecutivo']} </span></td>
-                <td>
-                    <u><a href="mailto:{$value['email']}"><span class="fa fa-mail-bulk"> </span> {$value['email']}</a></u>
-                    <br><br>
-                    <u><a href="https://api.whatsapp.com/send?phone=52{$value['telefono']}&text=Buen%20d%C3%ADa,%20te%20contacto%20de%20parte%20del%20Equipo%20Grupo%20LAHE%20%F0%9F%98%80" target="_blank"><span class="fa fa-whatsapp" style="color:green;"> </span> {$value['telefono']}</a></u>
-                </td>
-                <td>
-                    <b>Especialidad: </b>{$value['nombre_especialidad']}
-                </td>
-                
-html;
-            if ($value['status'] == 1) {
-                $tabla .= <<<html
-                <td class="text-center"><span class="badge badge-success">En Tiempo</span><td>
-                <td>
-                    <button class="btn btn-danger " onclick="borrarRegister({$value['id_registro_asistencia']})" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Eliminar Registro de {$value['nombre_completo']}">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-html;
-            } else if ($value['status'] == 2) {
-                $tabla .= <<<html
-                <td class="text-center"><span class="badge badge-danger">Fuera del Horario</span><td>
-                <td>
-                    <button class="btn btn-danger " onclick="borrarRegister({$value['id_registro_asistencia']})" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-original-title="Eliminar Registro de {$value['nombre_completo']}">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-html;
-            }
-        }
-
-        foreach ($codigo as $key => $value) {
-            if ($value['id_asistencia'] != '') {
-                $flag = true;
-                $nombre = $value['nombre'];
-                $descripcion = $value['descripcion'];
-                $fecha_asistencia = $value['fecha_asistencia'];
-                $hora_asistencia_inicio = $value['hora_asistencia_inicio'];
-                $hora_asistencia_fin = $value['hora_asistencia_fin'];
-            }
-        }
-
-      
-
-
-        // if ($flag == true) {
-            // View::set('tabla', $tabla);
-            // View::set('nombre', $nombre);
-            // View::set('descripcion', $descripcion);
-            // View::set('nombre_asistencia', $nombre_asistencia);
-            // View::set('fecha_asistencia', $fecha_asistencia);
-            // View::set('hora_asistencia_inicio', $hora_asistencia_inicio);
-            // View::set('hora_asistencia_fin', $hora_asistencia_fin);
             View::set('header', $extraHeader);
             View::set('footer', $extraFooter);
             View::render("caja");
-    //     } else {
-    //         // View::render("asistencias_panel_registro");
-    //         View::render("asistencias_all_vacia");
-    //     }
+    
     }
 
     public function getSell(){
@@ -379,6 +310,35 @@ html;
         echo json_encode($data);
     }
 
+    public function UpdateFiscalData(){
+
+        $user_id = $_POST["modal_user_id"];
+        $business_name_iva = $_POST['business_name_iva'];
+        $code_iva = $_POST['code_iva'];
+        $email_receipt_iva = $_POST['email_receipt_iva'];
+        $direccion = $_POST['direccion'];
+        $postal_code_iva = $_POST['postal_code_iva'];
+
+        $data = new \stdClass();
+        $data->_user_id = $user_id;
+        $data->_business_name_iva = $business_name_iva;    
+        $data->_code_iva = $code_iva;   
+        $data->_email_receipt_iva = $email_receipt_iva;
+        $data->_direccion = $direccion;   
+        $data->_postal_code_iva = $postal_code_iva;
+
+
+        $updateFiscalData = CajaDao::UpdateFiscalData($data);
+
+        if($updateFiscalData){
+            echo "success";
+        }else{
+            echo "fail";
+        }
+
+        
+
+    }
     // public function getSell(){
     //     $codigo = $_POST['codigo'];
 

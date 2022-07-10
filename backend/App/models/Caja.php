@@ -631,5 +631,23 @@ sql;
 sql;
         return $mysqli->update($query);
       }
+
+      public static function UpdateFiscalData($usuario){
+        $mysqli = Database::getInstance(true);
+        $query =<<<sql
+        UPDATE utilerias_administradores SET business_name_iva = :business_name_iva, code_iva = :code_iva, email_receipt_iva = :email_receipt_iva, direccion = :direccion, postal_code_iva = :postal_code_iva WHERE user_id = :user_id
+sql;
+
+        $params = array(
+            ':user_id'=>$usuario->_user_id,
+            ':business_name_iva' => $usuario->_business_name_iva,
+            ':code_iva' => $usuario->_code_iva,
+            ':email_receipt_iva' => $usuario->_email_receipt_iva,
+            ':direccion' => $usuario->_direccion,
+            ':postal_code_iva' => $usuario->_postal_code_iva
+        );
+
+        return $mysqli->update($query,$params);
       
+      }
 }
