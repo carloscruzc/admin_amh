@@ -191,7 +191,7 @@
                                     <div class="col-12 col-lg-4">
                                         <label class="form-label">Categoria Actual</label>
                                         <div class="input-group">
-                                            <input id="clave_socio" readonly name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['categoria']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="id_categoria" readonly name="id_categoria" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_categoria['categoria']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div>
                                 </div>
