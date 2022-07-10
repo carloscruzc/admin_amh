@@ -118,14 +118,14 @@ html;
                           <span class="nav-link-text ms-1">PickUp</span>
                       </a>
                   </li>-->
-                 <!-- <li id="habitaciones" class="nav-item" {$habitacionesHidden};>
-                      <a href="/Habitaciones/" class="nav-link " aria-controls="authExamples" role="button" aria-expanded="false">
+                 <li id="conceptos" class="nav-item" {$habitacionesHidden};>
+                      <a href="/Conceptos/" class="nav-link " aria-controls="authExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fa fa-hotel morado-musa-text"></span>
                           </div>
-                          <span class="nav-link-text ms-1">Habitaciones</span>
+                          <span class="nav-link-text ms-1">Conceptos</span>
                       </a>
-                  </li>-->
+                  </li>
                   
                   <li id="asistencias" class="nav-item" {$asistenciasHidden};>
                       <a href="/Asistencias/" class="nav-link " aria-controls="basicExamples" role="button" aria-expanded="false">
