@@ -128,14 +128,14 @@ html;
                       </a>
                   </li>
                   
-                  <li id="asistencias" class="nav-item" {$asistenciasHidden};>
+                  <!--<li id="asistencias" class="nav-item" {$asistenciasHidden};>
                       <a href="/Asistencias/" class="nav-link " aria-controls="basicExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fa fa-bell morado-musa-text"></span>
                           </div>
                           <span class="nav-link-text ms-1">Asistencias</span>
                       </a>
-                  </li>
+                  </li>-->
   
                   <li id="constancias" class="nav-item" {$constanciasHidden};>
                       <a href="/Constancias/Talleres" class="nav-link " aria-controls="basicExamples" role="button" aria-expanded="false">

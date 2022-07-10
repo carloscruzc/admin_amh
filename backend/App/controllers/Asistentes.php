@@ -687,6 +687,8 @@ html;
             $color_curso_pago = '';
             $tipo_pago = '';
             $gafetes_httml = '';
+            $id_producto = 1;
+            $miembro_apm = '';
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //             if($value['scholarship'] != '')//si la beca es diferente de vacio entonces
 //             {
@@ -844,25 +846,22 @@ html;
 
                 if($value['clave_socio'] != '')
                 {
-                    $miembro_apm = 'SI';
+                    $miembro_apm = '';
                     $clave_socio .= <<<html
                     <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>SOCIO ACTIVO </strong></span>  
 html;
                 }
                 else
                 {
-                    $miembro_apm = 'NO';
                     $clave_socio .= <<<html
-                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>No se encontro Clave Socio Verificar con AMH </strong></span>  
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO ES SOCIO AMH</strong></span>  
 html;
                 }
 
                 if($value['id_categoria'] != 1)
                 {
                     $becado_apm = 'NO';
-                    $clave_beca .= <<<html
-                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>No se encontro BECA AMH</strong></span>  
-html;
+                    $clave_beca = '';
                 }
                 else
                 {
@@ -892,12 +891,18 @@ html;
                     <!--button type="button" class="btn btn-outline-primary btn_qr" value="{$value['id_ticket_virtual']}"><span class="fa fa-qrcode" style="padding: 0px;"> {$ticket_virtual[0]['clave']}</span></button-->
                 </td>
 html;
+                    $miembro_apm .= <<<html
+                    <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>OK - HABILITADO PARA IMPRESIÓN DE GAFETE </strong></span>  
+html;
                 }else{
                     $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
                 <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO PUEDE IMPRIMIR GAFETE </strong></span>
                 </td> 
-html;                 
+html;
+                    $miembro_apm .= <<<html
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO IMPRIMIR - DIRIGIR A CAJA A PAGAR </strong></span>  
+html;
                 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1166,7 +1171,7 @@ html;
                                     </h6>
                                 </a>
                             </div>
-                            
+                            {$clave_beca_2}
                             <div class="d-flex flex-column justify-content-center">
                                 <u><h6 class="mb-0 text-sm text-black"><span class="fa fa-mail-bulk" style="font-size: 13px"></span> {$value['usuario']}</h6></u>
                                 <h6 class="mb-0 text-sm text-black"><span class="fa fa-map-pin" style="font-size: 13px"></span> {$value['pais']}</h6>
@@ -1175,7 +1180,7 @@ html;
                             <div class="d-flex flex-column justify-content-center">
                                 <h6 class="mb-0 text-sm text-black"><span class="fa fa-calendar" style="font-size: 13px"></span> Fecha de Registro: {$value['fecha']}</h6>
                             </div>
-                            {$clave_beca_2}
+                            {$miembro_apm}
                             <div class="d-flex flex-column justify-content-center">
                                  {$permiso_impresion}
                             </div>
