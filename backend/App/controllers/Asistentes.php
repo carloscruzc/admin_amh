@@ -35,10 +35,69 @@ class Asistentes extends Controller
     public function index()
     {
 
+        $paises = AsistentesDao::getPais();
+        $optionPais = '';
+        foreach($paises as $key => $value){
+            $optionPais .= <<<html
+                    <option value="{$value['id_pais']}">{$value['pais']}</option>
+html;
+        }
+
         View::set('asideMenu',$this->_contenedor->asideMenu());
+        View::set('optionPais', $optionPais);
         // View::set('tabla_faltantes', $this->getAsistentesFaltantes());
         // View::set('tabla', $this->getAllColaboradoresAsignados());
         View::render("asistentes_all");
+    }
+
+    public function getEstadoPais(){
+        $pais = $_POST['pais'];
+
+        if (isset($pais)) {
+            $Paises = AsistentesDao::getStateByCountry($pais);
+
+            echo json_encode($Paises);
+        }
+    }
+
+    public function saveData()
+    {
+        $date = date('Y-m-d');
+        $str_nombre = str_split($_POST['nombre']);
+        $str_apellidop = str_split($_POST['apellidop']);
+        $str_apellidom = str_split($_POST['apellidom']);
+
+        $fecha = explode('-',$date);
+
+        $referencia = $str_nombre[0].$str_nombre[1].$str_apellidop[0].$str_apellidop[1].$fecha[0].$fecha[1].$fecha[2];
+
+
+        $data = new \stdClass();            
+        $data->_nombre = MasterDom::getData('nombre');
+        $data->_apellidop = MasterDom::getData('apellidop');
+        $data->_apellidom = MasterDom::getData('apellidom');
+        $data->_usuario = MasterDom::getData('usuario');
+        $data->_title= MasterDom::getData('title');
+        $data->_telefono = MasterDom::getData('telefono');
+        $data->_pais = MasterDom::getData('pais');
+        $data->_estado = MasterDom::getData('estado');
+        $data->_referencia = $referencia;
+        $data->_clave = $this->generateRandomStringT();
+
+        $id = AsistentesDao::insert($data);
+        if ($id >= 1) {
+            echo "success";
+            // $this->alerta($id,'add');
+            //header('Location: /PickUp');
+        } else {
+            echo "error";
+            // header('Location: /PickUp');
+            //var_dump($id);
+        }
+    }
+
+    public function isUserValidate(){
+        echo (count(AsistentesDao::getUserRegister($_POST['usuario']))>=1)? 'true' : 'false';
     }
 
     //Metodo para reaslizar busqueda de usuarios, sin este metodo no podemos obtener informacion en la vista
@@ -223,6 +282,7 @@ html;
 html;
         $detalles = AsistentesDao::getByClaveRA($id);
         $detalles_registro = AsistentesDao::getTotalByClaveRA($id);
+        $detalles_categoria = AsistentesDao::getCategoria();
 
         
 
@@ -352,6 +412,11 @@ html;
         // View::set('alergias_a', $alergias_a);
         // View::set('alergia_medicamento_cual', $alergia_medicamento_cual);
         View::set('detalles_registro', $detalles_registro[0]);
+        View::set('detalles_categoria', $detalles_categoria[0]);
+        View::set('detalles_categoria1', $detalles_categoria[1]);
+        View::set('detalles_categoria2', $detalles_categoria[2]);
+        View::set('detalles_categoria3', $detalles_categoria[3]);
+        View::set('detalles_categoria4', $detalles_categoria[4]);
         View::set('header', $this->_contenedor->header($extraHeader));
         View::set('footer', $this->_contenedor->footer($extraFooter));
         // View::set('tabla_vacunacion', $this->getComprobanteVacunacionById($id));
@@ -524,6 +589,15 @@ html;
             $apellido_materno = $_POST['apellido_materno'];
             $email = $_POST['email'];
             $clave_socio = $_POST['clave_socio'];
+            $id_categoria = $_POST['id_categoria'];
+
+            if($id_categoria == 1){
+                $monto_congreso = 0;
+            }else if($id_categoria == 5){
+                $monto_congreso = 1000;
+            }else{
+                $monto_congreso = 1500;
+            }
 
             $documento->_id = $id_registro;
             $documento->_nombre = $nombre;
@@ -531,6 +605,8 @@ html;
             $documento->_apellido_materno = $apellido_materno;
             $documento->_email = $email;
             $documento->_clave_socio = $clave_socio;
+            $documento->_id_categoria = $id_categoria;
+            $documento->_monto_congreso = $monto_congreso;
 
             $id = AsistentesDao::update($documento);
 
@@ -590,10 +666,12 @@ html;
     public function getAllColaboradoresAsignadosByName($name){
 
         $html = "";
+        
         foreach (GeneralDao::getAllColaboradoresByName($name) as $key => $value) {
-
             $industria = '';
             $clave_socio = '';
+            $clave_beca = '';
+            $clave_beca_2 = '';
             $tipo_user = '';
             $permiso_impresion = '';
             $modalidad = '';
@@ -608,6 +686,7 @@ html;
             $curso_9 = '';
             $color_curso_pago = '';
             $tipo_pago = '';
+            $gafetes_httml = '';
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //             if($value['scholarship'] != '')//si la beca es diferente de vacio entonces
 //             {
@@ -761,29 +840,67 @@ html;
 // html;
 //                 }
 //             }
+////////////////////////////////////////////////////////////////////////////////////////////
 
-//             if($value['apm_member'] == 1)
-//             {
-//                 $miembro_apm = 'SI';
-//                 if($value['clave_socio'] != '')
-//                 {
-//                     $clave_socio .= <<<html
-//                     <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>Clave Socio: {$value['clave_socio']} </strong></span>  
-// html;
-//                 }
-//                 else
-//                 {
-//                     $clave_socio .= <<<html
-//                     <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>No se encontro Clave Socio Verificar con APM </strong></span>  
-// html;
-//                 }
-//             }
-//             else
-//             {
-//                 $miembro_apm = 'NO';
-//             }
+                if($value['clave_socio'] != '')
+                {
+                    $miembro_apm = 'SI';
+                    $clave_socio .= <<<html
+                    <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>SOCIO ACTIVO </strong></span>  
+html;
+                }
+                else
+                {
+                    $miembro_apm = 'NO';
+                    $clave_socio .= <<<html
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>No se encontro Clave Socio Verificar con AMH </strong></span>  
+html;
+                }
 
-//             ////////////////////////////////////////////////////////////////////
+                if($value['id_categoria'] != 1)
+                {
+                    $becado_apm = 'NO';
+                    $clave_beca .= <<<html
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>No se encontro BECA AMH</strong></span>  
+html;
+                }
+                else
+                {
+                    foreach (GeneralDao::getBecaUser($value['user_id']) as $key => $value_beca) {
+
+                    $becado_apm = 'SI';
+                    $clave_beca .= <<<html
+                    <span class="badge badge-success" style="background-color: #239187; color:white "><strong>BECA #{$value_beca['codigo']} </strong></span>
+html;
+                    $clave_beca_2 .= <<<html
+                    <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm text-black"><span class="fa fa-calendar" style="font-size: 13px"></span>Becado por: {$value_beca['nombrecompleto']}</h6> 
+                    </div>
+html;
+                    }
+                }
+
+                if($value['id_categoria'] == 1 || $value['clave_socio'] != ''){
+                    $gafetes_httml .=<<<html
+                <td style="text-align:center; vertical-align:middle;">
+                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
+
+                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    
+                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>
+
+                    <!--button type="button" class="btn btn-outline-primary btn_qr" value="{$value['id_ticket_virtual']}"><span class="fa fa-qrcode" style="padding: 0px;"> {$ticket_virtual[0]['clave']}</span></button-->
+                </td>
+html;
+                }else{
+                    $gafetes_httml .=<<<html
+                <td style="text-align:center; vertical-align:middle;">
+                <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO PUEDE IMPRIMIR GAFETE </strong></span>
+                </td> 
+html;                 
+                }
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 //             foreach (GeneralDao::getBuscarCursos($value['user_id'] ) as $key => $value_cursos_pagados) { //IR A BUSCAR EL ESTATUS DE PAGO DE TODOS LOS PRODUCTOS APM SELECCIONADOS POR EL USUARIO
                 
@@ -1012,6 +1129,7 @@ html;
             $segundo_apellido = html_entity_decode($value['apellido_materno']);
             $nombre_completo = ($nombre)." ".($apellido)." ".($segundo_apellido);
             $nombre_completo = mb_strtoupper($nombre_completo);
+            $id_producto = 1;
 
             $modalidad .= <<<html
             <div>
@@ -1029,12 +1147,12 @@ html;
                                 <br>                 
                             </div>
                            
-                            <div class="d-flex flex-column justify-content-center text-black">
+                            <!--<div class="d-flex flex-column justify-content-center text-black">
                                   <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-pink btn-icon-only morado-musa-text" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
-                            </div>
-                            <div class="d-flex flex-column justify-content-center text-black">
+                            </div>-->
+                            <!--<div class="d-flex flex-column justify-content-center text-black">
                                  <button class="btn bg-turquoise btn-icon-only text-white" data-toggle="modal" data-target="#modal-constancia-{$value['id_registro_acceso']}" id="btn-etiqueta-{$value['id_registro_acceso']}" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Imprimir Etiquetas" title="Imprimir Etiquetas"><i class="fas fa-tag"></i></button>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="d-flex flex-column justify-content-center text-black">
                         <div>
@@ -1043,7 +1161,7 @@ html;
                             <div class="d-flex flex-column justify-content-center">
                                 <a href="/Asistentes/Detalles/{$value['user_id']}" target="_blank">
                                     <h6 class="mb-0 text-sm text-move text-black">
-                                        <span class="fa fa-user-md" style="font-size: 13px"></span> {$nombre_completo} </span> {$value['nombre_ejecutivo']} {$tipo_user}                  
+                                        <span class="fa fa-user-md" style="font-size: 13px"></span> {$nombre_completo} </span> {$value['nombre_ejecutivo']} {$tipo_user}{$clave_socio}{$clave_beca}                  
                                         {$industria}
                                     </h6>
                                 </a>
@@ -1055,12 +1173,9 @@ html;
                             </div>
                             <hr>
                             <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm text-black"><span class="fa fa-calendar" style="font-size: 13px"></span> Fecha de Registro: {$value['date']}</h6>
+                                <h6 class="mb-0 text-sm text-black"><span class="fa fa-calendar" style="font-size: 13px"></span> Fecha de Registro: {$value['fecha']}</h6>
                             </div>
-                            
-                            <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm text-black"><span class="fa fa-calendar" style="font-size: 13px"></span> Se registro como socio APM: $miembro_apm  {$clave_socio}</h6> 
-                            </div>
+                            {$clave_beca_2}
                             <div class="d-flex flex-column justify-content-center">
                                  {$permiso_impresion}
                             </div>
@@ -1070,15 +1185,7 @@ html;
                         </div>
                     </div>
                 </td>
-                <td style="text-align:center; vertical-align:middle;">
-                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
-
-                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$value['id_producto']}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
-                    
-                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$value['id_producto']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>
-
-                    <!--button type="button" class="btn btn-outline-primary btn_qr" value="{$value['id_ticket_virtual']}"><span class="fa fa-qrcode" style="padding: 0px;"> {$ticket_virtual[0]['clave']}</span></button-->
-                </td>
+                {$gafetes_httml}
                 <!--<td>
                     <div class="d-flex px-1 py-1">
                         <div class="d-flex flex-column justify-content-center text-black">
@@ -1585,6 +1692,11 @@ html;
     function generateRandomString($length = 6)
     {
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+    }
+
+    function generateRandomStringT($length = 10)
+    {
+        return substr(str_shuffle("0123456789"), 0, $length);
     }
 
     public function abrirpdf($clave, $noPages = null, $no_habitacion = null)

@@ -215,12 +215,11 @@ sql;
     public static function getByClaveRA($clave){
       $mysqli = Database::getInstance();
       $query=<<<sql
-      SELECT ra.*, ra.apellidop as apellido_paterno, ra.apellidom as apellido_materno, ra.user_id AS clave_ticket, pa.pais, es.estado, pao.pais as pais_org, CONCAT(ra.user_id,'.png') AS qr  
+      SELECT ra.*, ra.apellidop as apellido_paterno, ra.apellidom as apellido_materno, ra.user_id AS clave_ticket, pa.pais, es.estado, CONCAT(ra.user_id,'.png') AS qr  
       FROM utilerias_administradores ra
-      INNER JOIN paises pa ON (ra.id_country = pa.id_pais)
-      INNER JOIN paises pao ON (ra.organization_country = pao.id_pais)
-      INNER JOIN estados es ON (ra.id_state = es.id_estado)
-      WHERE ra.user_id = '$clave'
+      INNER JOIN paises pa ON (ra.id_pais = pa.id_pais)
+      INNER JOIN estados es ON (ra.id_estado = es.id_estado)
+      WHERE ra.user_id = '$clave';
 sql;
       return $mysqli->queryAll($query);
   }
@@ -282,14 +281,31 @@ sql;
     public static function getTotalByClaveRA($clave){
       $mysqli = Database::getInstance();
       $query=<<<sql
-      SELECT ra.*, ra.apellidop as apellido_paterno, ra.apellidom as apellido_materno, ra.user_id AS clave_ticket, pa.pais, es.estado, pao.pais as pais_org, CONCAT(ra.user_id,'.png') AS qr  
+      SELECT cate.*,cate.categoria as asd,ra.*, ra.apellidop as apellido_paterno, ra.apellidom as apellido_materno, ra.user_id AS clave_ticket, pa.pais, es.estado, CONCAT(ra.user_id,'.png') AS qr  
       FROM utilerias_administradores ra
-      INNER JOIN paises pa ON (ra.id_country = pa.id_pais)
-      INNER JOIN paises pao ON (ra.organization_country = pao.id_pais)
-      INNER JOIN estados es ON (ra.id_state = es.id_estado)
-      WHERE ra.user_id = '$clave'
+      INNER JOIN paises pa ON (ra.id_pais = pa.id_pais)
+      INNER JOIN estados es ON (ra.id_estado = es.id_estado)
+      INNER JOIN categorias cate ON cate.id_categoria = ra.id_categoria
+      WHERE ra.user_id = '$clave';
 sql;
       return $mysqli->queryAll($query);
+  }
+
+  public static function getPais(){       
+    $mysqli = Database::getInstance();
+    $query=<<<sql
+    SELECT * FROM paises
+sql;
+    return $mysqli->queryAll($query);
+  }
+
+  public static function getStateByCountry($id_pais){
+    $mysqli = Database::getInstance(true);
+    $query =<<<sql
+    SELECT * FROM estados where id_pais = '$id_pais'
+sql;
+  
+    return $mysqli->queryAll($query);
   }
 
     public static function getIdRegistroAcceso($id){
@@ -300,9 +316,40 @@ sql;
       return $mysqli->queryAll($query);
   }
     
-    public static function insert($data){
-        
-    }
+  public static function insert($data){
+    $mysqli = Database::getInstance(1);
+    $query=<<<sql
+    INSERT INTO utilerias_administradores(nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, clave, id_categoria)
+    VALUES(:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, 1500,:clave, 4);
+sql;
+
+        $parametros = array(
+
+        ':nombre'=>$data->_nombre,
+        ':apellidop'=>$data->_apellidop,
+        ':apellidom'=>$data->_apellidom,
+        ':usuario'=>$data->_usuario,
+        ':title'=>$data->_title,
+        ':telefono'=>$data->_telefono,
+        ':pais'=>$data->_pais,
+        ':estado'=>$data->_estado,
+        ':referencia'=>$data->_referencia,
+        ':clave'=>$data->_clave
+
+        );
+        $id = $mysqli->insert($query,$parametros);
+        return $id;
+      
+  }
+
+  public static function getUserRegister($email){
+    $mysqli = Database::getInstance(true);
+    $query =<<<sql
+    SELECT * FROM utilerias_administradores WHERE usuario = '$email'
+sql;
+
+    return $mysqli->queryAll($query);
+}
 
     public static function insertTicket($clave){
       $mysqli = Database::getInstance(true);
@@ -327,7 +374,7 @@ sql;
         $mysqli = Database::getInstance(true);
         $query=<<<sql
           UPDATE utilerias_administradores 
-          SET nombre = '$data->_nombre', apellidop = '$data->_apellido_paterno', apellidom = '$data->_apellido_materno', clave_socio = '$data->_clave_socio'
+          SET nombre = '$data->_nombre', apellidop = '$data->_apellido_paterno', apellidom = '$data->_apellido_materno', clave_socio = '$data->_clave_socio', id_categoria = '$data->_id_categoria', monto_congreso = '$data->_monto_congreso'
           WHERE usuario = '$data->_email';
 sql;
 
@@ -409,13 +456,24 @@ sql;
   public static function getProductosNotInPendientesPagoAsignaProducto($user_id){
     $mysqli = Database::getInstance();
     $query=<<<sql
-    SELECT p.id_producto, p.nombre as nombre_producto, ua.clave_socio, ua.amout_due 
+    SELECT p.id_producto, p.nombre as nombre_producto, ua.clave_socio, ua.monto_congreso
     FROM productos p
     INNER JOIN utilerias_administradores ua
     WHERE id_producto NOT IN (SELECT id_producto FROM pendiente_pago WHERE user_id = $user_id) AND ua.user_id = $user_id and p.es_curso = 1
 sql;
     return $mysqli->queryAll($query);
 }
+
+public static function getCategoria()
+    {
+        $mysqli = Database::getInstance();
+        $query = <<<sql
+      SELECT * FROM categorias ORDER BY id_categoria ASC
+sql;
+
+        return $mysqli->queryAll($query);
+        //$mysqli -> set_charset("utf8");
+    }
 
 
 }

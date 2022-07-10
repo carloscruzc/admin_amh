@@ -101,6 +101,22 @@
                 </div>
             </div>
 
+            <div class="d-flex m-1">
+                <div class="ms-auto d-flex">
+                    <div class="pe-4 mt-1 position-relative">
+                        <hr class="vertical dark mt-0">
+                    </div>
+                    <div class="ps-4">
+                        <div class="panel-body" <?php echo $visible; ?>></div>
+                        <button type="button" class="btn bg-gradient-info btn-icon-only mb-0 mt-3" data-toggle="modal" data-target="#Modal_Add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <button type="button" class="btn bg-gradient-secondary btn-icon-only mb-0 mt-3" data-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Todo cambio que usted realice en el sistema será guardado con fecha, usuario y transacción.">
+                            <span class="fa fa-info"></span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
 
             <div class="row">
                 <div class="col-12">
@@ -207,6 +223,88 @@
 
     </main>
     <?php echo $modal;?>
+<!-- MODAL AGREGAR USUARIO -->
+    <div class="modal fade" id="Modal_Add" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Asistente para Crear Usuarios
+                    </h5>
+
+                    <span type="button" class="btn bg-gradient-danger" data-dismiss="modal" aria-label="Close">
+                        X
+                    </span>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 12px">A continuación ingrese los datos del usuario.</p>
+                    <hr>
+                    <form method="POST" enctype="multipart/form-data" id="form_datos">
+                        <div class="form-group row">
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="nombre">Nombre <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" require>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="apellidop">Apellido Paterno <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="apellidop" name="apellidop" placeholder="Apellido Paterno" require>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="apellidom">Apellido Materno <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="apellidom" name="apellidom" placeholder="Apellido Materno" require>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="usuario">Email <span class="required">*</span></label>
+                                <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Email" require>
+                                <span id="msg_email" style="font-size: 0.75rem; font-weight: 700;margin-bottom: 0.5rem;"></span>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="title">Prefijo <span class="required">*</span></label>
+                                <select class="multisteps-form__select form-control all_input_select" name="title" id="title" required>
+                                    <option value="" selected>Selecciona una Opción</option>
+                                    <option value="Dr.">Dr.</option>
+                                    <option value="Dra.">Dra.</option>
+                                    <option value="Sr.">Sr.</option>
+                                    <option value="Sra.">Sra.</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="telefono">Telefono <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono" require>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="pais">País <span class="required">*</span></label>
+                                <select class="multisteps-form__select form-control all_input_select" name="pais" id="pais" required>
+                                    <option value="" selected>Selecciona una Opción</option>
+                                    <?= $optionPais ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="estado">Estado <span class="required">*</span></label>
+                                <select class="multisteps-form__select form-control all_input_select" name="estado" id="estado" required disabled>
+                                    <option value="" selected>Selecciona una Opción</option>
+
+                                </select>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn bg-gradient-success" id="btn_upload" name="btn_upload">Aceptar</button>
+                                <button type="button" class="btn bg-gradient-secondary" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 <?php echo $footer; ?>
@@ -413,7 +511,125 @@
 
             });
         });
+        
+        $("#pais").on("change", function() {
+            var pais = $(this).val();
+            $.ajax({
+                url: "/Asistentes/getEstadoPais",
+                type: "POST",
+                data: {
+                    pais
+                },
+                dataType: "json",
+                beforeSend: function() {
+                    console.log("Procesando....");
+                    $('#estado')
+                        .find('option')
+                        .remove()
+                        .end();
+
+                },
+                success: function(respuesta) {
+                    console.log(respuesta);
+
+                    $('#estado').removeAttr('disabled');
+
+                    $('#estado')
+                        .append($('<option>', {
+                                value: ''
+                            })
+                            .text('Selecciona una opción'));
+
+                    $.each(respuesta, function(key, value) {
+                        //console.log(key);
+                        console.log(value);
+                        $('#estado')
+                            .append($('<option>', {
+                                    value: value.id_estado
+                                })
+                                .text(value.estado));
+                    });
+
+                },
+                error: function(respuesta) {
+                    console.log(respuesta);
+                }
+
+            });
+        });
+
+        $("#form_datos").on("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(document.getElementById("form_datos"));
+
+            // for (var value of formData.values()) {
+            //     console.log(value);
+            // }
+            $.ajax({
+                url: "/Asistentes/saveData",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    console.log("Procesando....");
+                    // alert('Se está borrando');
+
+                },
+                success: function(respuesta) {
+                    console.log(respuesta);
+
+                    if (respuesta == 'success') {
+                        Swal.fire("¡Se creo el usuario correctamente!", "", "success").
+                        then((value) => {
+                            window.location.reload();
+                        });
+                    } else {
+                        Swal.fire("¡Hubo un error al crear el usuario!", "", "warning").
+                        then((value) => {
+                            window.location.reload();
+                        });
+                    }
+                },
+                error: function(respuesta) {
+                    console.log(respuesta);
+                    // alert('Error');
+                    Swal.fire("¡Hubo un error al crear el usuario!", "", "warning").
+                    then((value) => {
+                        window.location.reload();
+                    });
+                }
+            });
+        });
 
     });
+
+    $("#usuario").on("keyup", function() {
+            console.log($(this).val());
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Asistentes/isUserValidate",
+                data: {
+                    usuario: $(this).val()
+                },
+                success: function(data) {
+                    console.log(data)
+                    if (data == "true") {
+                        //el usuario ya existe
+                        $("#btn_upload").css('display', 'none');
+                        $("#msg_email").css('color', 'red');
+                        $("#msg_email").html('Este correo ya se ha registrado');
+
+                    } else {
+                        $("#btn_upload").css('display', 'inline-block');
+                        $("#msg_email").css('color', 'red');
+                        $("#msg_email").html('');
+                    }
+                }
+            });
+        });
+
+    
 </script>
 

@@ -34,7 +34,7 @@ sql;
     ra.clave, ra.clave_socio 
     FROM utilerias_administradores ra 
     INNER JOIN paises pa ON (ra.id_pais = pa.id_pais) 
-    INNER JOIN estados es ON (ra.id_estado = es.id_estado) 
+    INNER JOIN estados es ON (ra.id_estado = es.id_estado)
     AND CONCAT_WS(ra.usuario,ra.nombre,ra.apellidop,ra.apellidom,ra.user_id, ra.clave, ra.clave_socio) 
    LIKE '%$search%';
 sql;
@@ -52,6 +52,17 @@ sql;
 
         return $mysqli->queryAll($query);
     }
+
+    public static function getBecaUser($id){
+      $mysqli = Database::getInstance();
+      $query =<<<sql
+      SELECT be.*,lab.* FROM becas be
+      INNER JOIN laboratorios lab ON lab.id_laboratorio = be.id_laboratorio
+      WHERE be.usadopor = '$id';
+sql;
+
+      return $mysqli->queryAll($query);
+  }
 
     public static function getBuscarEstatusCompraEmail($search){
         $mysqli = Database::getInstance();
@@ -121,12 +132,11 @@ sql;
 //     return $mysqli->queryAll($query);
 //   }
 
-  public static function getUserRegisterByClave($clave,$id_producto){
+  public static function getUserRegisterByClave($clave){
     $mysqli = Database::getInstance(true);
     $query =<<<sql
-    SELECT ua.*,pp.* FROM utilerias_administradores ua 
-    INNER JOIN pendiente_pago pp ON ua.user_id = pp.user_id
-    WHERE ua.clave = '$clave' AND pp.id_producto = $id_producto;
+    SELECT ua.* FROM utilerias_administradores ua 
+    WHERE ua.clave = '$clave';
 sql;
 
   return $mysqli->queryAll($query);

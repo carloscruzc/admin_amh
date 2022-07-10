@@ -77,7 +77,7 @@
                         <div class="card-header p-3 pb-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6>Detalles - Asistente APM</h6>
+                                    <h6>Detalles - Asistente AMH</h6>
                                     <p class="text-sm mb-0">
                                         Fecha de Alta: <b><?php echo $detalles_registro['date']; ?></b>
                                     </p>
@@ -103,7 +103,7 @@
                                                     <u><a  href="mailto:{$value['email']}"><h6 class="mb-2 text-smy text-black"><span class="fa fa-mail-bulk" style="font-size: 13px"></span> CORREO: <?php echo $detalles_registro['usuario'];?> </h6></a></u>
                                                     <h6 class="mb-2 text-smy text-black"><span class="fa fa-flag" style="font-size: 13px"></span>PAÍS: <?php echo $detalles_registro['pais'];?> </h6>
                                                     <h6 class="mb-2 text-smy text-black"><span class="fa fa-flag" style="font-size: 13px"></span>ESTADO: <?php echo $detalles_registro['estado'];?> </h6>
-                                                    <h6 class="mb-2 text-smy text-black"><span class="fas fa-home" style="font-size: 13px"></span>DIRECCIÓN: <?php echo $detalles_registro['address'];?> </h6>
+                                                    <h6 class="mb-2 text-smy text-black"><span class="fas fa-user-md style="font-size: 13px"></span>CATEGORÍA: <?php echo $detalles_registro['categoria'];?> </h6>
                                                     <br> <br>
                                                     <p class="text-sm mb-3"></p>
                                                 </div>
@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <input type="text" id="user_id" name="user_id" value="<?=$id_asistente?>">
+            <!-- <input type="text" id="user_id" name="user_id" value="<?=$id_asistente?>"> -->
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <div class="card mb-4">
@@ -183,7 +183,15 @@
                                     <div class="col-12 col-lg-4">
                                         <label class="form-label">Clave Socio APM *</label>
                                         <div class="input-group">
-                                            <input id="clave_socio" name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="SA937FD" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['clave_socio'] ?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="clave_socio" name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="SA937FD" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['clave_socio']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-2">
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                        <label class="form-label">Categoria Actual</label>
+                                        <div class="input-group">
+                                            <input id="clave_socio" readonly name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['categoria']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div>
                                 </div>
@@ -191,16 +199,27 @@
                                     <div class="col-12 col-lg-6">
                                         <label class="form-label">Nombre *</label>
                                         <div class="input-group">
-                                            <input id="nombre" name="nombre" maxlength="29" class="form-control" type="text" placeholder="Alec" required="" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['nombre'] ?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="nombre" name="nombre" maxlength="29" class="form-control" type="text" placeholder="Alec" required="" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['nombre']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_categoria">Categoría <span class="required">*</span></label>
+                                        <select class="multisteps-form__select form-control all_input_select" name="id_categoria" id="id_categoria" required>
+                                            <option value="" selected readonly>Seleccione una opción</option>
+                                            <option value="1"><?=$detalles_categoria['categoria']?></option>
+                                            <option value="2"><?=$detalles_categoria1['categoria']?></option>
+                                            <option value="3"><?=$detalles_categoria2['categoria']?></option>
+                                            <option value="4"><?=$detalles_categoria3['categoria']?></option>
+                                            <option value="5"><?=$detalles_categoria4['categoria']?></option>
+                                        </select>
                                     </div>
                                     <!-- <div class="col-12 col-lg-6">
                                         <label class="form-label">Segundo Nombre </label>
                                         <div class="input-group">
-                                            <input id="segundo_nombre" name="segundo_nombre" maxlength="49" class="form-control" type="text" placeholder="Alec" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['segundo_nombre'] ?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="segundo_nombre" name="segundo_nombre" maxlength="49" class="form-control" type="text" placeholder="Alec" onfocus="focused(this)" onfocusout="defocused(this)" value="{$detalles_registro['segundo_nombre']}" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div> -->
-
                                 </div>
 
                                 <div class="row">
@@ -208,14 +227,14 @@
                                     <div class="col-12 col-lg-6">
                                         <label class="form-label">Apellido Paterno *</label>
                                         <div class="input-group">
-                                            <input id="apellido_paterno" name="apellido_paterno" maxlength="29" class="form-control" type="text" placeholder="Thompson" required="required" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['apellido_paterno'] ?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="apellido_paterno" name="apellido_paterno" maxlength="29" class="form-control" type="text" placeholder="Thompson" required="required" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['apellido_paterno']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
                                         <label class="form-label">Apellido Materno *</label>
                                         <div class="input-group">
-                                            <input id="apellido_materno" name="apellido_materno" maxlength="29" class="form-control" type="text" placeholder="Thompson" required="required" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['apellido_materno'] ?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="apellido_materno" name="apellido_materno" maxlength="29" class="form-control" type="text" placeholder="Thompson" required="required" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['apellido_materno']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +243,7 @@
                                     <div class="col-lg-12 col-6">
                                         <label class="form-label mt-4">Email Registrado y Verificado *</label>
                                         <div class="input-group">
-                                            <input id="email" name="email" maxlength="49" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['usuario'] ?>" readonly>
+                                            <input id="email" name="email" maxlength="49" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['usuario']?>" readonly>
                                         </div>
                                     </div>
                                 </div>

@@ -509,60 +509,7 @@ html;
         // $this->generaterQr($clave_ticket);
         // echo $clave;
 
-        $productos = AsistentesDao::getProductosById($id_producto);
-        $progresos_productos = AsistentesDao::getProgresosById($id_producto,$clave);
-        $progresos_productos_congreso = AsistentesDao::getProgresosCongresoById($id_producto,$clave);
-
-        // echo $progresos_productos_congreso['segundos'];
-        // exit;
-
-        $nombre_constancia = $productos['nombre_ingles'];
-
-        if ($id_producto == 1) {
-            $attend = '';
-            $progreso = $progresos_productos_congreso;
-            $nombre_constancia = '';
-            $fecha = 'June, 21 to 24, 2022';
-        } 
-        else if ($id_producto == 2) {
-            $attend = 'Trans-Congress Course I';
-            $progreso = $progresos_productos;
-            $fecha = 'Tuesday 21st June, 2022';
-        } else if ($id_producto == 3) {
-            $attend = 'Trans-Congress Course II';
-            $progreso = $progresos_productos;
-            $fecha = 'Tuesday 21st June, 2022';
-        } else if ($id_producto == 4) {
-            $attend = 'Trans-Congress Course III';
-            $progreso = $progresos_productos;
-            $fecha = 'Tuesday 21st June, 2022';
-        } else if ($id_producto == 5) {
-            $attend = 'Trans-Congress Course IV';
-            $progreso = $progresos_productos;
-            $fecha = 'Tuesday 21st June, 2022';
-        } else if ($id_producto == 6) {
-            $attend = 'Trans-Congress Course V';
-            $progreso = $progresos_productos;
-            $fecha = 'Thursday 23 June, 2022';
-        } 
-        else if ($id_producto == 7) {
-            $attend = 'Trans-Congress Course VI';
-            // $nombre_imagen = 'constancia_transcongreso_7.png';
-            $progreso = $progresos_productos;
-            $fecha = 'Thursday 23 June, 2022';
-        } else if ($id_producto == 8) {
-            $attend = 'Trans-Congress Course VII';
-            // $nombre_imagen = 'constancia_transcongreso_8.png';
-            $progreso = $progresos_productos;
-            $fecha = 'Thursday 23 June, 2022';
-        } else if ($id_producto == 9) {
-            $attend = 'Trans-Congress Course VIII';
-            // $nombre_imagen = 'constancia_transcongreso_9.png';
-            $progreso = $progresos_productos;
-            $fecha = 'Friday 24th, June, 2022';
-        }
-
-        $datos_user = GeneralDao::getUserRegisterByClave($clave,$id_producto)[0];
+        $datos_user = GeneralDao::getUserRegisterByClave($clave)[0];
 
         // $nombre = explode(" ", $datos_user['nombre']);
 
@@ -604,22 +551,22 @@ html;
         #4D9A9B
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(273, 30, utf8_decode($nombre_completo), 0, 'C');
-        $pdf->SetFont('Arial', 'B', 15);
-        $pdf->Multicell(275, 25, utf8_decode('Attended the:'), 0, 'C');
-        $pdf->SetFont('Arial', '',20);
-        if($id_producto == 1){
-            $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
-        }else{
-        $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
-        }
-        //TIEMPO
-        $pdf->SetFont('Arial', 'B',10);
-        $pdf->SetXY(158, 177);
-        $pdf->Multicell(10, 10, utf8_decode($no_horas), 0, 'C');
-        //FECHA
-        $pdf->SetFont('Arial', '',10);
-        $pdf->SetXY(13, 179.99);
-        $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
+        // $pdf->SetFont('Arial', 'B', 15);
+        // $pdf->Multicell(275, 25, utf8_decode('Attended the:'), 0, 'C');
+        // $pdf->SetFont('Arial', '',20);
+        // if($id_producto == 1){
+        //     $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
+        // }else{
+        // $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
+        // }
+        // //TIEMPO
+        // $pdf->SetFont('Arial', 'B',10);
+        // $pdf->SetXY(158, 177);
+        // $pdf->Multicell(10, 10, utf8_decode($no_horas), 0, 'C');
+        // //FECHA
+        // $pdf->SetFont('Arial', '',10);
+        // $pdf->SetXY(13, 179.99);
+        // $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
         $pdf->Output();
         }
         else{
@@ -629,18 +576,18 @@ html;
         #4D9A9B
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(273, 20, utf8_decode($nombre_completo), 0, 'C');
-        $pdf->SetFont('Arial', 'B', 15);
-        $pdf->Multicell(275, 20, utf8_decode('Attended the:'), 0, 'C');
-        $pdf->SetFont('Arial', '',20);
-        if($id_producto == 1){
-            $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
-        }else{
-        $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
-        }
-        //TIEMPO
-        $pdf->SetFont('Arial', 'B',10);
-        $pdf->SetXY(158, 177);
-        $pdf->Multicell(10, 10, utf8_decode('5'), 0, 'C');
+        // $pdf->SetFont('Arial', 'B', 15);
+        // $pdf->Multicell(275, 20, utf8_decode('Attended the:'), 0, 'C');
+        // $pdf->SetFont('Arial', '',20);
+        // if($id_producto == 1){
+        //     $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
+        // }else{
+        // $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
+        // }
+        // //TIEMPO
+        // $pdf->SetFont('Arial', 'B',10);
+        // $pdf->SetXY(158, 177);
+        // $pdf->Multicell(10, 10, utf8_decode('5'), 0, 'C');
         //FECHA
         $pdf->SetFont('Arial', '',10);
         $pdf->SetXY(13, 179.99);
@@ -659,9 +606,9 @@ html;
         // $this->generaterQr($clave_ticket);
         // echo $clave;
 
-        $productos = AsistentesDao::getProductosById($id_producto);
-        $progresos_productos = AsistentesDao::getProgresosById($id_producto,$clave);
-        $progresos_productos_congreso = AsistentesDao::getProgresosCongresoById($id_producto,$clave);
+        // $productos = AsistentesDao::getProductosById($id_producto);
+        // $progresos_productos = AsistentesDao::getProgresosById($id_producto,$clave);
+        // $progresos_productos_congreso = AsistentesDao::getProgresosCongresoById($id_producto,$clave);
 
         // echo $progresos_productos_congreso['segundos'];
         // exit;
@@ -754,26 +701,29 @@ html;
             #4D9A9B
             $pdf->SetTextColor(0, 0, 0);
             $pdf->Multicell(273, 30, utf8_decode($nombre_completo), 0, 'C');
-            $pdf->SetFont('Arial', 'B', 15);
-            $pdf->Multicell(275, 25, utf8_decode('Attended the:'), 0, 'C');
-            $pdf->SetFont('Arial', '',20);
-            if($id_producto == 1){
-                $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
-            }else{
-            $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
-            }
+            //ATTEND MESSAGE
+            // $pdf->SetFont('Arial', 'B', 15);
+            // $pdf->Multicell(275, 25, utf8_decode('Attended the:'), 0, 'C');
+            // $pdf->SetFont('Arial', '',20);
+            // if($id_producto == 1){
+            //     $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
+            // }else{
+            // $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
+            // }
             // $pdf->SetFont('Arial', 'B',10);
             // $pdf->SetXY(156, 170.5);
             // $pdf->Multicell(10, 10, utf8_decode(round($progreso['segundos']/3600)), 0, 'C');
             //TIEMPO
-            $pdf->SetFont('Arial', 'B',10);
-            $pdf->SetXY(157, 170.5);
-            $pdf->Multicell(10, 10, utf8_decode($no_horas), 0, 'C');
+            // $pdf->SetFont('Arial', 'B',10);
+            // $pdf->SetXY(157, 170.5);
+            // $pdf->Multicell(10, 10, utf8_decode($no_horas), 0, 'C');
+            //FECHA
             $pdf->SetFont('Arial', '',10);
             $pdf->SetXY(13, 175);
             $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
             $pdf->Output();
             }
+
             else{
             $pdf->SetXY(15, 66);
             
@@ -781,27 +731,27 @@ html;
             #4D9A9B
             $pdf->SetTextColor(0, 0, 0);
             $pdf->Multicell(273, 20, utf8_decode($nombre_completo), 0, 'C');
-            $pdf->SetFont('Arial', 'B', 15);
-            $pdf->Multicell(275, 20, utf8_decode('Attended the:'), 0, 'C');
-            $pdf->SetFont('Arial', '',20);
-            if($id_producto == 1){
-                $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
-            }else{
-            $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
-            }
+            //ATTEND MESSAGE
+            // $pdf->SetFont('Arial', 'B', 15); 
+            // $pdf->Multicell(275, 20, utf8_decode('Attended the:'), 0, 'C');
+            // $pdf->SetFont('Arial', '',20);
+            // if($id_producto == 1){
+            //     $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
+            // }else{
+            // $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
+            // }
             // $pdf->SetFont('Arial', 'B',10);
             // $pdf->SetXY(156, 170.5);
             // $pdf->Multicell(10, 10, utf8_decode(round($progreso['segundos']/3600)), 0, 'C');
             //TIEMPO
-            $pdf->SetFont('Arial', 'B',10);
-            $pdf->SetXY(156, 170.5);
-            $pdf->Multicell(10, 10, utf8_decode('5'), 0, 'C');
+            // $pdf->SetFont('Arial', 'B',10);
+            // $pdf->SetXY(156, 170.5);
+            // $pdf->Multicell(10, 10, utf8_decode('5'), 0, 'C');
             //FECHA
             $pdf->SetFont('Arial', '',10);
             $pdf->SetXY(13, 175);
             $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
-            $pdf->Output();
-                
+            $pdf->Output();   
             }
         // $pdf->Output('F','constancias/'.$clave.$id_curso.'.pdf');
 
