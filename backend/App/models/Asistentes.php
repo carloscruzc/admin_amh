@@ -281,11 +281,10 @@ sql;
     public static function getTotalByClaveRA($clave){
       $mysqli = Database::getInstance();
       $query=<<<sql
-      SELECT cate.*,cate.categoria as asd,ra.*, ra.apellidop as apellido_paterno, ra.apellidom as apellido_materno, ra.user_id AS clave_ticket, pa.pais, es.estado, CONCAT(ra.user_id,'.png') AS qr  
+      SELECT ra.*, ra.apellidop as apellido_paterno, ra.apellidom as apellido_materno, ra.user_id AS clave_ticket, pa.pais, es.estado, CONCAT(ra.user_id,'.png') AS qr  
       FROM utilerias_administradores ra
       INNER JOIN paises pa ON (ra.id_pais = pa.id_pais)
       INNER JOIN estados es ON (ra.id_estado = es.id_estado)
-      INNER JOIN categorias cate ON cate.id_categoria = ra.id_categoria
       WHERE ra.user_id = '$clave';
 sql;
       return $mysqli->queryAll($query);

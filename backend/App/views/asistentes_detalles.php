@@ -204,9 +204,9 @@
                                     </div>
 
                                     <div class="form-group col-md-4">
-                                        <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_categoria">Categoría <span class="required">*</span></label>
-                                        <select class="multisteps-form__select form-control all_input_select" name="id_categoria" id="id_categoria" required>
-                                            <option value="" selected readonly>Seleccione una opción</option>
+                                        <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_categoria">Categoría <span class="required"></span></label>
+                                        <select class="multisteps-form__select form-control all_input_select" name="id_categoria" id="id_categoria">
+                                            <option value="0" selected readonly>Seleccione una opción</option>
                                             <option value="1"><?=$detalles_categoria['categoria']?></option>
                                             <option value="2"><?=$detalles_categoria1['categoria']?></option>
                                             <option value="3"><?=$detalles_categoria2['categoria']?></option>
