@@ -39,7 +39,8 @@ sql;
       $mysqli = Database::getInstance();
       $query =<<<sql
       SELECT *
-      FROM utilerias_administradores WHERE    
+      FROM utilerias_administradores WHERE
+      mostrar = 1 AND    
       CONCAT_WS(' ',usuario,nombre,apellidop,apellidom,user_id, clave,clave_socio) 
       LIKE '%$search%'
 sql;
