@@ -896,8 +896,8 @@ html;
                 else
                 {
                     $clave_socio .= <<<html
-                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>SOCIO AMH NO ACTIVO</strong></span>
-                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>TOTAL ANUALIDADES ADEUDADAS: {$socio['adeudos']}</strong></span>  
+                    <span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>SOCIO AMH NO ACTIVO</strong></span>
+                    <span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>TOTAL ANUALIDADES ADEUDADAS: {$socio['adeudos']}</strong></span>  
 html;
                 }
         }
@@ -940,7 +940,7 @@ html;
                 }else{
                     $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
-                <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>REVISE ANTES DE IMPRIMIR</strong></span>
+                <span class="badge badge-success" style="background-color: #08D3C0; color:white;"><strong>REVISE ANTES DE IMPRIMIR</strong></span>
                 <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
