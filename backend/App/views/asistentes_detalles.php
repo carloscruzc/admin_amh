@@ -206,7 +206,7 @@
                                     <div class="form-group col-md-4">
                                         <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_categoria">Categoría <span class="required"></span></label>
                                         <select class="multisteps-form__select form-control all_input_select" name="id_categoria" id="id_categoria">
-                                            <option value="0">Ninguna</option>
+                                            <option value="" disabled>Seleccione una opción</option>
                                             <?= $optionCate ?>
                                         </select>
                                     </div>
