@@ -11,7 +11,7 @@ class Estadisticas implements Crud{
     public static function getAll(){
       $mysqli = Database::getInstance();
       $query=<<<sql
-      SELECT ua.user_id,ua.nombre,ua.apellidop,ua.apellidom,ua.codigo_beca,ua.clave_socio
+      SELECT ua.user_id,ua.nombre,ua.apellidop,ua.apellidom,ua.codigo_beca,ua.clave_socio,ig.fecha_hora
       FROM utilerias_administradores ua
       INNER JOIN impresion_gafete ig on(ua.user_id = ig.user_id)
       GROUP BY ua.user_id
@@ -19,6 +19,30 @@ sql;
       return $mysqli->queryAll($query);
         
     }
+
+    public static function getDataCaja(){
+      $mysqli = Database::getInstance();
+      $query=<<<sql
+      SELECT ua.nombre,ua.apellidop,ua.apellidom,tc.productos,tc.total_pesos,tc.fecha_transaccion
+      FROM utilerias_administradores ua
+      INNER JOIN transaccion_compra tc ON (ua.user_id = tc.user_id);
+sql;
+      return $mysqli->queryAll($query);
+        
+    }
+
+    public static function getDataCajaByFecha($date){
+      $mysqli = Database::getInstance();
+      $query=<<<sql
+      SELECT ua.nombre,ua.apellidop,ua.apellidom,tc.productos,tc.total_pesos,tc.fecha_transaccion
+      FROM utilerias_administradores ua
+      INNER JOIN transaccion_compra tc ON (ua.user_id = tc.user_id)
+      WHERE fecha_transaccion LIKE '%$date%';
+sql;
+      return $mysqli->queryAll($query);
+        
+    }
+
     public static function getById($id){
          
     }

@@ -635,12 +635,14 @@ html;
 
         $productos = CajaDao::getLastTransaccionByUser($user_id);
 
+   
+
         
         $reference = $productos['referencia_transaccion'];
         $fecha = $productos['fecha_transaccion'];
         $tipo_pago = $productos['tipo_pago'];
         
-        $nombre_completo = $datos_user['nombre'] . " " . $datos_user['apellidop'] . " " . $datos_user['apellidom'];
+        $nombre_completo = $datos_user['nombre'] . " " . $datos_user['apellidop'] . "\n " . $datos_user['apellidom'];
 
 
         $pdf = new \FPDF($orientation = 'P', $unit = 'mm', $format = 'A4');
@@ -648,7 +650,7 @@ html;
         $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->setY(1);
         $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Image('plantillas/orden.jpeg', 0, 0, 210, 300);
+        $pdf->Image('plantillas/orden.png', 0, 0, 210, 300);
         
         // $pdf->SetFont('Arial', 'B', 25);
         // $pdf->Multicell(133, 80, $clave_ticket, 0, 'C');
@@ -659,10 +661,16 @@ html;
         //$num_linea =utf8_decode("Línea: 39");
         //$num_linea2 =utf8_decode("Línea: 39");
 
-        $espace = 141;
+        $espace = 105;
         $total = array();
         $pro = explode(",",$productos['productos']);
+
+ 
         foreach($pro as $key => $value){  
+
+            // $total_productos = CajaDao::getCountProductos($user_id,2)[0];
+
+            // $count_productos = $total_productos['numero_productos'];
 
             $pro_precio = explode("-",$value);
             $solo_precio = explode("$",$pro_precio[1]);
@@ -678,7 +686,7 @@ html;
             $pdf->Multicell(100, 4, utf8_decode($pro_precio[0]) , 0, 'C');
 
             //Costo
-            $pdf->SetXY(130, $espace);
+            $pdf->SetXY(115, $espace);
             $pdf->SetFont('Arial', 'B', 8);  
             $pdf->SetTextColor(0, 0, 0);
             $pdf->Multicell(100, 4, number_format($solo_precio[1],2) ." MXN", 0, 'C');
@@ -690,22 +698,42 @@ html;
         
 
         //folio
-        $pdf->SetXY(96, 61);
+        $pdf->SetXY(5, 50);
         $pdf->SetFont('Arial', 'B', 13);  
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Multicell(100, 10, $reference, 0, 'C');
+        $pdf->Multicell(100, 10, $datos_user['clave'], 0, 'C');
 
         //fecha
-        $pdf->SetXY(104,71);
+        $pdf->SetXY(120,65);
         $pdf->SetFont('Arial', 'B', 13);  
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(100, 10, $fecha, 0, 'C');
 
         //Nombre
-        $pdf->SetXY(100,83);
-        $pdf->SetFont('Arial', 'B', 13);  
+        $pdf->SetXY(120,20);
+        $pdf->SetFont('Arial', 'B', 10);  
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(100, 10, utf8_decode($nombre_completo), 0, 'C');
+
+        //Nombre empresa
+        $pdf->SetXY(120,35);
+        $pdf->SetFont('Arial', 'B', 10);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, utf8_decode($datos_user['business_name_iva']), 0, 'C');
+
+        //RFC
+        $pdf->SetXY(120,40);
+        $pdf->SetFont('Arial', 'B', 10);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, utf8_decode($datos_user['code_iva']), 0, 'C');
+
+        //RFC
+        $pdf->SetXY(120,45);
+        $pdf->SetFont('Arial', 'B', 10);  
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(100, 10, utf8_decode($datos_user['email_receipt_iva']), 0, 'C');
+
+        
 
       
 
@@ -716,16 +744,16 @@ html;
         // $pdf->Multicell(100, 10, number_format($productos['total_dolares']).' USD', 0, 'C');
 
         //total pesos
-        $pdf->SetXY(130, 200);
+        $pdf->SetXY(138, 265);
         $pdf->SetFont('Arial', 'B', 13);  
         $pdf->SetTextColor(0, 0, 0);
-        $pdf->Multicell(100, 10, '$ '.number_format($productos['total_pesos'],2).' MXN', 0, 'C');
+        $pdf->Multicell(100, 10, '$ '.number_format($productos['total_pesos'],2).'', 0, 'C');
 
         //tipo pago
-        $pdf->SetXY(125, 265);
-        $pdf->SetFont('Arial', 'B', 13);  
-        $pdf->SetTextColor(0, 0, 0);
-        $pdf->Multicell(100, 10, $tipo_pago, 0, 'C');
+        // $pdf->SetXY(125, 265);
+        // $pdf->SetFont('Arial', 'B', 13);  
+        // $pdf->SetTextColor(0, 0, 0);
+        // $pdf->Multicell(100, 10, $tipo_pago, 0, 'C');
 
         //imagen Qr
         // $pdf->Image('qrs/'.$clave.'.png' , 152 ,245, 35 , 38,'PNG');

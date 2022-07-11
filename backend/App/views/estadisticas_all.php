@@ -142,7 +142,8 @@
                                                     <tr>
                                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
                                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Beca</th>
-                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Socio</th>                                   
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Socio</th>   
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha impresión</th>                                
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -154,6 +155,50 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-header pb-0">
+                                        <h6>Reporte de Caja</h6>
+                                        <!-- <p style="font-size: 12px">
+                                        <span class="fa fa-plane" style="color: #125a16"> </span> Aeropuerto de Salida a la Convención
+                                        <span class="fa fa-flag" style="color: #353535"> </span> Aeropuerto de Llegada (Sede Convención)
+                                        <span class="fa fa-ticket" style="color: #1a8fdd"> </span> No. de Vuelo
+                                    </p> -->
+                                    <div class="row mb-3">
+                                        <div class="col-2">
+                                            <label>Buscar por Fecha:</label>
+                                            <input type="date" id="fecha_ini" name="fecha_ini" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    </div>
+                                    <div class="card-body px-0 pt-0 pb-2">
+                                        <div class="table-responsive p-0">
+                                            <table class="table align-items-center mb-0 table table-striped table-bordered" id="table_caja">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Productos</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Monto</th>  
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>                                 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php echo $tabla_caja;  ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="cont_total" style="padding: 20px;">
+                                        <span style="font-size: 25px; color:green;">Total: $ <span id="total_pesos"><?=number_format($total_pesos,2)?></span> MXN</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -161,154 +206,69 @@
 
         </div>
 
-        <!-- Modal Agregar Asistencia-->
-        <div class="modal fade" id="Modal_Add" role="dialog" aria-labelledby="asignar_habitacionLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <form class="form-horizontal" id="add" action="/Conceptos/conceptosAdd" method="POST">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="asignar_habitacionLabel">Generar Concepto</h5>
-                            <button type="button" class="btn bg-gradient-danger" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card-body pt-0">
-                                <div class="row mb-3">
-                                    <label class="form-label">Nombre *</label>
-                                    <div class="input-group">
-                                        <input id="nombre" name="nombre" class="form-control" type="text" placeholder="Nombre concepto" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="form-label">Descripción (Opcional)</label>
-                                    <div class="input-group">
-                                        <textarea id="descripcion" name="descripcion" maxlength="1000" class="form-control" placeholder="Descripción"></textarea>
-                                    </div>
-                                </div>
-
-                                
-                                <div class="row mb-3">
-                                    <label class="form-label">Tipo *</label>
-                                    <div class="input-group">
-                                       <select class="form-control" id="tipo" name="tipo">
-                                        <option value="" disabled selected>Selecciona una Opción</option>
-                                            <option value="es_curso"> Curso</option>
-                                            <option value="es_servicio"> Servicio</option>
-                                       </select>
-                                    </div>
-                                </div>
-                              
-
-                                <div class="row mb-3">
-                                    <label class="form-label">Precio *</label>
-                                    <div class="input-group">
-                                        <input id="precio_publico" name="precio_publico" maxlength="29" class="form-control" type="text" required="" style=" text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn bg-gradient-success" id="btn_upload" name="btn_upload">Aceptar</button>
-                            <button type="button" class="btn bg-gradient-secondary" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!--End Modal-->
-        <div class="modal fade" id="Modal_Add_Salidas" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            Asistente Para Cargar Pases de Abordar (Vuelos) - 2do Vuelo
-                        </h5>
-
-                        <span type="button" class="btn bg-gradient-danger" data-dismiss="modal" aria-label="Close">
-                            X
-                        </span>
-                    </div>
-                    <div class="modal-body">
-                        <p style="font-size: 12px">A continuación seleccione el nombre del Asistente y cargue unicamente un archivo PDF que contenga los datos de Vuelo del Asistente para llegar a la convención Asofarma 2022.</p>
-                        <hr>
-                        <form method="POST" enctype="multipart/form-data" id="form_vuelo_uno">
-                            <div class="form-group row">
-
-                                <div class="form-group col-md-12">
-                                    <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_asistente">Nombre del Invitado al que Cargaran el Pase de Abordar <span class="required">*</span></label>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <!-- <input type="date" name="fecha_" id="fecha_" class="form-control col-md-7 col-xs-12"> -->
-                                        <select class="form-control" name="id_asistente" id="id_asistente" required>
-                                            <option selected disabled>Seleccione una Opción</option>
-                                            <?php echo $idAsistente; ?>
-                                        </select>
-                                    </div>
-                                    <span id="availability_"></span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_origen">Seleccione el Origen de la Ciudad (¿De Donde Sale?) <span class="required">*</span></label>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <!-- <input type="date" name="fecha_" id="fecha_" class="form-control col-md-7 col-xs-12"> -->
-                                        <select class="form-control" name="id_origen" id="id_origen" required>
-                                            <option selected disabled>Seleccione una Opción</option>
-                                            <?php echo $idAeropuertoOrigen; ?>
-                                        </select>
-                                    </div>
-                                    <span id="availability_"></span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_destino">Seleccione el Destino de la Ciudad (¿A Donde Llega?) <span class="required">*</span></label>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <!-- <input type="date" name="fecha_" id="fecha_" class="form-control col-md-7 col-xs-12"> -->
-                                        <select class="form-control" name="id_destino" id="id_destino" required>
-                                            <?php echo $idAeropuertoDestino; ?>
-                                        </select>
-                                    </div>
-                                    <span id="availability_"></span>
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <label class="form-label">Número de Vuelo *</label>
-                                    <div class="input-group">
-                                        <input id="numero_vuelo" name="numero_vuelo" minlength="6" maxlength="8" class="form-control" type="text" placeholder="OKL018" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-6">
-                                    <label class="form-label">Hora de Llegada (Local) *</label>
-                                    <div class="input-group">
-                                        <input id="hora_llegada" name="hora_llegada" maxlength="29" class="form-control" type="time" placeholder="Cliente" required=""" style=" text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label class="control-label col-md-12 col-sm-12 col-xs-12" for="file_">Ticket en Formato .PDF: <span class="required">*</span></label>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <input type="file" accept="application/pdf" class="form-control" id="file_" name="file_" required>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-12">
-                                    <label class="form-label">Notas (Opcional)</label>
-                                    <div class="input-group">
-                                        <textarea id="notas" name="notas" maxlength="1000" class="form-control" placeholder="Añade Alguna Nota de Importancia"></textarea>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="user_" name="user_" value="<?= $_SESSION["utilerias_administradores_id"] ?>">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn bg-gradient-success" id="btn_upload" name="btn_upload">Aceptar</button>
-                                <button type="button" class="btn bg-gradient-secondary" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+  
 
     </main>
 </body>
 
 <script>
     $(document).ready(function() {
+
+
+        $("#fecha_ini").on("change",function(){
+            // alert($(this).val());
+            var fecha = $(this).val();
+            $.ajax({
+                url: "/Estadisticas/getCaja",
+                type: "POST",
+                data: {
+                    fecha
+                },
+                dataType: 'json',
+                beforeSend: function() {
+                    console.log("Procesando....");
+                    $("#table_caja tbody").empty();
+                    
+                },
+                success: function(respuesta) {
+
+                    console.log(respuesta);
+                    var total_pesos = 0;
+
+                    if(respuesta.count > 0){
+                   
+
+                        $.each(respuesta.data, function(index, el) {                        
+
+
+                            $("#table_caja tbody").append(
+                                `<td>${el.nombre}  ${el.apellidop}  ${el.apellidom}  </td>
+                                <td id="descripcion_asistencia" width="20">${el.productos}</td>
+                                <td class="text-center">$ ${el.total_pesos}</td>  
+                                <td class="text-center">$ ${el.fecha_transaccion}</td>`
+                            );
+
+
+                        });
+
+                        $("#total_pesos").text(respuesta.total);
+                    }else{
+                        $("#table_caja tbody").append(
+                                `<td> No hay Registros para esta fecha</td>`
+                            );
+                            $("#total_pesos").text(0);
+                    }
+
+                    console.log(total_pesos);
+
+                   
+                },
+                error: function(respuesta) {
+                    console.log(respuesta);
+                }
+
+            });
+        })
 
         console.log($('#descripcion_asistencia').html());
 

@@ -164,15 +164,49 @@ html;
     
     foreach ($datos as $key => $value) {
 
+      if($value['codigo_beca'] != ''){
+        $codigo_beca = '<span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>BECADO</strong></span>';
+      }else{
+        $codigo_beca = '<span class="badge badge-warning" style="background-color: #F2B500; color:white "><strong>NO BECADO</strong></span>';
+      }
+
+      if($value['clave_socio'] != '' ){
+        $clave_socio = '<span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>SOCIO ACTIVO</strong></span>';
+      }else{
+        $clave_socio = '';
+      }
+
+      
+
       $tabla.=<<<html
       <tr>
         <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
-        <td id="descripcion_asistencia" width="20">{$value['codigo_beca']}</td>
-        <td class="text-center">{$value['clave_socio']}</td>        
+        <td id="descripcion_asistencia" width="20">{$codigo_beca}</td>
+        <td class="text-center">{$clave_socio}</td>  
+        <td class="text-center">{$value['fecha_hora']}</td>       
         
       </tr>
  
 html;
+    }
+
+    $tabla_caja = '';
+    $datos_caja = EstadisticasDao::getDataCaja();
+    $total_pesos = 0;
+    
+    foreach ($datos_caja as $key => $value) {      
+
+      $tabla_caja.=<<<html
+      <tr>
+        <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
+        <td id="descripcion_asistencia" width="20">{$value['productos']}</td>
+        <td class="text-center">$ {$value['total_pesos']}</td>  
+        <td class="text-center">$ {$value['fecha_transaccion']}</td>        
+        
+      </tr>
+ 
+html;
+      $total_pesos += $value['total_pesos'];
     }
 
     $num_asistencias = AsistenciasDao::getNumAsistencias()['total'];
@@ -186,14 +220,41 @@ html;
       }
 
 
-      // View::set('lineas',$lineas);
+      View::set('total_pesos',$total_pesos);
       View::set('tabla',$tabla);
+      View::set('tabla_caja',$tabla_caja);
       View::set('num_asistencias',$num_asistencias);
       View::set('asideMenu',$this->_contenedor->asideMenu());
       View::set('header',$this->_contenedor->header($extraHeader));
       View::set('footer',$this->_contenedor->footer($extraFooter));
       View::set('productos',$productos);
       View::render("estadisticas_all");
+    }
+
+    public function getCaja(){
+      $fecha = $_POST['fecha'];
+      $total = 0;
+      $getData = EstadisticasDao::getDataCajaByFecha($fecha);
+
+      if(count($getData) > 0){
+        foreach($getData as $key => $value){
+          $total += $value['total_pesos'];
+        }
+      }else{
+        $total = 0;
+      }
+
+      
+
+
+
+      $data  = [
+        'data' => $getData,
+        'count' => count($getData),
+        'total' => number_format($total,2)
+      ];
+
+      echo json_encode($data);
     }
 
 
