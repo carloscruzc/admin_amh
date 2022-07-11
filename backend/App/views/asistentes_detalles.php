@@ -186,14 +186,14 @@
                                             <input id="clave_socio" name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="SA937FD" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['clave_socio']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div>
-                                    <div class="col-12 col-lg-2">
+                                    <!-- <div class="col-12 col-lg-2">
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <label class="form-label">Categoria Actual</label>
                                         <div class="input-group">
                                             <input id="categoria" readonly name="categoria" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $cate['categoria'] ?>">
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-lg-6">

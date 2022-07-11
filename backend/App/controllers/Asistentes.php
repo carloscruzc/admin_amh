@@ -875,27 +875,32 @@ html;
 //                 }
 //             }
 ////////////////////////////////////////////////////////////////////////////////////////////
-
-                if($value['clave_socio'] == 'MANUAL')
+        $socio = GeneralDao::getAdeudosUser($value['user_id']);
+        
+        if($value['clave_socio'] == 'MANUAL')
                 {
                     $miembro_apm = '';
                     $clave_socio .= <<<html
                     <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>USUARIO AGREGADO MANUALMENTE</strong></span>  
 html;
                 }
-                else if($value['clave_socio'] != '')
+
+        if($socio['adeudos'] != 0){
+            if($value['clave_socio'] != '')
                 {
                     $miembro_apm = '';
                     $clave_socio .= <<<html
-                    <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>SOCIO ACTIVO </strong></span>  
+                    <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>SOCIO ACTIVO</strong></span>  
 html;
                 }
                 else
                 {
                     $clave_socio .= <<<html
-                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>SOCIO AMH NO ACTIVO</strong></span>  
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>SOCIO AMH NO ACTIVO</strong></span>
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>TOTAL ANUALIDADES ADEUDADAS: {$socio['adeudos']}</strong></span>  
 html;
                 }
+        }
 
                 if($value['id_categoria'] != 1)
                 {
@@ -923,9 +928,9 @@ html;
                 <td style="text-align:center; vertical-align:middle;">
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
-                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
                     
-                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>
+                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
 
                 </td>
 html;
@@ -935,7 +940,14 @@ html;
                 }else{
                     $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
-                <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO PUEDE IMPRIMIR GAFETE </strong></span>
+                <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>REVISE ANTES DE IMPRIMIR</strong></span>
+                <br>
+                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
+
+                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    
+                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+
                 </td> 
 html;
                     $miembro_apm .= <<<html

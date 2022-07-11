@@ -65,6 +65,17 @@ sql;
       return $mysqli->queryAll($query);
   }
 
+  public static function getAdeudosUser($id){
+    $mysqli = Database::getInstance();
+    $query =<<<sql
+    SELECT *,COUNT(*) as adeudos FROM pendiente_pago pp
+    INNER JOIN utilerias_administradores ua ON ua.user_id = pp.user_id
+    WHERE ua.mostrar = 1 AND (pp.status = 0 AND pp.user_id = '$id') GROUP BY pp.user_id;
+sql;
+
+    return $mysqli->queryOne($query);
+}
+
     public static function getBuscarEstatusCompraEmail($search){
         $mysqli = Database::getInstance();
         $query =<<<sql
