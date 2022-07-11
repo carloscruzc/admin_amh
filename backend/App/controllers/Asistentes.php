@@ -877,7 +877,7 @@ html;
 ////////////////////////////////////////////////////////////////////////////////////////////
         $socio = GeneralDao::getAdeudosUser($value['user_id']);
         
-        if($value['clave_socio'] == 'MANUAL')
+        if($value['socio'] == '4')
                 {
                     $miembro_apm = '';
                     $clave_socio .= <<<html
