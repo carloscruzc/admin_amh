@@ -17,7 +17,7 @@ use \App\models\Asistentes as AsistentesDao;
 use \DateTime;
 use \DatetimeZone;
 
-class RegistroAsistencia
+class RegistroAsistencia extends Controller
 {
 
 
@@ -406,7 +406,6 @@ html;
 
 
     public function abrirpdfGafete($clave, $clave_ticket = null){
-
         $this->generaterQr($clave);
         $datos_user = AsistentesDao::getRegistroAccesoByClaveRA($clave)[0];
         $id = $datos_user['user_id'];
@@ -421,7 +420,7 @@ html;
         // $user_id = new \stdClass();
         // $user_id->_user_id = $datos_user['user_id'];
 
-        $insertImpresionGafete = RegistroAsistenciaDao::insertImpGafete($datos_user['user_id']);
+        $insertImpresionGafete = RegistroAsistenciaDao::insertImpGafete($datos_user['user_id'],$_SESSION['utilerias_administradores_id']);
 
 
         $pdf = new \FPDF($orientation = 'P', $unit = 'mm', array(300, 210));

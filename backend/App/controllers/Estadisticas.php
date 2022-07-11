@@ -10,7 +10,7 @@ use \App\controllers\Contenedor;
 use \Core\Controller;
 use \App\models\PruebasCovidSitio as PruebasCovidSitioDao;
 use \App\models\Asistencias as AsistenciasDao;
-use \App\models\Conceptos as ConceptosDao;
+use \App\models\Estadisticas as EstadisticasDao;
 use \DateTime;
 use \DatetimeZone;
 // use \App\models\Linea as LineaDao;
@@ -160,18 +160,16 @@ $extraFooter =<<<html
       </script>
 html;
     $tabla = '';
-    $datos = ConceptosDao::getAll();
+    $datos = EstadisticasDao::getAll();
     
     foreach ($datos as $key => $value) {
 
       $tabla.=<<<html
       <tr>
-        <td>{$value['nombre']}</td>
-        <td id="descripcion_asistencia" width="20">{$value['descripcion']}</td>
-        <td class="text-center">{$value['precio_publico']}</td>        
-        <td class="text-center">
-        <button style='' class='btn btn-icon-only btn-danger delete_product' value={$value['id_producto']} data-bs-toggle="tooltip" target="_blank" data-bs-placement="left" data-bs-original-title="Eliminar concepto">x</button>
-        </td>
+        <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
+        <td id="descripcion_asistencia" width="20">{$value['codigo_beca']}</td>
+        <td class="text-center">{$value['clave_socio']}</td>        
+        
       </tr>
  
 html;
@@ -197,74 +195,6 @@ html;
       View::set('productos',$productos);
       View::render("estadisticas_all");
     }
-  
 
-    public function conceptosAdd() {
-
-      $nombre = $_POST['nombre'];
-      $descripcion = $_POST['descripcion'];
-      $tipo = $_POST['tipo'];
-      $precio = $_POST['precio_publico'];
-
-      $data = new \stdClass();
-      $data->_clave = $this->generateRandomString();
-      $data->_nombre = $nombre;
-      $data->_descripcion = $descripcion;
-      $data->_tipo = $tipo;
-      $data->_precio = $precio;      
-  
-      $id = ConceptosDao::insert($data);
-      if($id >= 1){
-        // $this->alerta($id,'add');
-        echo '<script>
-          alert("Concepto Registrada con exito");
-          window.location.href = "/Conceptos";
-        </script>';
-
-       
-      }else{
-        // $this->alerta($id,'error');
-        echo '<script>
-        alert("Error al registrar el concepto, consulte a soporte");
-        window.location.href = "/Conceptos";
-      </script>';
-      }
-
-
-    }
-
-
-    public function deleteProduct(){
-      $id_producto = $_POST['id_producto'];
-
-      $delete = ConceptosDao::deleteProducto($id_producto);
-
-      if($delete){
-        echo "success";
-      }else{
-        echo "fail";
-      }
-    }
-
-
-
-    function generateRandomString($length = 6) { 
-      return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length); 
-  } 
-
-  // View::set('permisoGlobalHidden', $permisoGlobalHidden);
-  // View::set('asistentesHidden', $asistentesHidden);
-  // View::set('vuelosHidden', $vuelosHidden);
-  // View::set('pickUpHidden', $pickUpHidden);
-  // View::set('habitacionesHidden', $habitacionesHidden);
-  // View::set('cenasHidden', $cenasHidden);
-  // View::set('aistenciasHidden', $aistenciasHidden);
-  // View::set('vacunacionHidden', $vacunacionHidden);
-  // View::set('pruebasHidden', $pruebasHidden);
-  // View::set('configuracionHidden', $configuracionHidden);
-  // View::set('utileriasHidden', $utileriasHidden);
-  // View::set('header', $this->_contenedor->header($extraHeader));
-  // View::set('footer', $this->_contenedor->footer($extraFooter));
-  // View::render("asistencias_all");
 
 }

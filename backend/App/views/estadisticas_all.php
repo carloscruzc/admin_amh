@@ -2,9 +2,8 @@
 <title>
     Conceptos - AMH - GRUPO LAHE
 </title>
-
 <body class="g-sidenav-show  bg-gray-100">
-    <?php echo $asideMenu; ?>
+    <?php echo $asideMenu;?>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
@@ -85,7 +84,7 @@
                             <div class="h-100">
                                 <h5 class="mb-1">
                                     Estadisticas
-
+                                  
                                 </h5>
                                 <p class="mb-0 font-weight-bold text-sm">
                                 </p>
@@ -117,10 +116,10 @@
                                 </div>
                                 <div class="ps-4">
                                     <div class="panel-body" <?php echo $visible; ?>></div>
-                                    <!-- <button type="button" class="btn bg-gradient-info btn-icon-only mb-0 mt-3" data-toggle="modal" data-target="#Modal_Add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn bg-gradient-info btn-icon-only mb-0 mt-3" data-toggle="modal" data-target="#Modal_Add"><i class="fa fa-plus" aria-hidden="true"></i></button>
                                     <button type="button" class="btn bg-gradient-secondary btn-icon-only mb-0 mt-3" data-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Todo cambio que usted realice en el sistema será guardado con fecha, usuario y transacción.">
                                         <span class="fa fa-info"></span>
-                                    </button> -->
+                                    </button>
 
                                 </div>
                             </div>
@@ -129,7 +128,7 @@
                             <div class="col-12">
                                 <div class="card mb-4">
                                     <div class="card-header pb-0">
-                                        <h6>Registro de Conceptos</h6>
+                                        <h6>Registro de Impresión de Gafetes</h6>
                                         <!-- <p style="font-size: 12px">
                                         <span class="fa fa-plane" style="color: #125a16"> </span> Aeropuerto de Salida a la Convención
                                         <span class="fa fa-flag" style="color: #353535"> </span> Aeropuerto de Llegada (Sede Convención)
@@ -137,129 +136,19 @@
                                     </p> -->
                                     </div>
                                     <div class="card-body px-0 pt-0 pb-2">
-                                        <div class="row mt-4">
-                                            <div class="col-lg-6 ms-auto">
-                                                <div class="card">
-                                                    <div class="card-header pb-0 p-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <h6 class="mb-0">Consumption by room</h6>
-                                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="See the consumption per room">
-                                                                <i class="fas fa-info"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-body p-3">
-                                                        <div class="row">
-                                                            <div class="col-5 text-center">
-                                                                <div class="chart">
-                                                                    <canvas id="chart-consumption" class="chart-canvas" height="197"></canvas>
-                                                                </div>
-                                                                <h4 class="font-weight-bold mt-n8">
-                                                                    <span>471.3</span>
-                                                                    <span class="d-block text-body text-sm">WATTS</span>
-                                                                </h4>
-                                                            </div>
-                                                            <div class="col-7">
-                                                                <div class="table-responsive">
-                                                                    <table class="table align-items-center mb-0">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="d-flex px-2 py-0">
-                                                                                        <span class="badge bg-gradient-primary me-3"> </span>
-                                                                                        <div class="d-flex flex-column justify-content-center">
-                                                                                            <h6 class="mb-0 text-sm">Living Room</h6>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td class="align-middle text-center text-sm">
-                                                                                    <span class="text-xs font-weight-bold"> 15% </span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="d-flex px-2 py-0">
-                                                                                        <span class="badge bg-gradient-secondary me-3"> </span>
-                                                                                        <div class="d-flex flex-column justify-content-center">
-                                                                                            <h6 class="mb-0 text-sm">Kitchen</h6>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td class="align-middle text-center text-sm">
-                                                                                    <span class="text-xs font-weight-bold"> 20% </span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="d-flex px-2 py-0">
-                                                                                        <span class="badge bg-gradient-info me-3"> </span>
-                                                                                        <div class="d-flex flex-column justify-content-center">
-                                                                                            <h6 class="mb-0 text-sm">Attic</h6>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td class="align-middle text-center text-sm">
-                                                                                    <span class="text-xs font-weight-bold"> 13% </span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="d-flex px-2 py-0">
-                                                                                        <span class="badge bg-gradient-success me-3"> </span>
-                                                                                        <div class="d-flex flex-column justify-content-center">
-                                                                                            <h6 class="mb-0 text-sm">Garage</h6>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td class="align-middle text-center text-sm">
-                                                                                    <span class="text-xs font-weight-bold"> 32% </span>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="d-flex px-2 py-0">
-                                                                                        <span class="badge bg-gradient-warning me-3"> </span>
-                                                                                        <div class="d-flex flex-column justify-content-center">
-                                                                                            <h6 class="mb-0 text-sm">Basement</h6>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </td>
-                                                                                <td class="align-middle text-center text-sm">
-                                                                                    <span class="text-xs font-weight-bold"> 20% </span>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 mt-lg-0 mt-4">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="card h-100">
-                                                            <div class="card-body p-3">
-                                                                <h6>Consumption per day</h6>
-                                                                <div class="chart pt-3">
-                                                                    <canvas id="chart-cons-week" class="chart-canvas" height="170"></canvas>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6 mt-sm-0 mt-4">
-                                                        <div class="card h-100">
-                                                            <div class="card-body text-center p-3">
-                                                                <h6 class="text-start">Device limit</h6>
-                                                                <round-slider value="21" valueLabel="Temperature"></round-slider>
-                                                                <h4 class="font-weight-bold mt-n7"><span class="text-dark" id="value">21</span><span class="text-body">°C</span></h4>
-                                                                <p class="ps-1 mt-5 mb-0"><span class="text-xs">16°C</span><span class="px-3">Temperature</span><span class="text-xs">38°C</span></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="table-responsive p-0">
+                                            <table class="table align-items-center mb-0 table table-striped table-bordered" id="asistencia-list">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Beca</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Socio</th>                                   
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php echo $tabla;  ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -298,18 +187,18 @@
                                     </div>
                                 </div>
 
-
+                                
                                 <div class="row mb-3">
                                     <label class="form-label">Tipo *</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="tipo" name="tipo">
-                                            <option value="" disabled selected>Selecciona una Opción</option>
+                                       <select class="form-control" id="tipo" name="tipo">
+                                        <option value="" disabled selected>Selecciona una Opción</option>
                                             <option value="es_curso"> Curso</option>
                                             <option value="es_servicio"> Servicio</option>
-                                        </select>
+                                       </select>
                                     </div>
                                 </div>
-
+                              
 
                                 <div class="row mb-3">
                                     <label class="form-label">Precio *</label>
@@ -418,266 +307,6 @@
     </main>
 </body>
 
-<!-- Kanban scripts -->
-<script src="../../assets/js/plugins/dragula/dragula.min.js"></script>
-  <script src="../../assets/js/plugins/jkanban/jkanban.js"></script>
-  <script src="../../assets/js/plugins/countup.min.js"></script>
-  <script src="../../assets/js/plugins/chartjs.min.js"></script>
-  <script src="../../assets/js/plugins/round-slider.min.js"></script>
-  <script>
-    // Rounded slider
-    const setValue = function(value, active) {
-      document.querySelectorAll("round-slider").forEach(function(el) {
-        if (el.value === undefined) return;
-        el.value = value;
-      });
-      const span = document.querySelector("#value");
-      span.innerHTML = value;
-      if (active)
-        span.style.color = 'red';
-      else
-        span.style.color = 'black';
-    }
-
-    document.querySelectorAll("round-slider").forEach(function(el) {
-      el.addEventListener('value-changed', function(ev) {
-        if (ev.detail.value !== undefined)
-          setValue(ev.detail.value, false);
-        else if (ev.detail.low !== undefined)
-          setLow(ev.detail.low, false);
-        else if (ev.detail.high !== undefined)
-          setHigh(ev.detail.high, false);
-      });
-
-      el.addEventListener('value-changing', function(ev) {
-        if (ev.detail.value !== undefined)
-          setValue(ev.detail.value, true);
-        else if (ev.detail.low !== undefined)
-          setLow(ev.detail.low, true);
-        else if (ev.detail.high !== undefined)
-          setHigh(ev.detail.high, true);
-      });
-    });
-
-    // Count To
-    if (document.getElementById('status1')) {
-      const countUp = new CountUp('status1', document.getElementById("status1").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('status2')) {
-      const countUp = new CountUp('status2', document.getElementById("status2").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('status3')) {
-      const countUp = new CountUp('status3', document.getElementById("status3").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('status4')) {
-      const countUp = new CountUp('status4', document.getElementById("status4").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('status5')) {
-      const countUp = new CountUp('status5', document.getElementById("status5").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('status6')) {
-      const countUp = new CountUp('status6', document.getElementById("status6").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-
-    // Chart Doughnut Consumption by room
-    var ctx1 = document.getElementById("chart-consumption").getContext("2d");
-
-    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-    new Chart(ctx1, {
-      type: "doughnut",
-      data: {
-        labels: ['Living Room', 'Kitchen', 'Attic', 'Garage', 'Basement'],
-        datasets: [{
-          label: "Consumption",
-          weight: 9,
-          cutout: 90,
-          tension: 0.9,
-          pointRadius: 2,
-          borderWidth: 2,
-          backgroundColor: ['#FF0080', '#A8B8D8', '#21d4fd', '#98ec2d', '#ff667c'],
-          data: [15, 20, 13, 32, 20],
-          fill: false
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-            },
-            ticks: {
-              display: false
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-            },
-            ticks: {
-              display: false,
-            }
-          },
-        },
-      },
-    });
-
-    // Chart Consumption by day
-    var ctx = document.getElementById("chart-cons-week").getContext("2d");
-
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        datasets: [{
-          label: "Watts",
-          tension: 0.4,
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-          backgroundColor: "#3A416F",
-          data: [150, 230, 380, 220, 420, 200, 70],
-          maxBarThickness: 6
-        }, ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        interaction: {
-          intersect: false,
-          mode: 'index',
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false,
-            },
-            ticks: {
-              display: false
-            },
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false
-            },
-            ticks: {
-              beginAtZero: true,
-              font: {
-                size: 12,
-                family: "Open Sans",
-                style: 'normal',
-              },
-              color: "#9ca2b7"
-            },
-          },
-          y: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#9ca2b7'
-            }
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5]
-            },
-            ticks: {
-              display: true,
-              padding: 10,
-              color: '#9ca2b7'
-            }
-          },
-        },
-      },
-    });
-  </script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.5"></script>
-
 <script>
     $(document).ready(function() {
 
@@ -710,7 +339,7 @@
             } else if (check == 0) {
                 $("#cont_plenaria_individual").css('display', 'block');
             }
-
+            
         });
 
         $('input:radio[name="plenaria"]').change(function() {
@@ -721,10 +350,10 @@
             } else if (check == 0) {
                 $("#cont_select_linea").css('display', 'none');
             }
-
+            
         });
 
-        $('.delete_product').on("click", function() {
+        $('.delete_product').on("click",function(){
             var id_producto = $(this).val();
 
             Swal.fire({
@@ -753,15 +382,15 @@
 
                             //console.log(respuesta);
                             if (respuesta = 'status') {
-                                Swal.fire("Producto eliminado", "", "success");
-                                setTimeout(function() {
+                                Swal.fire("Producto eliminado","","success");
+                                setTimeout(function(){
                                     location.reload();
-                                }, 1000)
+                                },1000)
                             } else {
-                                Swal.fire("Error al eliminar el producto", "", "error");
-                                setTimeout(function() {
+                                Swal.fire("Error al eliminar el producto","","error");
+                                setTimeout(function(){
                                     location.reload();
-                                }, 1000)
+                                },1000)
                             }
 
 
@@ -774,7 +403,7 @@
                 }
 
             })
-
+            
         });
 
     })

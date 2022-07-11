@@ -11,7 +11,10 @@ class Estadisticas implements Crud{
     public static function getAll(){
       $mysqli = Database::getInstance();
       $query=<<<sql
-      SELECT * FROM productos WHERE status = 1 ORDER BY id_producto ASC
+      SELECT ua.user_id,ua.nombre,ua.apellidop,ua.apellidom,ua.codigo_beca,ua.clave_socio
+      FROM utilerias_administradores ua
+      INNER JOIN impresion_gafete ig on(ua.user_id = ig.user_id)
+      GROUP BY ua.user_id
 sql;
       return $mysqli->queryAll($query);
         
