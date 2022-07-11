@@ -258,7 +258,7 @@
 
                             <div class="form-group col-md-4">
                                 <label class="control-label col-md-12 col-sm-1 col-xs-12" for="usuario">Email <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Email" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Email" required>
                                 <span id="msg_email" style="font-size: 0.75rem; font-weight: 700;margin-bottom: 0.5rem;"></span>
                             </div>
 
