@@ -191,7 +191,7 @@
                                     <div class="col-12 col-lg-4">
                                         <label class="form-label">Categoria Actual</label>
                                         <div class="input-group">
-                                            <input id="id_categoria" readonly name="id_categoria" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_categoria['categoria']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                                            <input id="categoria" readonly name="categoria" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $cate['categoria'] ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -206,12 +206,8 @@
                                     <div class="form-group col-md-4">
                                         <label class="control-label col-md-12 col-sm-1 col-xs-12" for="id_categoria">Categoría <span class="required"></span></label>
                                         <select class="multisteps-form__select form-control all_input_select" name="id_categoria" id="id_categoria">
-                                            <option value="0" selected readonly>Seleccione una opción</option>
-                                            <option value="1"><?=$detalles_categoria['categoria']?></option>
-                                            <option value="2"><?=$detalles_categoria1['categoria']?></option>
-                                            <option value="3"><?=$detalles_categoria2['categoria']?></option>
-                                            <option value="4"><?=$detalles_categoria3['categoria']?></option>
-                                            <option value="5"><?=$detalles_categoria4['categoria']?></option>
+                                            <option value="0">Ninguna</option>
+                                            <?= $optionCate ?>
                                         </select>
                                     </div>
                                     <!-- <div class="col-12 col-lg-6">

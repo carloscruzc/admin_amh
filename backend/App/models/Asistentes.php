@@ -319,8 +319,8 @@ sql;
   public static function insert($data){
     $mysqli = Database::getInstance(1);
     $query=<<<sql
-    INSERT INTO utilerias_administradores(nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, clave, id_categoria)
-    VALUES(:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, 1500,:clave, 4);
+    INSERT INTO utilerias_administradores(nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, clave, clave_socio,id_categoria)
+    VALUES(:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, 5000,:clave, 'MANUAL',2);
 sql;
 
         $parametros = array(
@@ -464,14 +464,41 @@ sql;
     return $mysqli->queryAll($query);
 }
 
-public static function getCategoria()
+
+// public static function getCategoria($id)
+//     {
+//         $mysqli = Database::getInstance();
+//         $query = <<<sql
+//       SELECT ua.*, cate.*, cate.id_categoria as idcate, cate.categoria catecate FROM categorias cate
+//       INNER JOIN utilerias_administradores ua ON ua.id_categoria = cate.id_categoria
+//       WHERE ua.user_id = '$id'
+//       ORDER BY cate.id_categoria ASC
+// sql;
+
+//         return $mysqli->queryAll($query);
+//         //$mysqli -> set_charset("utf8");
+//     }
+
+    public static function getCategoria()
     {
         $mysqli = Database::getInstance();
         $query = <<<sql
-      SELECT * FROM categorias ORDER BY id_categoria ASC
+      SELECT * FROM categorias
 sql;
 
         return $mysqli->queryAll($query);
+        //$mysqli -> set_charset("utf8");
+    }
+
+    public static function getIdUsuarios($id)
+    {
+        $mysqli = Database::getInstance();
+        $query = <<<sql
+      SELECT * FROM utilerias_administradores
+      WHERE user_id = '$id'
+sql;
+
+        return $mysqli->queryOne($query);
         //$mysqli -> set_charset("utf8");
     }
 

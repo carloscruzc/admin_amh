@@ -409,9 +409,11 @@ html;
 
         $this->generaterQr($clave);
         $datos_user = AsistentesDao::getRegistroAccesoByClaveRA($clave)[0];
+        $id = $datos_user['user_id'];
         $nombre = html_entity_decode($datos_user['nombre'], ENT_QUOTES, "UTF-8");
-        $apellido = html_entity_decode($datos_user['apellido_paterno'], ENT_QUOTES, "UTF-8");
-        $nombre_completo = mb_strtoupper($nombre) ." ". mb_strtoupper($apellido);
+        $apellidop = html_entity_decode($datos_user['apellido_paterno'], ENT_QUOTES, "UTF-8");
+        $apellidom = html_entity_decode($datos_user['apellido_materno'], ENT_QUOTES, "UTF-8");
+        $nombre_completo = mb_strtoupper($nombre) ." ". mb_strtoupper($apellidop) ." ". mb_strtoupper($apellidom);
         // $nombre_completo = mb_strtoupper($datos_user['nombre']) . "\n\n" . mb_strtoupper($datos_user['apellido_paterno']) . "\n\n" . mb_strtoupper($datos_user['apellido_materno']);
 
         
@@ -447,6 +449,7 @@ html;
         $pdf->SetAutoPageBreak(true,25);
         $pdf->SetMargins(30, 25, 30, 10);
         $pdf->Multicell(70.8,7, utf8_decode($nombre_completo), 0, 'C');
+        $pdf->Multicell(150.8,7, utf8_decode($id), 0, 'C');
         $pdf->output();    
     }
 

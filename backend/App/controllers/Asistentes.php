@@ -112,7 +112,16 @@ html;
         foreach (GeneralDao::getAllColaboradoresByName($search) as $key => $value) {
             $modal .= $this->generarModal($value);
         }
-        
+
+        $paises = AsistentesDao::getPais();
+        $optionPais = '';
+        foreach($paises as $key => $value){
+            $optionPais .= <<<html
+                    <option value="{$value['id_pais']}">{$value['pais']}</option>
+html;
+        }
+
+        View::set('optionPais', $optionPais);        
         View::set('modal',$modal);    
         View::set('tabla', $this->getAllColaboradoresAsignadosByName($search));
         View::set('asideMenu',$this->_contenedor->asideMenu());    
@@ -280,9 +289,29 @@ html;
             <script src="//cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js" defer></script>
             <link rel="stylesheet" href="//cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css" />
 html;
+
+//         $categorias = AsistentesDao::getCategoria($id)[0];
+//         $optionCategorias = '';
+//         foreach($categorias as $key => $value){
+//             // $selectedInsti = ($value['id_categoria'] == $value['asd']) ? 'selected' : '';
+//             $optionCategorias .= <<<html
+//                     <option value="{$value['idcate']}">{$value['catecate']}</option>
+// html;
+//         }
+
+        $usuario = AsistentesDao::getIdUsuarios($id);
+        $cate = AsistentesDao::getCategoria();
+        $optionCate = '';
+        foreach($cate as $key => $value){
+            $selectedStatus = ($value['id_categoria'] == $usuario['id_categoria']) ? 'selected' : '';
+            $optionCate .= <<<html
+                    <option value="{$value['id_categoria']}" $selectedStatus>{$value['categoria']}</option>
+html;
+        }
+        
         $detalles = AsistentesDao::getByClaveRA($id);
         $detalles_registro = AsistentesDao::getTotalByClaveRA($id);
-        $detalles_categoria = AsistentesDao::getCategoria();
+        $detalles_categoria = AsistentesDao::getCategoria($id);
 
         
 
@@ -411,6 +440,7 @@ html;
         View::set('btn_genQr', $btn_genQr);
         // View::set('alergias_a', $alergias_a);
         // View::set('alergia_medicamento_cual', $alergia_medicamento_cual);
+        View::set('optionCate', $optionCate);
         View::set('detalles_registro', $detalles_registro[0]);
         View::set('detalles_categoria', $detalles_categoria[0]);
         View::set('detalles_categoria1', $detalles_categoria[1]);
@@ -595,8 +625,10 @@ html;
                 $monto_congreso = 0;
             }else if($id_categoria == 5){
                 $monto_congreso = 1000;
-            }else{
+            }else if ($id_categoria == 3){
                 $monto_congreso = 1500;
+            } else{
+                $monto_congreso = 5000;
             }
 
             $documento->_id = $id_registro;
@@ -844,7 +876,14 @@ html;
 //             }
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-                if($value['clave_socio'] != '')
+                if($value['clave_socio'] == 'MANUAL')
+                {
+                    $miembro_apm = '';
+                    $clave_socio .= <<<html
+                    <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>USUARIO AGREGADO MANUALMENTE</strong></span>  
+html;
+                }
+                else if($value['clave_socio'] != '')
                 {
                     $miembro_apm = '';
                     $clave_socio .= <<<html
@@ -854,7 +893,7 @@ html;
                 else
                 {
                     $clave_socio .= <<<html
-                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO ES SOCIO AMH</strong></span>  
+                    <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>SOCIO AMH NO ACTIVO</strong></span>  
 html;
                 }
 
@@ -888,7 +927,6 @@ html;
                     
                     <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>
 
-                    <!--button type="button" class="btn btn-outline-primary btn_qr" value="{$value['id_ticket_virtual']}"><span class="fa fa-qrcode" style="padding: 0px;"> {$ticket_virtual[0]['clave']}</span></button-->
                 </td>
 html;
                     $miembro_apm .= <<<html
