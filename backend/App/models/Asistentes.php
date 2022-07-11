@@ -40,7 +40,7 @@ sql;
       $query =<<<sql
       SELECT *
       FROM utilerias_administradores WHERE    
-      CONCAT_WS(usuario,nombre,apellidop,apellidom,user_id, clave,clave_socio) 
+      CONCAT_WS(' ',usuario,nombre,apellidop,apellidom,user_id, clave,clave_socio) 
       LIKE '%$search%'
 sql;
   

@@ -262,7 +262,7 @@ html;
                  <div class="col-md-2">
                  <button class="btn btn-sm btn-primary btn_desbloquear_precio" id="btn_desbloquear_precio{$value['id_producto']}" data-id-producto = {$value['id_producto']}>desbloquear precio</button>
 
-                 <input type="number" class="precio_articulo" id="precio_articulo{$value['id_producto']}" name="precio_articulo[]" value="{$precio}" style="border:none;" readonly data-id-producto="{$value['id_producto']}"  data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}"> - {$value['tipo_moneda']}
+                 <input type="number" class="precio_articulo precio_articulo_general" id="precio_articulo{$value['id_producto']}" name="precio_articulo[]" value="{$precio}" style="border:none;" readonly data-id-producto="{$value['id_producto']}"  data-precio="{$precio}" data-nombre-producto="{$value['nombre_producto']}"> - {$value['tipo_moneda']}
                  </div>
 
                  <div class="col-md-2">

@@ -171,6 +171,11 @@
                                                                     <div class="row">
 
                                                                         <div class="col-md-8">
+
+                                                                            <div>
+                                                                               
+                                                                                <button id="btn_desb_precio" style="display: none;" class="btn btn-primary" >Desbloquear precios</button>
+                                                                            </div>
                                                                     
                                                                             <div>
 
@@ -247,6 +252,7 @@
                                                             <div style="display:flex; justify-content:end;">
 
                                                                 <button id="btn_pagar" class="btn btn-primary" disabled>Pagar</button>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -496,6 +502,58 @@
 
             });
 
+            
+            $("#btn_desb_precio").on("click", function() {
+               
+                const { value: password } = Swal.fire({
+                    title: 'Se necesitan permisos de administrador',
+                    input: 'password',
+                    inputLabel: 'Password',
+                    inputPlaceholder: 'Ingresa el password',
+                    inputAttributes: {
+                        maxlength: 15,
+                        autocapitalize: 'off',
+                        autocorrect: 'off'
+                    }
+                }).then((password) => {
+
+                    var password = password.value;
+
+                    $.ajax({
+                        url: "/Caja/buscarPassword",
+                        type: "POST",
+                        data: {
+                            password
+                        },
+                        dataType: 'json',
+                        beforeSend: function() {
+                            console.log("Procesando....");
+
+                        },
+                        success: function(respuesta) {
+                            
+                            if (respuesta.status == "success") {
+                                console.log(respuesta);
+                                
+                                $(".precio_articulo").removeAttr('readonly');
+                                $(".precio_articulo").css('border','solid 1px #000');
+                                $("#precio_desbloquedo_por").val(respuesta.admin.utilerias_administradores_id);
+                                                                
+                            }else{
+                                Swal.fire('Password incorrecto','','error');
+                            }
+
+                        },
+                        error: function(respuesta) {
+                            console.log(respuesta);
+                        }
+
+                    });
+                });
+
+
+            });
+
             $("#codigo_qr_venta").on("keyup", function(){
                 // var estado = $("#residencia").val();
                 var concidencia = $(this).val();
@@ -592,6 +650,7 @@
                             $(".cont-totales").show();
                             $("#cont-descripcion").hide();
                             $("#btn_fact").show();
+                            // $("#btn_desb_precio").show();
                             flag_descripcion = false; 
                             
                             // console.log(precios);
@@ -863,42 +922,48 @@
 
                     var password = password.value;
 
-                    $.ajax({
-                        url: "/Caja/buscarPassword",
-                        type: "POST",
-                        data: {
-                            password
-                        },
-                        dataType: 'json',
-                        beforeSend: function() {
-                            console.log("Procesando....");
+                $.ajax({
+                    url: "/Caja/buscarPassword",
+                    type: "POST",
+                    data: {
+                        password
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        console.log("Procesando....");
 
-                        },
-                        success: function(respuesta) {
-                            
-                            if (respuesta.status == "success") {
-                                console.log(respuesta);
-                                
-                                $("#precio_articulo"+id_producto).removeAttr('readonly');
-                                $("#precio_articulo"+id_producto).css('border','solid 1px #000');
-                                $("#precio_desbloquedo_por").val(respuesta.admin.utilerias_administradores_id);
-                                                              
-                            }else{
-                                Swal.fire('Password incorrecto','','error');
-                            }
-
-                        },
-                        error: function(respuesta) {
+                    },
+                    success: function(respuesta) {
+                        
+                        if (respuesta.status == "success") {
                             console.log(respuesta);
+                            
+                            // $("#precio_articulo"+id_producto).removeAttr('readonly');
+                            // $("#precio_articulo"+id_producto).css('border','solid 1px #000');
+                            // $("#precio_desbloquedo_por").val(respuesta.admin.utilerias_administradores_id);
+
+                            $(".precio_articulo").removeAttr('readonly');
+                            $(".precio_articulo").css('border','solid 1px #000');
+                            $("#precio_desbloquedo_por").val(respuesta.admin.utilerias_administradores_id);
+                                                            
+                        }else{
+                            Swal.fire('Password incorrecto','','error');
                         }
 
-                    });
-                    
+                    },
+                    error: function(respuesta) {
+                        console.log(respuesta);
+                    }
+
                 });
-              
+                    
+            });
+
+            
                 
 
             $(".precio_articulo").on("change", function() {
+               
                 var id_producto = $(this).attr('data-id-producto');
                 var cantidad = 1;
                 var precio = $(this).val();
