@@ -243,22 +243,22 @@
                         <div class="form-group row">
                             <div class="form-group col-md-4">
                                 <label class="control-label col-md-12 col-sm-1 col-xs-12" for="nombre">Nombre <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" require>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label class="control-label col-md-12 col-sm-1 col-xs-12" for="apellidop">Apellido Paterno <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="apellidop" name="apellidop" placeholder="Apellido Paterno" require>
+                                <input type="text" class="form-control" id="apellidop" name="apellidop" placeholder="Apellido Paterno" required  style="text-transform:uppercase;"onkeyup="javascript:this.value=this.value.toUpperCase();">
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="apellidom">Apellido Materno <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="apellidom" name="apellidom" placeholder="Apellido Materno" require>
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="apellidom">Apellido Materno <span class="required"></span></label>
+                                <input type="text" class="form-control" id="apellidom" name="apellidom" placeholder="Apellido Materno" require style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label class="control-label col-md-12 col-sm-1 col-xs-12" for="usuario">Email <span class="required">*</span></label>
-                                <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Email" require>
+                                <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Email" required style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                 <span id="msg_email" style="font-size: 0.75rem; font-weight: 700;margin-bottom: 0.5rem;"></span>
                             </div>
 
@@ -275,7 +275,7 @@
 
                             <div class="form-group col-md-4">
                                 <label class="control-label col-md-12 col-sm-1 col-xs-12" for="telefono">Telefono <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono" require>
+                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono" required>
                             </div>
 
                             <div class="form-group col-md-4">
