@@ -303,7 +303,7 @@ html;
         $cate = AsistentesDao::getCategoria();
         $optionCate = '';
         foreach($cate as $key => $value){
-            $selectedStatus = ($value['id'] == $usuario['id_categoria']) ? 'selected' : '';
+            $selectedStatus = ($value['id_categoria'] == $usuario['id_categoria']) ? 'selected' : '';
             $optionCate .= <<<html
                     <option value="{$value['id_categoria']}" $selectedStatus>{$value['categoria']}</option>
 html;
@@ -625,8 +625,10 @@ html;
                 $monto_congreso = 0;
             }else if($id_categoria == 5){
                 $monto_congreso = 1000;
-            }else{
+            }else if ($id_categoria == 3){
                 $monto_congreso = 1500;
+            } else{
+                $monto_congreso = 5000;
             }
 
             $documento->_id = $id_registro;

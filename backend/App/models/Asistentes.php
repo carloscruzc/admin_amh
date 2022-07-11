@@ -497,7 +497,7 @@ sql;
       WHERE user_id = '$id'
 sql;
 
-        return $mysqli->queryAll($query);
+        return $mysqli->queryOne($query);
         //$mysqli -> set_charset("utf8");
     }
 
