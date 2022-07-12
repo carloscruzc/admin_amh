@@ -290,7 +290,14 @@
                                 <label class="control-label col-md-12 col-sm-1 col-xs-12" for="estado">Estado <span class="required">*</span></label>
                                 <select class="multisteps-form__select form-control all_input_select" name="estado" id="estado" required disabled>
                                     <option value="" selected>Selecciona una Opción</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group col-md-4">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="categoria">Categoría <span class="required">*</span></label>
+                                <select class="multisteps-form__select form-control all_input_select" name="categoria" id="categoria" required>
+                                    <option value="" selected>Selecciona una Opción</option>
+                                    <?= $optionCate ?>
                                 </select>
                             </div>
 

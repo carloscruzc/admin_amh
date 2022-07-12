@@ -43,8 +43,17 @@ class Asistentes extends Controller
 html;
         }
 
+        $cate = AsistentesDao::getCategoriaMas();
+        $optionCate = '';
+        foreach($cate as $key => $value){
+            $optionCate .= <<<html
+                    <option value="{$value['id_categoria']}">{$value['categoria']}</option>
+html;
+        }
+
         View::set('asideMenu',$this->_contenedor->asideMenu());
         View::set('optionPais', $optionPais);
+        View::set('optionCate', $optionCate);
         // View::set('tabla_faltantes', $this->getAsistentesFaltantes());
         // View::set('tabla', $this->getAllColaboradoresAsignados());
         View::render("asistentes_all");
@@ -81,6 +90,7 @@ html;
         $data->_telefono = MasterDom::getData('telefono');
         $data->_pais = MasterDom::getData('pais');
         $data->_estado = MasterDom::getData('estado');
+        $data->_categoria = MasterDom::getData('categoria');
         $data->_referencia = $referencia;
         $data->_clave = $this->generateRandomStringT();
 
@@ -120,8 +130,8 @@ html;
                     <option value="{$value['id_pais']}">{$value['pais']}</option>
 html;
         }
-
-        View::set('optionPais', $optionPais);        
+        
+        View::set('optionPais', $optionPais);      
         View::set('modal',$modal);    
         View::set('tabla', $this->getAllColaboradoresAsignadosByName($search));
         View::set('asideMenu',$this->_contenedor->asideMenu());    
@@ -621,7 +631,7 @@ html;
             $clave_socio = $_POST['clave_socio'];
             $id_categoria = $_POST['id_categoria'];
 
-            if($id_categoria == 1){
+            if($id_categoria > 5){
                 $monto_congreso = 0;
             }else if($id_categoria == 5){
                 $monto_congreso = 1000;
@@ -923,9 +933,27 @@ html;
                     }
                 }
 
+                $impreso = GeneralDao::getImpresionGafete($value['user_id']);
                 if($value['id_categoria'] == 1 || $value['clave_socio'] != ''){
+                    if($impreso >= 1){
+                        $gafetes_httml .=<<<html
+                <td style="text-align:center; vertical-align:middle;">
+                <span class="badge badge-success" style="background-color: #7CE644; color:white;"><strong>GAFETE YA IMPRESO</strong></span>
+                <br>
+                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank" style="display: none;"><i class="fas fa-print"> </i></a>     
+
+                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    
+                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+
+                </td>
+html;
+
+                    }else{
                     $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
+                <span class="badge badge-success" style="background-color: #0c6300; color:white; margin:10px;"><strong>DISPONIBLE PARA IMPRIMIR</strong></span>
+                <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
                     <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
@@ -937,10 +965,33 @@ html;
                     $miembro_apm .= <<<html
                     <span class="badge badge-success" style="background-color: #0c6300; color:white "><strong>OK - HABILITADO PARA IMPRESIÓN DE GAFETE </strong></span>  
 html;
-                }else{
+                }
+            }
+                
+                else{
+
+                    if($impreso >= 1){
+                        $gafetes_httml .=<<<html
+                <td style="text-align:center; vertical-align:middle;">
+                <span class="badge badge-success" style="background-color: #7CE644; color:white;"><strong>GAFETE YA IMPRESO</strong></span>
+                <br>
+                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank" style="display: none;"><i class="fas fa-print"> </i></a>     
+
+                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    
+                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+
+                </td>
+html;
+
+                    }else{
+
+                    
+
+                
                     $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
-                <span class="badge badge-success" style="background-color: #08D3C0; color:white;"><strong>REVISE ANTES DE IMPRIMIR</strong></span>
+                <span class="badge badge-success" style="background-color: #08D3C0; color:white; margin:10px;"><strong>REVISE ANTES DE IMPRIMIR</strong></span>
                 <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
@@ -954,6 +1005,8 @@ html;
                     <span class="badge badge-success" style="background-color: #ff1d1d; color:white "><strong>NO IMPRIMIR - DIRIGIR A CAJA A PAGAR </strong></span>  
 html;
                 }
+            }
+                
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
