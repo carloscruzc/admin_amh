@@ -39,8 +39,8 @@ class Caja extends Controller
         $extraHeader = <<<html
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="apple-touch-icon" sizes="76x76" href="https://foromusa.com/assets/images/Musa0-01.png">
-        <link rel="icon" type="image/png" href="https://foromusa.com/assets/images/Musa0-01.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/amh.png">
+        <link rel="icon" type="image/png" href="/assets/img/amh.png">
         <title>
             CAJA - APM 
         </title>

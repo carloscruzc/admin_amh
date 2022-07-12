@@ -57,7 +57,8 @@
                             <div class="col-auto">
                                 <div class="bg-gradient-pink avatar avatar-xl ">
                                     <!-- <img src="../../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm"> -->
-                                    <span class="fa fa-bell " style="font-size: xx-large;"></span>
+                                    <span class="fas fa-cash-register" style="font-size: xx-large;"></span>
+                                   
                                 </div>
                             </div>
                             <div class="col-auto my-auto">
