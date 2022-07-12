@@ -103,7 +103,7 @@
                                                     <u><a  href="mailto:{$value['email']}"><h6 class="mb-2 text-smy text-black"><span class="fa fa-mail-bulk" style="font-size: 13px"></span> CORREO: <?php echo $detalles_registro['usuario'];?> </h6></a></u>
                                                     <h6 class="mb-2 text-smy text-black"><span class="fa fa-flag" style="font-size: 13px"></span>PAÍS: <?php echo $detalles_registro['pais'];?> </h6>
                                                     <h6 class="mb-2 text-smy text-black"><span class="fa fa-flag" style="font-size: 13px"></span>ESTADO: <?php echo $detalles_registro['estado'];?> </h6>
-                                                    <h6 class="mb-2 text-smy text-black"><span class="fas fa-user-md style="font-size: 13px"></span>CATEGORÍA: <?php echo $detalles_registro['categoria'];?> </h6>
+                                                    <!-- <h6 class="mb-2 text-smy text-black"><span class="fas fa-user-md style="font-size: 13px"></span>CATEGORÍA: <?php echo $detalles_registro['categoria'];?> </h6> -->
                                                     <br> <br>
                                                     <p class="text-sm mb-3"></p>
                                                 </div>
@@ -186,9 +186,9 @@
                                             <input id="clave_socio" name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="SA937FD" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['clave_socio']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
                                     </div>
-                                    <!-- <div class="col-12 col-lg-2">
+                                    <div class="col-12 col-lg-2">
                                     </div>
-                                    <div class="col-12 col-lg-4">
+                                    <!-- <div class="col-12 col-lg-4">
                                         <label class="form-label">Categoria Actual</label>
                                         <div class="input-group">
                                             <input id="categoria" readonly name="categoria" maxlength="29" class="form-control" type="text" placeholder="AGREGAR CATEGORIA" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $cate['categoria'] ?>">

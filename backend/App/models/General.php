@@ -65,6 +65,15 @@ sql;
       return $mysqli->queryAll($query);
   }
 
+  public static function getImpresionGafete($id){
+    $mysqli = Database::getInstance();
+    $query =<<<sql
+    SELECT * FROM `impresion_gafete` WHERE user_id = '$id' GROUP BY user_id;
+sql;
+
+    return $mysqli->queryOne($query);
+}
+
   public static function getAdeudosUser($id){
     $mysqli = Database::getInstance();
     $query =<<<sql

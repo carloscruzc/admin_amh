@@ -320,7 +320,7 @@ sql;
     $mysqli = Database::getInstance(1);
     $query=<<<sql
     INSERT INTO utilerias_administradores(codigo_beca,nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, socio,clave,id_categoria)
-    VALUES('',:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, 5000, 4,:clave,2);
+    VALUES('',:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, 0, 4,:clave,:categoria);
 sql;
 
         $parametros = array(
@@ -333,6 +333,7 @@ sql;
         ':telefono'=>$data->_telefono,
         ':pais'=>$data->_pais,
         ':estado'=>$data->_estado,
+        ':categoria'=>$data->_categoria,
         ':referencia'=>$data->_referencia,
         ':clave'=>$data->_clave
 
@@ -483,7 +484,18 @@ sql;
     {
         $mysqli = Database::getInstance();
         $query = <<<sql
-      SELECT * FROM categorias
+      SELECT * FROM categorias WHERE id_categoria > 1;
+sql;
+
+        return $mysqli->queryAll($query);
+        //$mysqli -> set_charset("utf8");
+    }
+
+    public static function getCategoriaMas()
+    {
+        $mysqli = Database::getInstance();
+        $query = <<<sql
+      SELECT * FROM categorias WHERE id_categoria > 5;
 sql;
 
         return $mysqli->queryAll($query);
