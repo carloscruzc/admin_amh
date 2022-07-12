@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <input type="text" id="user_id" name="user_id" value="<?=$id_asistente?>"> -->
+            <input type="hidden" id="user_id" name="user_id" value="<?=$id_asistente?>">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <div class="card mb-4">

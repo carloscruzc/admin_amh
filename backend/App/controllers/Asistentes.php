@@ -114,7 +114,7 @@ html;
     public function Usuario() {
         $search = $_POST['search'];       
 
-        $all_ra = AsistentesDao::getAllRegistrosAcceso();
+        // $all_ra = AsistentesDao::getAllRegistrosAcceso();
         // $this->setTicketVirtual($all_ra);
         // $this->setClaveRA($all_ra);
 

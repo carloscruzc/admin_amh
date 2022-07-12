@@ -37,7 +37,7 @@ sql;
     INNER JOIN estados es ON (ra.id_estado = es.id_estado)
     WHERE ra.mostrar = 1 
     AND CONCAT_WS(' ',ra.usuario,ra.nombre,ra.apellidop,ra.apellidom,ra.user_id, ra.clave, ra.clave_socio) 
-   LIKE '%$search%';
+    LIKE '%$search%';
 sql;
 
     return $mysqli->queryAll($query);
