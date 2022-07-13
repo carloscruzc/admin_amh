@@ -301,6 +301,11 @@
                                 </select>
                             </div>
 
+                            <div class="form-group col-md-12">
+                                <label class="control-label col-md-12 col-sm-1 col-xs-12" for="motivo">Motivo <span class="required">*</span></label>
+                                <textarea id="motivo" name="motivo" class="form-control"></textarea>
+                            </div>
+
                             <div class="modal-footer">
                                 <button type="submit" class="btn bg-gradient-success" id="btn_upload" name="btn_upload">Aceptar</button>
                                 <button type="button" class="btn bg-gradient-secondary" data-dismiss="modal">Cancelar</button>

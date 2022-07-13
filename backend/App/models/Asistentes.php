@@ -330,8 +330,8 @@ sql;
   public static function insert($data){
     $mysqli = Database::getInstance(1);
     $query=<<<sql
-    INSERT INTO utilerias_administradores(codigo_beca,nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, socio,clave,id_categoria)
-    VALUES('',:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, :monto_congreso, 4,:clave,:categoria);
+    INSERT INTO utilerias_administradores(codigo_beca,nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, socio,clave,id_categoria,motivo)
+    VALUES('',:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, :monto_congreso, 4,:clave,:categoria,:motivo);
 sql;
 
         $parametros = array(
@@ -347,12 +347,12 @@ sql;
         ':categoria'=>$data->_categoria,
         ':referencia'=>$data->_referencia,
         ':monto_congreso' => $data->_monto_congreso,
+        ':motivo' => $data->_motivo,
         ':clave'=>$data->_clave
 
         );
         $id = $mysqli->insert($query,$parametros);
         return $id;
-
       
   }
 

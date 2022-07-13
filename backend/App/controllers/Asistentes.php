@@ -100,6 +100,7 @@ html;
         $data->_categoria = MasterDom::getData('categoria');
         $data->_referencia = $referencia;
         $data->_monto_congreso = $monto_congreso;
+        $data->_motivo = MasterDom::getData('motivo');
         $data->_clave = $this->generateRandomStringT();
 
         $id = AsistentesDao::insert($data);
