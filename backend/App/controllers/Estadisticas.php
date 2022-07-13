@@ -221,6 +221,7 @@ html;
 
 
       View::set('total_pesos',$total_pesos);
+      View::set('ventas_totales',count($datos_caja));
       View::set('tabla',$tabla);
       View::set('tabla_caja',$tabla_caja);
       View::set('num_asistencias',$num_asistencias);

@@ -196,6 +196,10 @@
                                     <div class="cont_total" style="padding: 20px;">
                                         <span style="font-size: 25px; color:green;">Total: $ <span id="total_pesos"><?=number_format($total_pesos,2)?></span> MXN</span>
                                     </div>
+
+                                    <div class="cont_total_ventas" style="padding: 20px;">
+                                        <span style="font-size: 25px; color:green;">Número de Ventas: <span id="total_ventas"><?=number_format($ventas_totales)?></span></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -254,11 +258,13 @@
                         });
 
                         $("#total_pesos").text(respuesta.total);
+                        $("#total_ventas").text(respuesta.count);
                     }else{
                         $("#table_caja tbody").append(
                                 `<td> No hay Registros para esta fecha</td>`
                             );
                             $("#total_pesos").text(0);
+                            $("#total_ventas").text(0);
                     }
 
                     console.log(total_pesos);
