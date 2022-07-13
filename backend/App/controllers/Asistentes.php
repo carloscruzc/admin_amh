@@ -139,8 +139,17 @@ html;
                     <option value="{$value['id_pais']}">{$value['pais']}</option>
 html;
         }
+
+        $cate = AsistentesDao::getCategoriaMas();
+        $optionCate = '';
+        foreach($cate as $key => $value){
+            $optionCate .= <<<html
+                    <option value="{$value['id_categoria']}" data-costo="{$value['costo']}">{$value['categoria']}</option>
+html;
+        }
         
-        View::set('optionPais', $optionPais);      
+        View::set('optionPais', $optionPais); 
+        View::set('optionCate', $optionCate);     
         View::set('modal',$modal);    
         View::set('tabla', $this->getAllColaboradoresAsignadosByName($search));
         View::set('asideMenu',$this->_contenedor->asideMenu());    
