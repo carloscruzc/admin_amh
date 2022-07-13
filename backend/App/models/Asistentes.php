@@ -48,6 +48,17 @@ sql;
       return $mysqli->queryAll($query);
     }
 
+    public static function getCostoCategoria($id_categoria){
+      $mysqli = Database::getInstance();
+      $query =<<<sql
+      SELECT costo
+      FROM categorias WHERE
+      id_categoria = $id_categoria        
+sql;
+  
+      return $mysqli->queryOne($query);
+    }
+
     public static function getProductosById($id){
       $mysqli = Database::getInstance();
       $query=<<<sql
@@ -320,7 +331,7 @@ sql;
     $mysqli = Database::getInstance(1);
     $query=<<<sql
     INSERT INTO utilerias_administradores(codigo_beca,nombre, apellidop, apellidom, usuario, title, telefono, id_pais, id_estado, referencia, monto_congreso, socio,clave,id_categoria)
-    VALUES('',:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, 0, 4,:clave,:categoria);
+    VALUES('',:nombre, :apellidop,:apellidom, :usuario, :title, :telefono, :pais, :estado, :referencia, :monto_congreso, 4,:clave,:categoria);
 sql;
 
         $parametros = array(
@@ -335,11 +346,13 @@ sql;
         ':estado'=>$data->_estado,
         ':categoria'=>$data->_categoria,
         ':referencia'=>$data->_referencia,
+        ':monto_congreso' => $data->_monto_congreso,
         ':clave'=>$data->_clave
 
         );
         $id = $mysqli->insert($query,$parametros);
         return $id;
+
       
   }
 
@@ -495,7 +508,7 @@ sql;
     {
         $mysqli = Database::getInstance();
         $query = <<<sql
-      SELECT * FROM categorias WHERE id_categoria > 5;
+      SELECT * FROM categorias WHERE id_categoria != 1;
 sql;
 
         return $mysqli->queryAll($query);

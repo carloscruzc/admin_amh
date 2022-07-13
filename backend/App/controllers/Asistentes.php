@@ -47,9 +47,14 @@ html;
         $optionCate = '';
         foreach($cate as $key => $value){
             $optionCate .= <<<html
-                    <option value="{$value['id_categoria']}">{$value['categoria']}</option>
+                    <option value="{$value['id_categoria']}" data-costo="{$value['costo']}">{$value['categoria']}</option>
 html;
         }
+
+        // var_dump($cate);
+
+        // exit;
+
 
         View::set('asideMenu',$this->_contenedor->asideMenu());
         View::set('optionPais', $optionPais);
@@ -80,6 +85,8 @@ html;
 
         $referencia = $str_nombre[0].$str_nombre[1].$str_apellidop[0].$str_apellidop[1].$fecha[0].$fecha[1].$fecha[2];
 
+        $monto_congreso = AsistentesDao::getCostoCategoria(MasterDom::getData('categoria'))['costo'];
+
 
         $data = new \stdClass();            
         $data->_nombre = MasterDom::getData('nombre');
@@ -92,6 +99,7 @@ html;
         $data->_estado = MasterDom::getData('estado');
         $data->_categoria = MasterDom::getData('categoria');
         $data->_referencia = $referencia;
+        $data->_monto_congreso = $monto_congreso;
         $data->_clave = $this->generateRandomStringT();
 
         $id = AsistentesDao::insert($data);

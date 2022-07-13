@@ -328,6 +328,11 @@
 <script>
     $(document).ready(function() {
 
+        // $("#categoria").on("change",function(){
+        //     alert($(this).attr('data-costo'));
+        //     alert($(this).val());
+        // })
+
         $("#form_etiquetas").on("click", function(event) {
             event.preventDefault();
             var formData = new FormData(document.getElementById("form_etiquetas"));
