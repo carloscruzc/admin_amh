@@ -242,10 +242,12 @@
 
 
                             $("#table_caja tbody").append(
-                                `<td>${el.nombre}  ${el.apellidop}  ${el.apellidom}  </td>
+                                `<tr>
+                                <td>${el.nombre}  ${el.apellidop}  ${el.apellidom}  </td>
                                 <td id="descripcion_asistencia" width="20">${el.productos}</td>
                                 <td class="text-center">$ ${el.total_pesos}</td>  
-                                <td class="text-center">$ ${el.fecha_transaccion}</td>`
+                                <td class="text-center">$ ${el.fecha_transaccion}</td>
+                                </tr>`
                             );
 
 
