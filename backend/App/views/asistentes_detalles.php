@@ -241,13 +241,15 @@
                                         <label class="form-label mt-4">Email Registrado y Verificado *</label>
                                         <div class="input-group">
                                             <input id="email" name="email" maxlength="49" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['usuario']?>" >
+                                            <hr>
+                                            <span id="msg_email" style="font-size: 0.75rem; font-weight: 700;margin-bottom: 0.5rem;"></span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="button-row d-flex mt-4 col-12">
-                                        <button class="btn bg-gradient-success ms-auto mb-0 mx-4" type="submit" title="Actualizar">Actualizar</button>
+                                        <button class="btn bg-gradient-success ms-auto mb-0 mx-4" id="btn_upload" name="btn_upload" type="submit" title="Actualizar">Actualizar</button>
                                         <a class="btn bg-gradient-secondary mb-0 js-btn-prev" data-dismiss="modal" title="Prev">Cancelar</a>
                                     </div>
                                 </div>
@@ -395,6 +397,32 @@
                     console.log(respuesta);
                 }
 
+            });
+        });
+
+        $("#email").on("keyup", function() {
+            console.log($(this).val());
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Asistentes/isUserValidate",
+                data: {
+                    usuario: $(this).val()
+                },
+                success: function(data) {
+                    console.log(data)
+                    if (data == "true") {
+                        //el usuario ya existe
+                        $("#btn_upload").css('display', 'none');
+                        $("#msg_email").css('color', 'red');
+                        $("#msg_email").html('Este correo ya se ha registrado');
+
+                    } else {
+                        $("#btn_upload").css('display', 'inline-block');
+                        $("#msg_email").css('color', 'red');
+                        $("#msg_email").html('');
+                    }
+                }
             });
         });
 
