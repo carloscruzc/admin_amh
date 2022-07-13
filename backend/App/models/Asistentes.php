@@ -497,7 +497,7 @@ sql;
     {
         $mysqli = Database::getInstance();
         $query = <<<sql
-      SELECT * FROM categorias WHERE id_categoria > 1;
+      SELECT * FROM categorias WHERE id_categoria;
 sql;
 
         return $mysqli->queryAll($query);
