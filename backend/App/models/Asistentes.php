@@ -388,8 +388,8 @@ sql;
         $mysqli = Database::getInstance(true);
         $query=<<<sql
           UPDATE utilerias_administradores 
-          SET nombre = '$data->_nombre', apellidop = '$data->_apellido_paterno', apellidom = '$data->_apellido_materno', clave_socio = '$data->_clave_socio', id_categoria = '$data->_id_categoria', monto_congreso = '$data->_monto_congreso'
-          WHERE usuario = '$data->_email';
+          SET nombre = '$data->_nombre', apellidop = '$data->_apellido_paterno', apellidom = '$data->_apellido_materno', clave_socio = '$data->_clave_socio', id_categoria = '$data->_id_categoria', monto_congreso = '$data->_monto_congreso', usuario = '$data->_email'
+          WHERE user_id = '$data->_id';
 sql;
 
         $accion = new \stdClass();

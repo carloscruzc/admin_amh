@@ -641,7 +641,7 @@ html;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $id_registro = $_POST['id_registro'];
+            $id_registro = $_POST['user_id_asis'];
             $nombre = $_POST['nombre'];
             $apellido_paterno = $_POST['apellido_paterno'];
             $apellido_materno = $_POST['apellido_materno'];

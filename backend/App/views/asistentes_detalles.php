@@ -178,6 +178,7 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" id="update_detalles" action="" method="POST">
+                        <input type="hidden" id="user_id_asis" name="user_id_asis" value="<?=$id_asistente?>">
                             <div class="card-body pt-0">
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
@@ -239,7 +240,7 @@
                                     <div class="col-lg-12 col-6">
                                         <label class="form-label mt-4">Email Registrado y Verificado *</label>
                                         <div class="input-group">
-                                            <input id="email" name="email" maxlength="49" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['usuario']?>" readonly>
+                                            <input id="email" name="email" maxlength="49" class="form-control" type="email" placeholder="example@email.com" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['usuario']?>" >
                                         </div>
                                     </div>
                                 </div>
