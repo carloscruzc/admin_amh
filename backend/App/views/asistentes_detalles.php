@@ -418,7 +418,7 @@
                         $("#msg_email").html('Este correo ya se ha registrado');
 
                     } else {
-                        $("#btn_upload").css('display', 'inline-block');
+                        $("#btn_upload").css('display', 'flex');
                         $("#msg_email").css('color', 'red');
                         $("#msg_email").html('');
                     }

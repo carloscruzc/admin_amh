@@ -957,8 +957,9 @@ html;
                         $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
                 <span class="badge badge-success" style="background-color: #7CE644; color:white;"><strong>GAFETE YA IMPRESO</strong></span>
+            
                 <br>
-                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank" style="display: none;"><i class="fas fa-print"> </i></a>     
+                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
                     <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
                     
@@ -992,8 +993,9 @@ html;
                         $gafetes_httml .=<<<html
                 <td style="text-align:center; vertical-align:middle;">
                 <span class="badge badge-success" style="background-color: #7CE644; color:white;"><strong>GAFETE YA IMPRESO</strong></span>
+
                 <br>
-                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank" style="display: none;"><i class="fas fa-print"> </i></a>     
+                    <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
                     <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
                     
