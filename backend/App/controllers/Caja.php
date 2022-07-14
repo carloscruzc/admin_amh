@@ -461,35 +461,40 @@ html;
                 }
 
             }else{
+
+                for($i = 0; $i < $value['cantidad'];$i++){
                 //insertar
-                $data_pendiente = new \stdClass();
-                $data_pendiente->_user_id = $user_id;
-                $data_pendiente->_id_producto = $value['id_product']; 
-                $data_pendiente->_reference = $referencia; 
-                $data_pendiente->_clave = $clave;
-                $data_pendiente->_monto = $value['precio'];
-                $data_pendiente->_tipo_pago = $metodo_pago;
-               
-                $insert_pendiente = CajaDao::insertPendientePago($data_pendiente);
+                    $data_pendiente = new \stdClass();
+                    $data_pendiente->_user_id = $user_id;
+                    $data_pendiente->_id_producto = $value['id_product']; 
+                    $data_pendiente->_reference = $referencia; 
+                    $data_pendiente->_clave = $clave;
+                    $data_pendiente->_monto = $value['precio'];
+                    $data_pendiente->_tipo_pago = $metodo_pago;
+                
+                    $insert_pendiente = CajaDao::insertPendientePago($data_pendiente);
 
-                if($insert_pendiente){
+                    if($insert_pendiente){
 
-                    $getProducto = CajaDao::getAsignaProductoByIdProductAndUser($user_id,$value['id_product']);
+                        // $getProducto = CajaDao::getAsignaProductoByIdProductAndUser($user_id,$value['id_product']);
 
-                    if(!$getProducto){
-                        
-                        $data = new \stdClass();
-                        $data->_user_id = $user_id;
-                        $data->_id_producto = $value['id_product'];             
-                        
+                        // if(!$getProducto){
+                            
+                            $data = new \stdClass();
+                            $data->_user_id = $user_id;
+                            $data->_id_producto = $value['id_product'];             
+                            
 
-                        $insertAsiganProducto = CajaDao::insertAsignaProducto($data);
+                            $insertAsiganProducto = CajaDao::insertAsignaProducto($data);
 
-                        if($insertAsiganProducto){                       
-                            $flag = 1;
-                        }
-                    }   
+                            if($insertAsiganProducto){                       
+                                $flag = 1;
+                            }
+                        // }   
+                    }
                 }
+
+                //end for
             }
 
             
