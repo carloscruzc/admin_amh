@@ -99,6 +99,92 @@ $extraFooter =<<<html
             }
         });
 
+        $('#constancia-list').DataTable({
+          "drawCallback": function(settings) {
+              $('.current').addClass("btn bg-gradient-pink text-white btn-rounded").removeClass("paginate_button");
+              $('.paginate_button').addClass("btn").removeClass("paginate_button");
+              $('.dataTables_length').addClass("m-4");
+              $('.dataTables_info').addClass("mx-4");
+              $('.dataTables_filter').addClass("m-4");
+              $('input').addClass("form-control");
+              $('select').addClass("form-control");
+              $('.previous.disabled').addClass("btn-outline-info opacity-5 btn-rounded mx-2");
+              $('.next.disabled').addClass("btn-outline-info opacity-5 btn-rounded mx-2");
+              $('.previous').addClass("btn-outline-info btn-rounded mx-2");
+              $('.next').addClass("btn-outline-info btn-rounded mx-2");
+              $('a.btn').addClass("btn-rounded");
+          },
+          "language": {
+
+              "sProcessing": "Procesando...",
+              "sLengthMenu": "Mostrar _MENU_ registros",
+              "sZeroRecords": "No se encontraron resultados",
+              "sEmptyTable": "Ningún dato disponible en esta tabla",
+              "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+              "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+              "sInfoPostFix": "",
+              "sSearch": "Buscar:",
+              "sUrl": "",
+              "sInfoThousands": ",",
+              "sLoadingRecords": "Cargando...",
+              "oPaginate": {
+                  "sFirst": "Primero",
+                  "sLast": "Último",
+                  "sNext": "Siguiente",
+                  "sPrevious": "Anterior"
+              },
+              "oAria": {
+                  "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+              }
+
+          }
+      });
+
+      $('#socio-list').DataTable({
+        "drawCallback": function(settings) {
+            $('.current').addClass("btn bg-gradient-pink text-white btn-rounded").removeClass("paginate_button");
+            $('.paginate_button').addClass("btn").removeClass("paginate_button");
+            $('.dataTables_length').addClass("m-4");
+            $('.dataTables_info').addClass("mx-4");
+            $('.dataTables_filter').addClass("m-4");
+            $('input').addClass("form-control");
+            $('select').addClass("form-control");
+            $('.previous.disabled').addClass("btn-outline-info opacity-5 btn-rounded mx-2");
+            $('.next.disabled').addClass("btn-outline-info opacity-5 btn-rounded mx-2");
+            $('.previous').addClass("btn-outline-info btn-rounded mx-2");
+            $('.next').addClass("btn-outline-info btn-rounded mx-2");
+            $('a.btn').addClass("btn-rounded");
+        },
+        "language": {
+
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+
+        }
+    });
+
           $("#muestra-cupones").tablesorter();
           var oTable = $('#muestra-cupones').DataTable({
                 "columnDefs": [{
@@ -161,6 +247,8 @@ $extraFooter =<<<html
 html;
     $tabla = '';
     $datos = EstadisticasDao::getAll();
+    $numero_gafete = 0;
+    $total_gafetes = 0;
     
     foreach ($datos as $key => $value) {
 
@@ -176,10 +264,11 @@ html;
         $clave_socio = '';
       }
 
-      
+      $numero_gafete = $numero_gafete + 1;
 
       $tabla.=<<<html
       <tr>
+        <td>$numero_gafete</td>
         <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
         <td id="descripcion_asistencia" width="20">{$codigo_beca}</td>
         <td class="text-center">{$clave_socio}</td>  
@@ -189,15 +278,59 @@ html;
  
 html;
     }
+    foreach ($datos as $key => $value){
+      $total_gafetes = $total_gafetes + 1;
+    }
+
+
+    $tabla_constancia = '';
+    $datos_consta = EstadisticasDao::getAllConstancias();
+    $numero_constancia = 0;
+    $total_consta = 0;
+    
+    foreach ($datos_consta as $key => $value) {
+      if($value['codigo_beca'] != ''){
+        $codigo_beca = '<span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>BECADO</strong></span>';
+      }else{
+        $codigo_beca = '<span class="badge badge-warning" style="background-color: #F2B500; color:white "><strong>NO BECADO</strong></span>';
+      }
+
+      if($value['clave_socio'] != '' ){
+        $clave_socio = '<span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>SOCIO ACTIVO</strong></span>';
+      }else{
+        $clave_socio = '';
+      }
+
+      $numero_constancia = $numero_constancia + 1;
+
+      $tabla_constancia.=<<<html
+      <tr>
+        <td>$numero_constancia</td>
+        <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
+        <td id="descripcion_asistencia" width="20">{$codigo_beca}</td>
+        <td class="text-center">{$clave_socio}</td>  
+        <td class="text-center">{$value['fecha_descarga']}</td>       
+        
+      </tr>
+ 
+html;
+    }
+
+    foreach ($datos_consta as $key => $value){
+      $total_consta = $total_consta + 1;
+    }
 
     $tabla_caja = '';
     $datos_caja = EstadisticasDao::getDataCaja();
+    $numero_caja = 0;
     $total_pesos = 0;
     
-    foreach ($datos_caja as $key => $value) {      
+    foreach ($datos_caja as $key => $value) {   
+      $numero_caja = $numero_caja + 1;   
 
       $tabla_caja.=<<<html
       <tr>
+        <td>$numero_caja</td>
         <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
         <td id="descripcion_asistencia" width="20">{$value['productos']}</td>
         <td class="text-center">$ {$value['total_pesos']}</td>  
@@ -219,11 +352,52 @@ html;
 html;
       }
 
+    $tabla_socios = '';
+    $datos_socios = EstadisticasDao::getAllSocioActivos();
+    $numero_socios = 0;
+    $total_socios = 0;
+    
+    foreach ($datos_socios as $key => $value) {
+      if($value['codigo_beca'] != ''){
+        $codigo_beca = '<span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>BECADO</strong></span>';
+      }else{
+        $codigo_beca = '<span class="badge badge-warning" style="background-color: #F2B500; color:white "><strong>NO BECADO</strong></span>';
+      }
+
+      if($value['clave_socio'] != '' ){
+        $clave_socio = '<span class="badge badge-success" style="background-color: #F2B500; color:white "><strong>SOCIO ACTIVO</strong></span>';
+      }else{
+        $clave_socio = '';
+      }
+
+      $numero_socios = $numero_socios + 1;
+
+      $tabla_socios.=<<<html
+      <tr>
+        <td>$numero_socios</td>
+        <td>{$value['nombre']}  {$value['apellidop']}  {$value['apellidom']}  </td>
+        <td class="text-center">{$value['usuario']}</td>  
+        <td class="text-center">{$value['fecha']}</td>
+      </tr>
+ 
+html;
+    }
+
+    foreach ($datos_socios as $key => $value){
+      $total_socios = $total_socios + 1;
+    }
+
 
       View::set('total_pesos',$total_pesos);
+      View::set('total_consta',$total_consta);
+      View::set('total_gafetes',$total_gafetes);
+      View::set('numero_caja',$numero_caja);
+      View::set('total_socios',$total_socios);
       View::set('ventas_totales',count($datos_caja));
       View::set('tabla',$tabla);
+      View::set('tabla_constancia',$tabla_constancia);
       View::set('tabla_caja',$tabla_caja);
+      View::set('tabla_socios',$tabla_socios);
       View::set('num_asistencias',$num_asistencias);
       View::set('asideMenu',$this->_contenedor->asideMenu());
       View::set('header',$this->_contenedor->header($extraHeader));

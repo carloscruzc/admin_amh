@@ -365,19 +365,19 @@
                         <div class="card-body p-3">
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="/Asistencias/">
+                                    <a href="/Estadisticas/">
                                         <div class="card up-card">
                                             <div class="row m-4">
                                                 <div class="col-3">
                                                     <div class="bg-gradient-pink avatar avatar-l position-relative" >
-                                                        <span class="fa fa-bell m-3 text-white" style="font-size: x-large;"></span>
+                                                        <span class="fas fa-chart-bar m-3 text-white" style="font-size: x-large;"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-9 m-auto">
                                                     <div class="col-auto my-auto">
                                                         <div class="h-100">
                                                             <h5 class="mb-1">
-                                                                Asistencias
+                                                                Estadísticas
                                                             </h5>
                                                             <p class="mb-0 font-weight-bold text-sm">
                                                             </p>

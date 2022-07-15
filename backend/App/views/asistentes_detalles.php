@@ -182,7 +182,7 @@
                             <div class="card-body pt-0">
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
-                                        <label class="form-label">Clave Socio APM *</label>
+                                        <label class="form-label">Clave Socio AMH *</label>
                                         <div class="input-group">
                                             <input id="clave_socio" name="clave_socio" maxlength="29" class="form-control" type="text" placeholder="SA937FD" onfocus="focused(this)" onfocusout="defocused(this)" value="<?= $detalles_registro['clave_socio']?>" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
                                         </div>
@@ -245,6 +245,19 @@
                                             <span id="msg_email" style="font-size: 0.75rem; font-weight: 700;margin-bottom: 0.5rem;"></span>
                                         </div>
                                     </div>
+                                    <!-- <div class="form-group col-md-4">
+                                        <label class="control-label col-md-12 col-sm-1 col-xs-12" for="pais">País <span class="required">*</span></label>
+                                        <select class="multisteps-form__select form-control all_input_select" name="pais" id="pais" required>
+                                            <option value="" selected>Selecciona una Opción</option>
+                                            <?= $optionPais2 ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label col-md-12 col-sm-1 col-xs-12" for="estado">Estado <span class="required">*</span></label>
+                                        <select class="multisteps-form__select form-control all_input_select" name="estado" id="estado">
+                                            <option value="" selected>Selecciona una Opción</option>
+                                        </select>
+                                    </div> -->
                                 </div>
 
                                 <div class="row">
@@ -425,6 +438,52 @@
                 }
             });
         });
+
+        // $("#pais").on("mouseenter", function() {
+        //     var pais = $(this).val();
+        //     $.ajax({
+        //         url: "/Asistentes/getEstadoPais",
+        //         type: "POST",
+        //         data: {
+        //             pais
+        //         },
+        //         dataType: "json",
+        //         beforeSend: function() {
+        //             console.log("Procesando....");
+        //             $('#estado')
+        //                 .find('option')
+        //                 .remove()
+        //                 .end();
+
+        //         },
+        //         success: function(respuesta) {
+        //             console.log(respuesta);
+
+        //             $('#estado').removeAttr('disabled');
+
+        //             $('#estado')
+        //                 .append($('<option>', {
+        //                         value: '<?=$detalles_registro['id_estado'];?>'
+        //                     })
+        //                     .text('<?=$detalles_registro['estado'];?>'));
+
+        //             $.each(respuesta, function(key, value) {
+        //                 //console.log(key);
+        //                 console.log(value);
+        //                 $('#estado')
+        //                     .append($('<option>', {
+        //                             value: value.id_estado
+        //                         })
+        //                         .text(value.estado));
+        //             });
+
+        //         },
+        //         error: function(respuesta) {
+        //             console.log(respuesta);
+        //         }
+
+        //     });
+        // });
 
     });
 </script>

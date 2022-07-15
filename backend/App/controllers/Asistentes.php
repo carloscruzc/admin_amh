@@ -328,6 +328,7 @@ html;
 //         }
 
         $usuario = AsistentesDao::getIdUsuarios($id);
+        $pais = AsistentesDao::getPais($id);
         $cate = AsistentesDao::getCategoria();
         $optionCate = '';
         foreach($cate as $key => $value){
@@ -336,7 +337,15 @@ html;
                     <option value="{$value['id_categoria']}" $selectedStatus>{$value['categoria']}</option>
 html;
         }
-        
+
+        $optionPais2 = '';
+        foreach($pais as $key => $value){
+            $selectedpais = ($value['id_pais'] == $usuario['id_pais']) ? 'selected' : '';
+            $optionPais2 .= <<<html
+                    <option value="{$value['id_pais']}" $selectedpais>{$value['pais']}</option>
+html;
+        }
+
         $detalles = AsistentesDao::getByClaveRA($id);
         $detalles_registro = AsistentesDao::getTotalByClaveRA($id);
         $detalles_categoria = AsistentesDao::getCategoria($id);
@@ -469,6 +478,7 @@ html;
         // View::set('alergias_a', $alergias_a);
         // View::set('alergia_medicamento_cual', $alergia_medicamento_cual);
         View::set('optionCate', $optionCate);
+        View::set('optionPais2', $optionPais2);
         View::set('detalles_registro', $detalles_registro[0]);
         View::set('detalles_categoria', $detalles_categoria[0]);
         View::set('detalles_categoria1', $detalles_categoria[1]);
@@ -648,6 +658,8 @@ html;
             $email = $_POST['email'];
             $clave_socio = $_POST['clave_socio'];
             $id_categoria = $_POST['id_categoria'];
+            $pais = $_POST['pais'];
+            $estado = $_POST['estado'];
 
             if($id_categoria > 5){
                 $monto_congreso = 0;
@@ -667,6 +679,8 @@ html;
             $documento->_clave_socio = $clave_socio;
             $documento->_id_categoria = $id_categoria;
             $documento->_monto_congreso = $monto_congreso;
+            $documento->_pais = $pais;
+            $documento->_estado = $estado;
 
             $id = AsistentesDao::update($documento);
 
