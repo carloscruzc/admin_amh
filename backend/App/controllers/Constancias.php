@@ -538,7 +538,7 @@ html;
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->setY(1);
-        $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
+        // $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->SetFont('Arial', 'B', 5);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->SetXY(56, 88);
@@ -593,7 +593,7 @@ html;
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->setY(1);
-        $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
+        // $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->SetFont('Arial', 'B', 5);    //Letra Arial, negrita (Bold), tam. 20
 
@@ -721,7 +721,7 @@ html;
         $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->setY(1);
         $pdf->SetFont('Arial', 'B', 16);
-        $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
+        // $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
         // $pdf->Image('constancias/plantillas/'.$nombre_imagen, 0, 0, 296, 210);
         // $pdf->SetFont('Arial', 'B', 25);
         // $pdf->Multicell(133, 80, $clave_ticket, 0, 'C');
