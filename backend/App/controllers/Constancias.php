@@ -520,7 +520,7 @@ html;
         $nombre = html_entity_decode($datos_user['nombre']);
         $apellido = html_entity_decode($datos_user['apellidop']);
         $segundo_apellido = html_entity_decode($datos_user['apellidom']);
-        $nombre_completo = ($nombre)." ".($apellido)." ".($segundo_apellido);
+        $nombre_completo = ($datos_user['title'])."".($nombre)." ".($apellido)." ".($segundo_apellido);
         $nombre_completo = mb_strtoupper($nombre_completo);
 
         // echo $nombre_completo;
@@ -528,37 +528,104 @@ html;
 
         $insert_impresion_constancia = AsistentesDao::insertImpresionConstancia($datos_user['user_id'],'Fisica',$id_producto);
         
+        /*
+        ////////////////////////////////
+            AQUI VA LA PRIMERA HOJA
+        ///////////////////////////////
+        */
 
         $pdf = new \FPDF($orientation = 'L', $unit = 'mm', $format = 'A4');
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
         $pdf->setY(1);
+        $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
         $pdf->SetFont('Arial', 'B', 16);
-        // $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
-        // $pdf->Image('constancias/plantillas/'.$nombre_imagen, 0, 0, 296, 210);
-        // $pdf->SetFont('Arial', 'B', 25);
-        // $pdf->Multicell(133, 80, $clave_ticket, 0, 'C');
-
-        //$pdf->Image('1.png', 1, 0, 190, 190);
         $pdf->SetFont('Arial', 'B', 5);    //Letra Arial, negrita (Bold), tam. 20
-        //$nombre = utf8_decode("Jonathan Valdez Martinez");
-        //$num_linea =utf8_decode("Línea: 39");
-        //$num_linea2 =utf8_decode("Línea: 39");
-        if($id_producto == 1){
-        $pdf->SetXY(15, 82);
+        $pdf->SetXY(56, 88);
         
-        $pdf->SetFont('Arial', 'B', 30);
+        $pdf->SetFont('Arial', 'B', 24);
         #4D9A9B
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Multicell(273, 30, utf8_decode($nombre_completo), 0, 'C');
+
+        $pdf->SetXY(120, 122);
+        $pdf->SetFont('Arial', '', 15);
+        $pdf->Multicell(150, 7, utf8_decode('Por su participación como                      en el marco del'), 0, 'C');
+        $pdf->SetXY(120, 122);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Multicell(175, 7, utf8_decode('ASISTENTE'), 0, 'C');
+        $pdf->SetXY(108, 128);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Multicell(175, 6, utf8_decode('XVII Congreso Nacional de Hepatología 13 al 16 de Julio 2022 Mérida, Yucatán'), 0, 'C');
+
+
+        $pdf->SetXY(123, 147);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Multicell(150, 7, utf8_decode('Con reconocimiento del Comité Normativo Nacional de Medicina General A.C. (CONAMEGE).'), 0, 'C');
+        $pdf->SetXY(112, 151);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Multicell(170, 7, utf8_decode('con registro 5073/2022; con valor de                  para la recertificación de "Actividades de '), 0, 'C');
+        $pdf->SetXY(106, 151);
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Multicell(175, 7, utf8_decode('26 puntos'), 0, 'C');
+        $pdf->SetXY(124, 155);
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Multicell(150, 7, utf8_decode('Educación Médica Continua"'), 0, 'C'); 
+
+
+        $pdf->Image('constancias/plantillas/firma_dra.png', 110, 175, 70, 28);
+        $pdf->Image('constancias/plantillas/firma_doc.png', 205, 178, 70, 25);
+
+        // //TIEMPO
+        // $pdf->SetFont('Arial', 'B',10);
+        // $pdf->SetXY(158, 177);
+        // $pdf->Multicell(10, 10, utf8_decode($no_horas), 0, 'C');
+        // //FECHA
+        // $pdf->SetFont('Arial', '',10);
+        // $pdf->SetXY(13, 179.99);
+        // $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
+
+        /*
+        ////////////////////////////////
+            AQUI VA LA SEGUNDA HOJA
+        ///////////////////////////////
+        */
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 8);    //Letra Arial, negrita (Bold), tam. 20
+        $pdf->setY(1);
+        $pdf->Image('constancias/plantillas/constancia_congreso_1.jpeg', 0, 0, 296, 210);
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 5);    //Letra Arial, negrita (Bold), tam. 20
+
+        $pdf->SetXY(56, 88);
+        
+        $pdf->SetFont('Arial', 'B', 24);
+        #4D9A9B
+        $pdf->SetTextColor(0, 0, 0);
+        $pdf->Multicell(273, 30, utf8_decode($nombre_completo), 0, 'C');
+
+        $pdf->SetXY(90, 128);
+        $pdf->SetFont('Arial', '', 15);
+        $pdf->Multicell(150, 6, utf8_decode('Por su participación como                      en el'), 0, 'C');
+        $pdf->SetXY(102, 128);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Multicell(175, 6, utf8_decode('ASISTENTE'), 0, 'C');
+        $pdf->SetXY(162, 128);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Multicell(175, 6, utf8_decode('CURSO PRECONGRESO'), 0, 'C');
+        $pdf->SetXY(103, 134);
+        $pdf->SetFont('Arial', 'B', 15);
+        $pdf->Multicell(175, 6, utf8_decode('                                XVII Congreso Nacional de Hepatología 13 al 16 de Julio 2022 Mérida, Yucatán'), 0, 'C');
+        $pdf->SetXY(59, 134);
+        $pdf->SetFont('Arial', '', 15);
+        $pdf->Multicell(150, 6, utf8_decode('en el marco del'), 0, 'C');
+
+
+        $pdf->Image('constancias/plantillas/firma_dra.png', 110, 175, 70, 28);
+        $pdf->Image('constancias/plantillas/firma_doc.png', 205, 178, 70, 25);
         // $pdf->SetFont('Arial', 'B', 15);
         // $pdf->Multicell(275, 25, utf8_decode('Attended the:'), 0, 'C');
         // $pdf->SetFont('Arial', '',20);
-        // if($id_producto == 1){
-        //     $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
-        // }else{
-        // $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
-        // }
         // //TIEMPO
         // $pdf->SetFont('Arial', 'B',10);
         // $pdf->SetXY(158, 177);
@@ -568,37 +635,8 @@ html;
         // $pdf->SetXY(13, 179.99);
         // $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
         $pdf->Output();
-        }
-        else{
-        $pdf->SetXY(15, 66);
-        
-        $pdf->SetFont('Arial', 'B', 30);
-        #4D9A9B
-        $pdf->SetTextColor(0, 0, 0);
-        $pdf->Multicell(273, 20, utf8_decode($nombre_completo), 0, 'C');
-        // $pdf->SetFont('Arial', 'B', 15);
-        // $pdf->Multicell(275, 20, utf8_decode('Attended the:'), 0, 'C');
-        // $pdf->SetFont('Arial', '',20);
-        // if($id_producto == 1){
-        //     $pdf->Multicell(275, 10, utf8_decode($attend).' '.utf8_decode("$nombre_constancia").' ', 0, 'C');
-        // }else{
-        // $pdf->Multicell(275, 10, utf8_decode($attend).' "'.utf8_decode("$nombre_constancia").'"', 0, 'C');
-        // }
-        // //TIEMPO
-        // $pdf->SetFont('Arial', 'B',10);
-        // $pdf->SetXY(158, 177);
-        // $pdf->Multicell(10, 10, utf8_decode('5'), 0, 'C');
-        //FECHA
-        $pdf->SetFont('Arial', '',10);
-        $pdf->SetXY(13, 179.99);
-        $pdf->Multicell(275, 10, utf8_decode($fecha), 0, 'C');
-        $pdf->Output();
-            
-        }
-        // $pdf->Output('F','constancias/'.$clave.$id_curso.'.pdf');
-
-        // $pdf->Output('F', 'C:/pases_abordar/'. $clave.'.pdf');
     }
+
 
     public function abrirConstanciaDigital($clave, $id_producto, $no_horas = NULL)
     {

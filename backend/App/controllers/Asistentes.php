@@ -976,9 +976,9 @@ html;
                 <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
-                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn btn-icon-only text-white" style="background-color: #F2B500;" title="Imprimir Constancia" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia" target="_blank"><i class="fas fa-file"> </i></a>
                     
-                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+                    <!--<a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
 
                 </td>
 html;
@@ -990,9 +990,9 @@ html;
                 <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
-                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn btn-icon-only text-white" style="background-color: #F2B500;" title="Imprimir Constancia" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia" target="_blank"><i class="fas fa-file"> </i></a>
                     
-                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+                    <!--<a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
 
                 </td>
 html;
@@ -1013,9 +1013,9 @@ html;
                 <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
-                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn btn-icon-only text-white" style="background-color: #F2B500;" title="Imprimir Constancia" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia" target="_blank"><i class="fas fa-file"> </i></a>
                     
-                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+                    <!--<a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
 
                 </td>
 html;
@@ -1031,9 +1031,9 @@ html;
                 <br>
                     <a href="/RegistroAsistencia/abrirpdfGafete/{$value['clave']}/{$value['ticket_virtual']}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Gafetes" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Gafetes" target="_blank"><i class="fas fa-print"> </i></a>     
 
-                    <!--<a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn bg-pink btn-icon-only text-white" title="Imprimir Constancia Impresa" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Impresa" target="_blank"><i class="fas fa-print"> </i></a>
+                    <a href="/Constancias/abrirConstancia/{$value['clave']}/{$id_producto}" class="btn btn-icon-only text-white" style="background-color: #F2B500;" title="Imprimir Constancia" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia" target="_blank"><i class="fas fa-file"> </i></a>
                     
-                    <a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
+                    <!--<a href="/Constancias/abrirConstanciaDigital/{$value['clave']}/{$id_producto}" class="btn bg-turquoise btn-icon-only text-white" title="Imprimir Constancia Digital" data-bs-placement="top" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Imprimir Constancia Digital" target="_blank"><i class="fas fa-print"> </i></a>-->
 
                 </td> 
 html;
