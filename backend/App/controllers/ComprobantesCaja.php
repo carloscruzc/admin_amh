@@ -172,6 +172,7 @@ html;
         <td id="descripcion_asistencia" width="20">{$value['productos']}</td>
         <td class="text-center">{$value['total_pesos']}</td>        
         <td class="text-center">{$value['fecha_transaccion']}</td> 
+        <td class="text-center">{$value['nombre_caja']}</td>
         <td class="text-center">
         <a href='/Caja/print/{$value['user_id']}' style='' class='btn btn-icon-only btn-info' value={$value['user_id']} data-bs-toggle="tooltip" target="_blank" data-bs-placement="left" data-bs-original-title="ver comprobante"><i class="fa fal fa-file"></i></a>
         </td>

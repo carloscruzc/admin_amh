@@ -144,6 +144,7 @@
                                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Conceptos</th>
                                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>                                   
                                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha</th>
+                                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vendió</th>
                                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                                                      
                                                     </tr>
