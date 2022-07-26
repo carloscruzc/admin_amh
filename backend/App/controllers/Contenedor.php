@@ -85,7 +85,7 @@ html;
                       </a>
                   </li-->
   
-                  <li id="principal" class="nav-item" {$asistentesHidden};>
+                  <li id="principal" class="nav-item">
                       <a href="/Principal/" class="nav-link " aria-controls="applicationsExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fa fa-home morado-musa-text"></span>
@@ -94,7 +94,7 @@ html;
                       </a>
                   </li>
   
-                  <li id="asistentes" class="nav-item" {$asistentesHidden};>
+                  <li id="asistentes" class="nav-item">
                       <a href="/Asistentes/" class="nav-link " aria-controls="applicationsExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fa fa-users morado-musa-text"></span>
@@ -102,7 +102,7 @@ html;
                           <span class="nav-link-text ms-1">Asistentes</span>
                       </a>
                   </li>
-                  <!--<li id="vuelos" class="nav-item" {$vuelosHidden};>
+                  <!--<li id="vuelos" class="nav-item" >
                       <a href="/Vuelos/" class="nav-link " aria-controls="applicationsExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fa fa-plane morado-musa-text"></span>
@@ -118,7 +118,7 @@ html;
                           <span class="nav-link-text ms-1">PickUp</span>
                       </a>
                   </li>-->
-                 <li id="conceptos" class="nav-item" {$habitacionesHidden};>
+                 <li id="conceptos" class="nav-item" >
                       <a href="/Conceptos/" class="nav-link " aria-controls="authExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                           <span class="fa fal fa-stream morado-musa-text"></span>
@@ -128,7 +128,7 @@ html;
                       </a>
                   </li>
                   
-                  <li id="estadisticas" class="nav-item" {$asistenciasHidden};>
+                  <li id="estadisticas" class="nav-item" >
                       <a href="/Estadisticas/" class="nav-link " aria-controls="basicExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fas fa-chart-bar morado-musa-text"></span>
@@ -137,12 +137,21 @@ html;
                       </a>
                   </li>
   
-                  <li id="constancias" class="nav-item" {$constanciasHidden};>
+                  <li id="constancias" class="nav-item" >
                       <a href="/Constancias/Talleres" class="nav-link " aria-controls="basicExamples" role="button" aria-expanded="false">
                           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                               <span class="fas fa-file morado-musa-text"></span>
                           </div>
                           <span class="nav-link-text ms-1">Constancias</span>
+                      </a>
+                  </li>
+
+                  <li id="comprobantes" class="nav-item" >
+                      <a href="/ComprobantesCaja" class="nav-link " aria-controls="basicExamples" role="button" aria-expanded="false">
+                          <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                              <span class="fas fa-file morado-musa-text"></span>
+                          </div>
+                          <span class="nav-link-text ms-1">Comprobantes de Pago</span>
                       </a>
                   </li>
   
